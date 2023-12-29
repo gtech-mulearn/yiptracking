@@ -17,3 +17,7 @@ export const dynamicRoute = (route: string, ...args: string[]) => {
 //     scheduleMeet: "/api/v1/dashboard/lc/${LcID}/schedule-meet/",
 //     getDetailsUpdateNote: "/api/v1/dashboard/lc/${LcID}/details/",
 // };
+
+export const authRoutes = {
+    login: " ",
+};
