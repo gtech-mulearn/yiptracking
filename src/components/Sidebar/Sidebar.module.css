@@ -7,6 +7,8 @@
 	height: 100vh !important;
 	width: 15rem;
 	background-color: #FFFFFF;
+	z-index: 100;
+	box-shadow: var(--shadow);
 }
 
 @media screen and (max-width: 800px) {
@@ -43,4 +45,18 @@
 
 .navItem:hover {
 	background-color: #DEE6FF;
+}
+
+.logout{
+	color: red;
+	display: flex;
+	align-items: center;
+	gap: .5rem;
+	padding: .8rem;
+	border-radius: 10px;
+	cursor: pointer;
+}
+
+.logout:hover {
+	background-color: #ffdede;
 }
