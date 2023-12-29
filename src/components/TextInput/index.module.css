@@ -1,5 +1,5 @@
 .container {
-    height: 3rem;
+    height: 4rem;
     padding: 0.5rem 0rem;
 
     position: relative;
@@ -13,8 +13,9 @@
     outline: none;
     height: 60%;
     width: 100%;
-
-    border-bottom: 2px solid var(--accent);
+    background-color: transparent;
+    border-bottom: 2px solid var(--primary);
+    font-size: 1.25rem;
 }
 
 .container label {
@@ -22,7 +23,7 @@
     left: 0;
     bottom: 25%;
     cursor: text;
-    transition: bottom 0.25s ease-in-out;
+    transition: bottom 0.25s ease-in-out, opacity 0.25s ease-in-out;
 }
 
 .input:focus + label,

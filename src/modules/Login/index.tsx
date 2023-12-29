@@ -15,6 +15,14 @@ export default function Login() {
 
     return (
         <section className={styles.loginContainer}>
+            {/* <div className={styles.circleContainer}>
+                <div className={`${styles.circle} ${styles.one}`} />
+                <div className={`${styles.circle} ${styles.two}`} />
+            </div> */}
+            <div className={styles.content}>
+                <h1>Welcome back!</h1>
+                <p>Enter your credentials to login</p>
+            </div>
             <div className={styles.loginCard}>
                 <h2>Login</h2>
                 <form onSubmit={handleSubmit}>
