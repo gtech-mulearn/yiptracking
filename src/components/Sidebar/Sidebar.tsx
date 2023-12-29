@@ -1,3 +1,4 @@
+import { MdOutlineLogout } from "react-icons/md";
 import styles from "./Sidebar.module.css";
 import { NavData } from "./services/NavData";
 
@@ -7,7 +8,7 @@ const Sidebar = (_props: Props) => {
     return (
         <div className={styles.sidebarContianer}>
             <div>
-                <h1>YIP</h1>
+                <h2>YIP</h2>
             </div>
             <div className={styles.sidebarNav}>
                 {NavData.map((item) => (
@@ -16,7 +17,10 @@ const Sidebar = (_props: Props) => {
                     </div>
                 ))}
             </div>
-            <div>Logout</div>
+            <div className={styles.logout}>
+                <MdOutlineLogout />
+                Logout
+            </div>
         </div>
     );
 };
