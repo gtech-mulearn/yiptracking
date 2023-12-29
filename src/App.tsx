@@ -3,7 +3,7 @@ import "./App.css";
 import { PrivateRoute } from "./services/PrivateRoute/PrivateRoute";
 import { Toaster } from "react-hot-toast";
 import NotFound from "./modules/NotFound/NotFound";
-import Login from "./modules/pages/Login";
+import Login from "./modules/Login";
 import Dashboard from './modules/Dashboard/Dashboard';
 
 function App() {

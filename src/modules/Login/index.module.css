@@ -5,6 +5,7 @@
     display: grid;
     place-items: center;
 }
+
 .loginCard {
     min-height: 200px;
     width: min(350px, 90vw);
@@ -22,7 +23,7 @@
 .loginCard h2 {
     font-size: 2rem;
     font-weight: 600;
-    font-family: var(--major-font);
+    font-family: var(--font);
 }
 
 .loginCard form {
