@@ -1,8 +1,9 @@
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import './App.css'
-import { PrivateRoute } from './services/PrivateRoute/PrivateRoute';
-import { Toaster } from 'react-hot-toast';
-import NotFound from './modules/NotFound/NotFound';
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import "./App.css";
+import { PrivateRoute } from "./services/PrivateRoute/PrivateRoute";
+import { Toaster } from "react-hot-toast";
+import NotFound from "./modules/NotFound/NotFound";
+import Login from "./modules/pages/Login";
 import Dashboard from './modules/Dashboard/Dashboard';
 
 function App() {
@@ -17,7 +18,7 @@ function App() {
         },
         {
             path: "/login",
-            element: <NotFound />,
+            element: <Login />,
         },
         {
             path: "/",
@@ -27,6 +28,7 @@ function App() {
                     path: "/",
                     element: <Dashboard/>,
                 },
+
                 // {
                 //     path: "qr",
                 //     element: <QR />,
