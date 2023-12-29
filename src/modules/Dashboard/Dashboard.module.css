@@ -1,3 +1,33 @@
 .container{
 	display: flex;
+	width: 100%;
+	flex-direction: column;
+}
+
+.profile {
+	width: 100%;
+	padding: .5rem;
+}
+
+.dashboard {
+	width: 100%;
+	padding: .5rem;
+}
+
+.profileContainer, .dashboardContainer{
+	display: flex;
+	flex-direction: column;
+	padding: 1rem;
+	background-color: white;
+	margin: 1rem;
+	border-radius: 15px;
+	box-shadow: var(--shadow);
+}
+
+.profileContents, .dashboardContents {
+	display: flex;
+	gap: 1rem;
+	width: 100%;
+	padding: 1rem 0;
+	justify-content: space-between;
 }
