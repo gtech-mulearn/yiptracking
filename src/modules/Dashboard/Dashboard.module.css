@@ -1,33 +1,94 @@
-.container{
-	display: flex;
-	width: 100%;
-	flex-direction: column;
+.container {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    color: var(--primary);
 }
 
 .profile {
-	width: 100%;
-	padding: .5rem;
+    width: 100%;
+    padding: 0.5rem;
 }
 
 .dashboard {
-	width: 100%;
-	padding: .5rem;
+    width: 100%;
+    padding: 0.5rem;
 }
 
-.profileContainer, .dashboardContainer{
-	display: flex;
-	flex-direction: column;
-	padding: 1rem;
-	background-color: white;
-	margin: 1rem;
-	border-radius: 15px;
-	box-shadow: var(--shadow);
+.profileContainer,
+.dashboardContainer {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    background-color: white;
+    margin: 1rem;
+    border-radius: 15px;
+    box-shadow: var(--shadow);
 }
 
-.profileContents, .dashboardContents {
-	display: flex;
-	gap: 1rem;
-	width: 100%;
-	padding: 1rem 0;
-	justify-content: space-between;
+.profileContents,
+.dashboardContents {
+    display: flex;
+    gap: 5rem;
+    width: 100%;
+    padding: 1rem;
+    /* justify-content: space-between; */
+}
+
+.profilePicture {
+    max-width: 150px;
+    max-height: 150px;
+    overflow: hidden;
+    border-radius: 50%;
+    border: 6px solid var(--secondary);
+}
+
+.profilePicture img {
+    object-fit: cover;
+    width: 100%;
+}
+
+.profileSection1 {
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profileInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profileInfo h4,
+.greyText {
+    color: gray;
+}
+
+.blackText {
+    color: black;
+}
+
+.profileSection2 {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.profileSection2 h4 {
+    display: flex;
+    justify-content: space-between;
+    gap: 5rem;
+}
+
+@media screen and (max-width: 850px) {
+    .profileContents,
+    .dashboardContents {
+        flex-direction: column;
+		gap: 3rem;
+    }
+	.profileSection2 h4 {
+		gap: 1rem;
+	}
 }

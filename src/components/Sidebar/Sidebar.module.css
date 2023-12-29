@@ -46,3 +46,17 @@
 .navItem:hover {
 	background-color: #DEE6FF;
 }
+
+.logout{
+	color: red;
+	display: flex;
+	align-items: center;
+	gap: .5rem;
+	padding: .8rem;
+	border-radius: 10px;
+	cursor: pointer;
+}
+
+.logout:hover {
+	background-color: #ffdede;
+}
