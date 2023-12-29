@@ -1,5 +1,7 @@
 import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
+import Sidebar from "../../components/Sidebar/Sidebar";
+import styles from "./PrivateRoute.module.css";
 
 export const PrivateRoute = () => {
     const navigate = useNavigate();
@@ -13,5 +15,10 @@ export const PrivateRoute = () => {
         }
     }, [navigate]);
 
-    return <Outlet />;
+    return (
+	<div className={styles.container}>
+		<Sidebar />
+		<Outlet />
+	</div>
+	);
 };

@@ -3,6 +3,7 @@ import './App.css'
 import { PrivateRoute } from './services/PrivateRoute/PrivateRoute';
 import { Toaster } from 'react-hot-toast';
 import NotFound from './modules/NotFound/NotFound';
+import Dashboard from './modules/Dashboard/Dashboard';
 
 function App() {
     const router = createBrowserRouter([
@@ -24,7 +25,7 @@ function App() {
             children: [
                 {
                     path: "/",
-                    element: <NotFound />,
+                    element: <Dashboard/>,
                 },
                 // {
                 //     path: "qr",
