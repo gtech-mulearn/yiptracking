@@ -1,34 +1,54 @@
-import Button from "../../components/Button";
+import { useState } from "react";
 import TextInput from "../../components/TextInput";
-import { login } from "./api";
 import styles from "./index.module.css";
+import { login } from "./services/LoginApis";
+
 export default function Login() {
+    const [data, setData] = useState<LoginData>({
+		email: "",
+		password: "",
+	});
+
+	const handleEmailChange = (value: string) => {
+        setData((prev) => ({ ...prev, email: value }));
+    };
+
+    const handlePasswordChange = (value: string) => {
+        setData((prev) => ({ ...prev, password: value }));
+    };
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const target = e.target as typeof e.target & {
-            Username: { value: string };
-            Password: { value: string };
-        };
-        const { Username, Password } = target;
-        login(Username.value, Password.value);
+        login(data.email, data.password);
     };
 
     return (
         <section className={styles.loginContainer}>
-            {/* <div className={styles.circleContainer}>
-                <div className={`${styles.circle} ${styles.one}`} />
-                <div className={`${styles.circle} ${styles.two}`} />
-            </div> */}
             <div className={styles.content}>
+                <img
+                    src="https://yip.kerala.gov.in/wp-content/uploads/2022/10/logonew-1.png"
+                    alt="YIP logo"
+                />
                 <h1>Welcome back!</h1>
                 <p>Enter your credentials to login</p>
             </div>
             <div className={styles.loginCard}>
                 <h2>Login</h2>
                 <form onSubmit={handleSubmit}>
-                    <TextInput label="Username" required />
-                    <TextInput label="Password" type="password" required />
-                    <Button label="Login" />
+                    <TextInput
+                        label="Email"
+                        required
+                        onChange={handleEmailChange}
+                    />
+                    <TextInput
+                        label="Password"
+                        type="password"
+                        required
+                        onChange={handlePasswordChange}
+                    />
+                    <button type="submit" className="button">
+                        Login
+                    </button>
                 </form>
             </div>
         </section>
