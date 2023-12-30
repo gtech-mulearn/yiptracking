@@ -14,6 +14,8 @@
 
 .dashboard {
     width: 100%;
+	display: flex;
+	gap: 1rem;
     /* padding: 0.5rem; */
 }
 
@@ -27,14 +29,20 @@
     /* box-shadow: var(--shadow); */
 }
 
-.profileContents,
-.dashboardContents {
+.dashboardContainer {
+	width: 50%;
+}
+
+.profileContents {
     display: flex;
     gap: 5rem;
     width: 100%;
     padding: 1rem;
-    /* justify-content: space-between; */
 }
+
+/* .dashboardContents{
+
+}  */
 
 .profilePicture {
     max-width: 150px;
@@ -89,4 +97,10 @@
     .profileSection2 h4 {
         gap: 1rem;
     }
+	.dashboard {
+		flex-direction: column;
+	}
+	.dashboardContainer {
+		width: 100%;
+	}
 }

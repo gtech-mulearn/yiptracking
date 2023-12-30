@@ -1,7 +1,9 @@
 import styles from "../Dashboard.module.css";
-type Props = {};
+type Props = {
+    data: DashboardData | undefined;
+};
 
-const Profile = (_props: Props) => {
+const Profile = (props: Props) => {
     return (
         <div className={styles.profileContainer}>
             <h1>Profile</h1>
@@ -14,26 +16,26 @@ const Profile = (_props: Props) => {
                         />
                     </div>
                     <div className={styles.profileInfo}>
-                        <h3>Jenin Joseph</h3>
-                        <h4>YIP intern</h4>
+                        <h3>{props.data?.first_name} {props.data?.last_name}</h3>
+                        <h4>{props.data?.role}</h4>
                     </div>
                 </div>
                 <div className={styles.profileSection2}>
                     <h4 className={styles.blackText}>
                         <span className={styles.greyText}>Email: </span>
-                        jenin8282@gmail.com
+                        {props.data?.email}
                     </h4>
                     <h4 className={styles.blackText}>
                         <span className={styles.greyText}>Mobile: </span>
-                        8848687988
+                        {props.data?.mobile || "N/A"}
                     </h4>
                     <h4 className={styles.blackText}>
                         <span className={styles.greyText}>Gender: </span>
-                        Male
+                        {props.data?.gender || "N/A"}
                     </h4>
                     <h4 className={styles.blackText}>
-                        <span className={styles.greyText}>Age: </span>
-                        23
+                        <span className={styles.greyText}>DOB: </span>
+                        {props.data?.dob || "N/A"}
                     </h4>
                     <h4 className={styles.blackText}>
                         <span className={styles.greyText}>District: </span>

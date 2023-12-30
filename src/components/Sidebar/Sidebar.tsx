@@ -11,9 +11,9 @@ const Sidebar = (_props: Props) => {
         <div className={styles.sidebarContianer}>
             <div>
                 <img
-                    src="https://yip.kerala.gov.in/yipapp/img/yip3.png"
+                    src="https://yip.kerala.gov.in/wp-content/uploads/2022/10/logonew-1.png"
                     alt="YIP logo"
-					width={200}
+                    width={100}
                 />
             </div>
             <div className={styles.sidebarNav}>
@@ -23,11 +23,14 @@ const Sidebar = (_props: Props) => {
                     </div>
                 ))}
             </div>
-            <div className={styles.logout} onClick={() => {
-				localStorage.removeItem("accessToken");
-				localStorage.removeItem("refreshToken");
-				navigate("/login");
-			}}>
+            <div
+                className={styles.logout}
+                onClick={() => {
+                    localStorage.removeItem("accessToken");
+                    localStorage.removeItem("refreshToken");
+                    navigate("/login");
+                }}
+            >
                 <MdOutlineLogout />
                 Logout
             </div>
