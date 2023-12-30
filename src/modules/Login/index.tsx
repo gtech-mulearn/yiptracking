@@ -2,8 +2,11 @@ import { useState } from "react";
 import TextInput from "../../components/TextInput";
 import styles from "./index.module.css";
 import { login } from "./services/LoginApis";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
+	const navigate = useNavigate()
     const [data, setData] = useState<LoginData>({
 		email: "",
 		password: "",
@@ -19,7 +22,15 @@ export default function Login() {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        login(data.email, data.password);
+		toast.promise(login(data.email, data.password), {
+            loading: "Loading...",
+            success: <b>Logged in successfully</b>,
+            error: (message) => {
+                return <b>{message}</b>;
+            },
+		}).then(() => {
+			navigate("/");
+		});
     };
 
     return (
