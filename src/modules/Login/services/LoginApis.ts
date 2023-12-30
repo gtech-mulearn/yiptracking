@@ -5,10 +5,11 @@ export const login = async (email: string, password: string) => {
     try {
         const response = await privateGateway.post(dynamicRoute(yipRoutes.login), {
 			email: email,
-			password: password
+			password: password,
 		});
         console.log(response.data);
+		return response.data;
     } catch (error) {
-        console.error("API error:", error);
+        throw error
     }
 }

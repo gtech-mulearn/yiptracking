@@ -15,7 +15,7 @@ privateGateway.interceptors.request.use(
 	function (config) {
         // Check if the endpoint is not "/login"
         if (
-            config.url !== "login/" &&
+            config.url !== "/auth/user-authenticaion/" &&
             config.url !== "reset-password/"
         ) {
             const accessToken = getAccessToken();

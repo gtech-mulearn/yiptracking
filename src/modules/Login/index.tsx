@@ -2,6 +2,7 @@ import { useState } from "react";
 import TextInput from "../../components/TextInput";
 import styles from "./index.module.css";
 import { login } from "./services/LoginApis";
+import toast from "react-hot-toast";
 
 export default function Login() {
     const [data, setData] = useState<LoginData>({
@@ -19,7 +20,14 @@ export default function Login() {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        login(data.email, data.password);
+		toast.promise(login(data.email, data.password), {
+            loading: "Loading...",
+            success: () => {
+					// Do something here
+                    return <b>Logged in successfully</b>;
+                },
+            error: <b>Something went wrong</b>,
+        });
     };
 
     return (
