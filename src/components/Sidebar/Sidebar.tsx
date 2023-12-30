@@ -6,7 +6,7 @@ type Props = {};
 
 const Sidebar = (_props: Props) => {
     return (
-        <div className={styles.sidebarContianer}>
+        <div className={`${styles.sidebarContianer} ${styles.neomorph}`}>
             <div>
                 <h2>YIP</h2>
             </div>
