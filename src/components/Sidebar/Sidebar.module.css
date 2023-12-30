@@ -1,62 +1,75 @@
 .sidebarContianer {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	align-items: center;
-	padding: 1rem 0;
-	height: 100vh !important;
-	width: 15rem;
-	background-color: #FFFFFF;
-	z-index: 100;
-	box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    height: calc(100vh - 2rem) !important;
+    width: 15rem;
+    background-color: #ffffff;
+    z-index: 100;
+    box-shadow: var(--shadow);
+    margin: 1rem;
 }
 
 @media screen and (max-width: 800px) {
-	.sidebarContianer {
-		width: 10rem;
-	}
+    .sidebarContianer {
+        width: 10rem;
+    }
 }
 
 @media screen and (max-width: 600px) {
-	.sidebarContianer {
-		display: none;
-	}
+    .sidebarContianer {
+        display: none;
+    }
 }
 
-.sidebarNav{
-	display: flex;
-	flex-direction: column;
-	flex-grow: 1;
-	padding: 3rem 0;
-	gap: .5rem;
+.sidebarNav {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 3rem 0;
+    gap: 0.5rem;
 }
 
 .navItem {
-	display: flex;
-	color: var(--primary);
-	font-weight: bold;
-	font-size: large;
-	border-radius: 10px;
-	align-items: center;
-	gap: .5rem;
-	cursor: pointer;
-	padding: .8rem;
+    display: flex;
+    color: var(--primary);
+    font-weight: bold;
+    font-size: large;
+    border-radius: 10px;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    padding: 0.8rem;
 }
 
 .navItem:hover {
-	background-color: #DEE6FF;
+    background-color: #dee6ff;
 }
 
-.logout{
-	color: red;
-	display: flex;
-	align-items: center;
-	gap: .5rem;
-	padding: .8rem;
-	border-radius: 10px;
-	cursor: pointer;
+.logout {
+    color: red;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: box-shadow 0.2s;
 }
 
 .logout:hover {
-	background-color: #ffdede;
+    box-shadow: 0 8px 32px -10px rgba(31, 38, 135, 0.4);
+}
+
+.neomorph {
+    background: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+
+    transition: box-shadow 0.2s;
 }

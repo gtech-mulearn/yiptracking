@@ -8,16 +8,17 @@
     gap: 4rem;
     flex-direction: column;
     z-index: 1;
-    background-image: url(../../assets/loginBG.webp);
+    background-image: url(../../assets/BG.webp);
     background-size: 100% 100%;
 
-    color: white;
+    color: black;
 }
 
 .content {
     display: flex;
     flex-direction: column;
     align-items: center;
+    color: white;
 }
 .content h1 {
     font-size: 3rem;
@@ -39,7 +40,7 @@
     flex-direction: column;
     align-items: center;
 
-    background: rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.7);
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
