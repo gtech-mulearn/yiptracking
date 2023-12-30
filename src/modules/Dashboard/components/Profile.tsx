@@ -1,8 +1,9 @@
 import styles from "../Dashboard.module.css";
+type Props = {};
 
-const Profile = () => {
+const Profile = (_props: Props) => {
     return (
-        <div className={`${styles.profileContainer} ${styles.neomorph}`}>
+        <div className={styles.profileContainer}>
             <h1>Profile</h1>
             <div className={styles.profileContents}>
                 <div className={styles.profileSection1}>

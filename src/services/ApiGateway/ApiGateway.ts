@@ -12,12 +12,10 @@ export const privateGateway = axios.create({
 });
 
 privateGateway.interceptors.request.use(
-    function (config) {
-        // Check if the endpoint is not "/register"
+	function (config) {
+        // Check if the endpoint is not "/login"
         if (
-            config.url !== "register/" &&
-            config.url !== "login-muid/" &&
-            config.url !== "forgot-password/" &&
+            config.url !== "login/" &&
             config.url !== "reset-password/"
         ) {
             const accessToken = getAccessToken();

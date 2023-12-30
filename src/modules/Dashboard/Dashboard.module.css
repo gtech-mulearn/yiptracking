@@ -3,16 +3,18 @@
     width: 100%;
     flex-direction: column;
     color: var(--primary);
+    margin: 1rem;
+	gap: 1rem;
 }
 
 .profile {
     width: 100%;
-    padding: 0.5rem;
+    /* padding: 0.5rem; */
 }
 
 .dashboard {
     width: 100%;
-    padding: 0.5rem;
+    /* padding: 0.5rem; */
 }
 
 .profileContainer,
@@ -20,10 +22,9 @@
     display: flex;
     flex-direction: column;
     padding: 1rem;
-    background-color: white;
-    margin: 1rem;
+    background-color: rgba(255, 255, 255, 0.918);
     border-radius: 15px;
-    box-shadow: var(--shadow);
+    /* box-shadow: var(--shadow); */
 }
 
 .profileContents,
@@ -88,15 +89,4 @@
     .profileSection2 h4 {
         gap: 1rem;
     }
-}
-
-.neomorph {
-    background: rgba(255, 255, 255, 0.7);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    border-radius: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.18);
-
-    transition: box-shadow 0.2s;
 }

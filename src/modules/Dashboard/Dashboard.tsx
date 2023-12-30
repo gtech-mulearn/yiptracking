@@ -8,7 +8,7 @@ const Dashboard = () => {
             </div>
             <div className={styles.dashboard}>
                 <div
-                    className={`${styles.dashboardContainer}  ${styles.neomorph}`}
+                    className={styles.dashboardContainer}
                 >
                     <h1>Dashboard</h1>
                     <div className={styles.dashboardContents}>

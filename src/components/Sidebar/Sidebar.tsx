@@ -6,9 +6,13 @@ type Props = {};
 
 const Sidebar = (_props: Props) => {
     return (
-        <div className={`${styles.sidebarContianer} ${styles.neomorph}`}>
+        <div className={styles.sidebarContianer}>
             <div>
-                <h2>YIP</h2>
+                <img
+                    src="https://yip.kerala.gov.in/yipapp/img/yip3.png"
+                    alt="YIP logo"
+					width={200}
+                />
             </div>
             <div className={styles.sidebarNav}>
                 {NavData.map((item) => (
