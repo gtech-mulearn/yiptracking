@@ -43,7 +43,7 @@
     padding: 0.8rem;
 }
 
-.navItem:hover {
+.navItem:hover, .active {
     background-color: #dee6ff;
 }
 

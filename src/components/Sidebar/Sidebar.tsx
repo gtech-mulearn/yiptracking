@@ -1,12 +1,18 @@
 import { MdOutlineLogout } from "react-icons/md";
 import styles from "./Sidebar.module.css";
 import { NavData } from "./services/NavData";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 type Props = {};
 
 const Sidebar = (_props: Props) => {
-	const navigate = useNavigate()
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    useEffect(() => {
+        console.log(location.pathname);
+    });
     return (
         <div className={styles.sidebarContianer}>
             <div>
@@ -18,7 +24,12 @@ const Sidebar = (_props: Props) => {
             </div>
             <div className={styles.sidebarNav}>
                 {NavData.map((item) => (
-                    <div key={item.link} className={styles.navItem}>
+                    <div
+                        key={item.link}
+                        className={`${styles.navItem} ${
+                            item.link === location.pathname as string ? styles.active : ""
+                        }`}
+                    >
                         <item.icon /> {item.title}
                     </div>
                 ))}
