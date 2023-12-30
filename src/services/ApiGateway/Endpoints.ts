@@ -10,7 +10,7 @@ export const dynamicRoute = (route: string, ...args: string[]) => {
 
 export const yipRoutes = {
     // createReport: "/api/v1/dashboard/lc/${LcID}/report/create/",
-    login: "/auth/user-authenticaion/",
+    login: "/auth/user-authentication/",
     getProfile: "/auth/profile/",
     updateOrgStatus: "/organization/update-status/",
 };

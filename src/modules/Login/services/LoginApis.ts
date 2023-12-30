@@ -7,9 +7,11 @@ export const login = async (email: string, password: string) => {
 			email: email,
 			password: password,
 		});
-        console.log(response.data);
-		return response.data;
-    } catch (error) {
-        throw error
+        const message = response.data.response
+		localStorage.setItem("accessToken", message.accessToken);
+		localStorage.setItem("refreshToken", message.refreshToken);
+		return message;
+    } catch (error: any) {
+        throw error.response.data.message.general[0];
     }
 }
