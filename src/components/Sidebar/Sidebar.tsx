@@ -1,10 +1,12 @@
 import { MdOutlineLogout } from "react-icons/md";
 import styles from "./Sidebar.module.css";
 import { NavData } from "./services/NavData";
+import { useNavigate } from "react-router-dom";
 
 type Props = {};
 
 const Sidebar = (_props: Props) => {
+	const navigate = useNavigate()
     return (
         <div className={styles.sidebarContianer}>
             <div>
@@ -21,7 +23,11 @@ const Sidebar = (_props: Props) => {
                     </div>
                 ))}
             </div>
-            <div className={styles.logout}>
+            <div className={styles.logout} onClick={() => {
+				localStorage.removeItem("accessToken");
+				localStorage.removeItem("refreshToken");
+				navigate("/login");
+			}}>
                 <MdOutlineLogout />
                 Logout
             </div>
