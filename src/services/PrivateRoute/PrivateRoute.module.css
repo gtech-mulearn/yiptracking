@@ -6,3 +6,21 @@
     background-image: url(../../assets/BG.webp);
     background-size: 100% 100%; */
 }
+
+.ghostSidebar {
+    width: 15rem;
+    flex-shrink: 0; /* Prevents the ghost element from shrinking */
+    visibility: hidden; /* Makes the ghost element invisible */
+}
+
+@media screen and (max-width: 800px) {
+    .ghostSidebar {
+        width: 10rem;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .ghostSidebar {
+        display: none;
+    }
+}

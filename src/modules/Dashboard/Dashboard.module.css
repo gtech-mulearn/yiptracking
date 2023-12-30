@@ -4,7 +4,7 @@
     flex-direction: column;
     color: var(--primary);
     margin: 1rem;
-	gap: 1rem;
+    gap: 1rem;
 }
 
 .profile {
@@ -14,6 +14,8 @@
 
 .dashboard {
     width: 100%;
+    display: flex;
+    gap: 1rem;
     /* padding: 0.5rem; */
 }
 
@@ -27,14 +29,22 @@
     /* box-shadow: var(--shadow); */
 }
 
-.profileContents,
-.dashboardContents {
+.dashboardContainer {
+    width: 50%;
+}
+
+.profileContents {
     display: flex;
     gap: 5rem;
     width: 100%;
     padding: 1rem;
-    /* justify-content: space-between; */
 }
+
+.dashboardContents div h3{
+	color: grey;
+	text-align: center;
+	padding: 2rem;
+} 
 
 .profilePicture {
     max-width: 150px;
@@ -80,6 +90,50 @@
     color: black;
 }
 
+@media screen and (max-width: 1100px) {
+    .dashboard {
+        flex-direction: column;
+    }
+    .dashboardContainer {
+        width: 100%;
+    }
+}
+
+.orgCard {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    color: black;
+    padding: 0.5rem 0.5rem;
+    margin: 1rem 0;
+    border: 1px solid var(--secondary);
+    border-radius: 10px;
+    cursor: pointer;
+    justify-content: space-between;
+}
+
+.orgCard div {
+    text-align: center;
+    color: rgb(105, 104, 104);
+}
+
+.orgCard div h4 {
+    font-weight: 600;
+}
+
+.orgCard div button {
+    padding: 0.8rem 1rem;
+    min-width: 5.5rem;
+    border-radius: 10px;
+}
+
+.statusDot {
+	display: none;
+	width: 15px;
+	height: 15px;
+	border-radius: 50%;
+}
+
 @media screen and (max-width: 850px) {
     .profileContents,
     .dashboardContents {
@@ -89,4 +143,18 @@
     .profileSection2 h4 {
         gap: 1rem;
     }
+	.statusDot {
+		display: block;
+	}
+	.orgCard div button {
+		display: none;
+	}
+}
+
+.btnVisited {
+    background-color: rgba(101, 249, 146, 0.909);
+}
+
+.btnPending {
+    background-color: rgba(247, 177, 85, 0.881);
 }

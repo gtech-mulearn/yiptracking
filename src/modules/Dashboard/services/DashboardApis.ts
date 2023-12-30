@@ -6,12 +6,12 @@ import {
 
 export const getProfile = async () => {
     try {
-        const response = await privateGateway.post(
+        const response = await privateGateway.get(
             dynamicRoute(yipRoutes.getProfile)
         );
-        console.log(response.data);
+		return response.data.message
     } catch (error) {
-        console.error("API error:", error);
+        throw error;
     }
 };
 

@@ -16,9 +16,10 @@ export const PrivateRoute = () => {
     }, [navigate]);
 
     return (
-	<div className={styles.container}>
-		<Sidebar />
-		<Outlet />
-	</div>
-	);
+        <div className={styles.container}>
+            <div className={styles.ghostSidebar}></div>
+            <Sidebar />
+            <Outlet />
+        </div>
+    );
 };

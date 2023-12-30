@@ -8,3 +8,44 @@ interface OrgStatusData {
 	participants: number,
 	association: string
 }
+
+interface DashboardData {
+    user_id: string;
+    first_name: string;
+    last_name: string;
+    role: string;
+    email: string;
+    mobile: string | null;
+    gender: string | null;
+    dob: string | null;
+    district_id: string | null;
+    org_id: string | null;
+	district_name: string | null;
+	zone_id: string | null;
+	zone_name: string | null;
+	org_name: string | null;
+    assigned: {
+        college: OrgData[]; // Replace 'any' with a more specific type if applicable
+        school: OrgData[]; // Replace 'any' with a more specific type if applicable
+    };
+    updated_at: string;
+    created_at: string;
+    created_by: string;
+}
+
+interface OrgData {
+    org_id: string;
+    title: string;
+    code: string;
+    visited: boolean;
+    pta: string | null;
+    alumni: string | null;
+    association: string | null;
+    whatsapp: string | null;
+    participants: number;
+    visited_at: string | null;
+    district_id: string;
+    district_name: string;
+    zone_id: string;
+    zone_name: string;
+}
