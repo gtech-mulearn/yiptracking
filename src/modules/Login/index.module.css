@@ -26,14 +26,14 @@
 }
 
 @media screen and (max-width: 600px) {
-	.content h1 {
-		font-size: 2.5rem;
-	}
+    .content h1 {
+        font-size: 2.5rem;
+    }
 }
 
 .content img {
     width: 100px;
-	padding-bottom: 1rem;
+    padding-bottom: 1rem;
 }
 
 .loginCard {
@@ -78,10 +78,12 @@
     font-weight: bolder;
     border-radius: 0.5rem;
     width: 100%;
-	color: white;
+    color: white;
     background-color: var(--primary);
+    cursor: pointer;
 }
 
-.loginCard form button {
+.loginCard form button:active {
     transform: scale(1.01);
+    filter: brightness(0.9);
 }

@@ -1,12 +1,12 @@
 interface OrgStatusData {
-	org_id: string,
-	visited: boolean,
-	whatsapp: string,
-	pta: string,
-	alumni: string,
-	visited_at: string,
-	participants: number,
-	association: string
+    org_id: string;
+    visited: boolean;
+    whatsapp: string;
+    pta: string;
+    alumni: string;
+    visited_at: string;
+    participants: number;
+    association: string;
 }
 
 interface DashboardData {
@@ -20,12 +20,12 @@ interface DashboardData {
     dob: string | null;
     district_id: string | null;
     org_id: string | null;
-	district_name: string | null;
-	zone_id: string | null;
-	zone_name: string | null;
-	org_name: string | null;
+    district_name: string | null;
+    zone_id: string | null;
+    zone_name: string | null;
+    org_name: string | null;
     assigned: {
-        college: OrgData[]; 
+        college: OrgData[];
         school: OrgData[];
     };
     updated_at: string;
@@ -48,4 +48,10 @@ interface OrgData {
     district_name: string;
     zone_id: string;
     zone_name: string;
+}
+
+interface ProfileEditData {
+    gender: string;
+    dob: string;
+    mobile: string;
 }
