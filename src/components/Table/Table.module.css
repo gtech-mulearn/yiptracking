@@ -1,0 +1,10 @@
+.tableContainer {
+    width: 100%; /* Full width of the parent container */
+    overflow-x: scroll;
+	-webkit-overflow-scrolling: touch;
+}
+
+.tableContainer ::-webkit-scrollbar {
+    display: block !important;
+    height: 5px;
+}

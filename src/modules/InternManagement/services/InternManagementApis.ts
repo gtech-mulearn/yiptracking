@@ -6,7 +6,7 @@ export const getInterns = async () => {
         const response = await privateGateway.get(
             dynamicRoute(yipRoutes.getInterns)
         );
-        return response.data.message;
+        return response.data.response;
     } catch (error) {
         throw error;
     }

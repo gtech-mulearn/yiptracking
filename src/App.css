@@ -16,14 +16,8 @@
     font-family: "Plus Jakarta Sans", sans-serif;
     outline: none;
     vertical-align: baseline;
-    -ms-overflow-style: none;
-    /* IE and Edge */
-    scroll-behavior: smooth;
-    scrollbar-width: none;
-    /* icon highlighting fix */
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-    -webkit-tap-highlight-color: transparent;
     border: none;
+	scroll-behavior: smooth;
 }
 
 html,
@@ -31,4 +25,8 @@ body {
     margin: 0;
     padding: 0;
     background-color: #eef2ff;
+}
+
+::-webkit-scrollbar {
+    display: none;
 }
