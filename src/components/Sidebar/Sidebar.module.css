@@ -3,7 +3,7 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-	padding: 2rem 0;
+    padding: 2rem 0;
     height: 100vh;
     width: 15rem;
     background-color: rgba(255, 255, 255, 0.918);
@@ -31,7 +31,8 @@
     padding: 0.8rem;
 }
 
-.navItem:hover, .active {
+.navItem:hover,
+.active {
     background-color: #dee6ff;
 }
 

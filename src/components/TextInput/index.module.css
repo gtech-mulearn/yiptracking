@@ -23,10 +23,11 @@
     left: 0;
     bottom: 25%;
     cursor: text;
-    transition: bottom 0.25s ease-in-out, opacity 0.25s ease-in-out;
+    transition: all 0.25s ease-in-out;
 }
 
 .input:focus + label,
 .input + label.hasValue {
     bottom: 60%;
+    transform: scale(0.8) translateX(-10%);
 }
