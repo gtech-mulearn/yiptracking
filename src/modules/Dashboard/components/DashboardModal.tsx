@@ -27,7 +27,7 @@ const DashboardModal = ({
         participants: org.participants || 0,
         association: org.association || "",
     });
-
+    console.log(data);
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setData({ ...data, [e.target.name]: e.target.value });
     };

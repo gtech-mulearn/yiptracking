@@ -49,9 +49,10 @@
 .profilePicture {
     max-width: 150px;
     max-height: 150px;
-    overflow: hidden;
+    /* overflow: hidden; */
     border-radius: 50%;
     border: 6px solid var(--secondary);
+    position: relative;
 }
 
 .profilePicture img {
@@ -211,4 +212,30 @@
 
 .toggle h4 {
     padding: 0 !important;
+}
+
+.editBtn {
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    border-radius: 100px;
+    background-color: var(--primary);
+    cursor: pointer;
+    padding: 5px;
+}
+
+.editBtn:hover {
+    transform: scale(1.1);
+}
+
+.editBtn:active {
+    transform: scale(0.95);
+}
+
+.editBtn svg {
+    width: 100%;
+    height: 100%;
+    color: white;
 }

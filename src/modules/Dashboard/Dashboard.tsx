@@ -6,15 +6,18 @@ import { getProfile, updateOrgStatus } from "./services/DashboardApis";
 import OrgCard from "./components/OrgCard";
 import DashboardModal from "./components/DashboardModal";
 import { getAccessToken } from "../../services/ApiGateway/ApiGateway";
+import ProfileEditModal from "./components/ProfileEditModal";
 const Dashboard = () => {
     const [refresh, setRefresh] = useState(false);
     const [data, setData] = useState<DashboardData>();
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [modalState, setModalState] = useState<"org" | "profile" | null>(
+        null
+    );
     const [selectedOrg, setSelectedOrg] = useState<OrgData | null>(null);
 
     const handleFetchDetails = async () => {
         try {
-            const response: any = await getProfile();
+            const response = await getProfile();
             if (response) {
                 setData(response);
             }
@@ -24,18 +27,21 @@ const Dashboard = () => {
     };
 
     useEffect(() => {
-		if(getAccessToken()) {
-			handleFetchDetails();
-		}
+        if (getAccessToken()) {
+            handleFetchDetails();
+        }
     }, [refresh]);
+    const handleEdit = () => {
+        setModalState("profile");
+    };
 
     const handleModalOpen = (org: OrgData) => {
         setSelectedOrg(org);
-        setIsModalOpen(true);
+        setModalState("org");
     };
 
     const handleModalClose = () => {
-        setIsModalOpen(false);
+        setModalState(null);
         setSelectedOrg(null);
     };
 
@@ -53,11 +59,14 @@ const Dashboard = () => {
                 setRefresh(!refresh);
             });
     };
+    const updateProfileData = (data: ProfileEditData) => {
+        console.log(data);
+    };
 
     return (
         <div className={styles.container}>
             <div className={styles.profile}>
-                <Profile data={data} />
+                <Profile data={data} handleEdit={handleEdit} />
             </div>
             <div className={styles.dashboard}>
                 <div className={styles.dashboardContainer}>
@@ -113,12 +122,24 @@ const Dashboard = () => {
                     </div>
                 </div>
             </div>
-            {isModalOpen && selectedOrg && (
+            {modalState === "org" && selectedOrg && (
                 <DashboardModal
-                    isModalOpen={isModalOpen}
+                    isModalOpen={modalState === "org"}
                     org={selectedOrg}
                     handleModalClose={handleModalClose}
                     updateData={updateData}
+                />
+            )}
+            {modalState === "profile" && data && (
+                <ProfileEditModal
+                    isModalOpen={modalState === "profile"}
+                    handleModalClose={handleModalClose}
+                    updateData={updateProfileData}
+                    currentData={{
+                        mobile: data.mobile ?? "",
+                        dob: data.dob ?? "",
+                        gender: data.gender ?? "",
+                    }}
                 />
             )}
         </div>
