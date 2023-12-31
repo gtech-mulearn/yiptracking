@@ -2,9 +2,8 @@ import { useEffect, useState } from "react";
 import styles from "./Dashboard.module.css";
 import Profile from "./components/Profile";
 import toast from "react-hot-toast";
-import { getProfile } from "./services/DashboardApis";
+import { getProfile, updateOrgStatus } from "./services/DashboardApis";
 import OrgCard from "./components/OrgCard";
-import Modal from "../../components/Modal/Modal";
 import DashboardModal from "./components/DashboardModal";
 const Dashboard = () => {
     const [refresh, setRefresh] = useState(false);
@@ -39,7 +38,17 @@ const Dashboard = () => {
 
     const updateData = (data: OrgStatusData) => {
         console.log(data);
-        setRefresh(!refresh);
+        toast
+            .promise(updateOrgStatus(data), {
+                loading: "Loading...",
+                success: <b>Updated successfully</b>,
+                error: (message) => {
+                    return <b>{message}</b>;
+                },
+            })
+            .then(() => {
+                setRefresh(!refresh);
+            });
     };
 
     return (
@@ -80,7 +89,10 @@ const Dashboard = () => {
                         {data?.assigned.school[0] ? (
                             data.assigned.school.map(
                                 (org: OrgData, index: number) => (
-                                    <div key={index} onClick={() => handleModalOpen(org)}>
+                                    <div
+                                        key={index}
+                                        onClick={() => handleModalOpen(org)}
+                                    >
                                         <OrgCard
                                             index={index + 1}
                                             name={org.title}

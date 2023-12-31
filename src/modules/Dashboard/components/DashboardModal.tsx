@@ -2,6 +2,7 @@ import { useState } from "react";
 import Modal from "../../../components/Modal/Modal";
 import styles from "../Dashboard.module.css";
 import Toggle from "./Toggle/Toggle";
+import { convertToSimpleDate } from "../../../utils/common";
 
 type Props = {
     isModalOpen: boolean;
@@ -22,7 +23,7 @@ const DashboardModal = ({
         whatsapp: org.whatsapp || "",
         pta: org.pta || "",
         alumni: org.alumni || "",
-        visited_at: org.visited_at || "",
+        visited_at: convertToSimpleDate(org.visited_at as string) || "",
         participants: org.participants || 0,
         association: org.association || "",
     });
@@ -31,17 +32,16 @@ const DashboardModal = ({
         setData({ ...data, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        updateData(data);
-    };
     return (
         <Modal
             isOpen={isModalOpen}
             onClose={handleModalClose}
             title={org.title}
             type={"success"}
-            onDone={() => updateData(data)}
+            onDone={() => {
+                updateData(data);
+                handleModalClose();
+            }}
         >
             <div>
                 <div className={styles.modalStaticContent}>
@@ -51,7 +51,7 @@ const DashboardModal = ({
                     <h4>ID: {org.org_id}</h4>
                 </div>
                 <div className={styles.modalFormContainer}>
-                    <form onSubmit={handleSubmit}>
+                    <form>
                         <div className={styles.toggle}>
                             <label>
                                 <h4>Visited</h4>
