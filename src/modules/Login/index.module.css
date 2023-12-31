@@ -25,6 +25,12 @@
     font-weight: 700;
 }
 
+@media screen and (max-width: 600px) {
+	.content h1 {
+		font-size: 2.5rem;
+	}
+}
+
 .content img {
     width: 100px;
 	padding-bottom: 1rem;

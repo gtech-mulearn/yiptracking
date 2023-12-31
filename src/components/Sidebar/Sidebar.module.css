@@ -11,12 +11,6 @@
 	position: fixed;
 }
 
-@media screen and (max-width: 800px) {
-    .sidebarContianer {
-        width: 10rem;
-    }
-}
-
 @media screen and (max-width: 600px) {
     .sidebarContianer {
         display: none;
@@ -35,7 +29,7 @@
     display: flex;
     color: var(--primary);
     font-weight: bold;
-    font-size: large;
+    font-size: 16px;
     border-radius: 10px;
     align-items: center;
     gap: 0.5rem;

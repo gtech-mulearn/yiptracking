@@ -26,6 +26,7 @@ const Sidebar = (_props: Props) => {
                 {NavData.map((item) => (
                     <div
                         key={item.link}
+						onClick={() => navigate(item.link)}
                         className={`${styles.navItem} ${
                             item.link === location.pathname as string ? styles.active : ""
                         }`}

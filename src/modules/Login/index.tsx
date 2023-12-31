@@ -40,7 +40,7 @@ export default function Login() {
                     src="https://yip.kerala.gov.in/wp-content/uploads/2022/10/logonew-1.png"
                     alt="YIP logo"
                 />
-                <h1>Welcome back!</h1>
+                <h1 className={styles.title}>Welcome back!</h1>
                 <p>Enter your credentials to login</p>
             </div>
             <div className={styles.loginCard}>
