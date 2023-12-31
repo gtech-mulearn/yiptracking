@@ -128,10 +128,11 @@
     border-radius: 10px;
     cursor: pointer;
 }
-
+.orgCard div button:hover {
+    filter: brightness(0.95);
+}
 .orgCard div button:active {
-    transform: scale(1.05);
-    filter: brightness(0.9);
+    transform: scale(0.95);
 }
 
 .statusDot {

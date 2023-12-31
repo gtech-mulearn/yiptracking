@@ -123,7 +123,12 @@
 .btn_submit:hover {
     background-color: rgb(29, 79, 205);
 }
-
+button:active {
+    transform: scale(0.95);
+}
+button:hover {
+    filter: brightness(0.95);
+}
 /* Optional: Mobile responsiveness. Adjust as necessary. */
 @media (max-width: 768px) {
     .modalContent {
