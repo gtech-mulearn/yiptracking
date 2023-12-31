@@ -2,17 +2,21 @@ import { useEffect, useState } from "react";
 import styles from "./Dashboard.module.css";
 import Profile from "./components/Profile";
 import toast from "react-hot-toast";
-import { getProfile } from "./services/DashboardApis";
+import { getProfile, updateOrgStatus } from "./services/DashboardApis";
 import OrgCard from "./components/OrgCard";
+import DashboardModal from "./components/DashboardModal";
 const Dashboard = () => {
-	const [refresh, setRefresh] = useState(false);
-	const [data, setData] = useState<DashboardData>();
-	const handleFetchDetails = async () => {
+    const [refresh, setRefresh] = useState(false);
+    const [data, setData] = useState<DashboardData>();
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedOrg, setSelectedOrg] = useState<OrgData | null>(null);
+
+    const handleFetchDetails = async () => {
         try {
             const response: any = await getProfile();
-			if (response) {
-				setData(response);
-			}
+            if (response) {
+                setData(response);
+            }
         } catch (error) {
             toast.error("Something went wrong, failed to load data");
         }
@@ -21,6 +25,32 @@ const Dashboard = () => {
     useEffect(() => {
         handleFetchDetails();
     }, [refresh]);
+
+    const handleModalOpen = (org: OrgData) => {
+        setSelectedOrg(org);
+        setIsModalOpen(true);
+    };
+
+    const handleModalClose = () => {
+        setIsModalOpen(false);
+        setSelectedOrg(null);
+    };
+
+    const updateData = (data: OrgStatusData) => {
+        console.log(data);
+        toast
+            .promise(updateOrgStatus(data), {
+                loading: "Loading...",
+                success: <b>Updated successfully</b>,
+                error: (message) => {
+                    return <b>{message}</b>;
+                },
+            })
+            .then(() => {
+                setRefresh(!refresh);
+            });
+    };
+
     return (
         <div className={styles.container}>
             <div className={styles.profile}>
@@ -33,13 +63,17 @@ const Dashboard = () => {
                         {data?.assigned.college[0] ? (
                             data.assigned.college.map(
                                 (org: OrgData, index: number) => (
-                                    <OrgCard
+                                    <div
                                         key={index}
-                                        index={index + 1}
-                                        name={org.title}
-                                        district={org.district_name}
-                                        visited={org.visited}
-                                    />
+                                        onClick={() => handleModalOpen(org)}
+                                    >
+                                        <OrgCard
+                                            index={index + 1}
+                                            name={org.title}
+                                            district={org.district_name}
+                                            visited={org.visited}
+                                        />
+                                    </div>
                                 )
                             )
                         ) : (
@@ -55,13 +89,17 @@ const Dashboard = () => {
                         {data?.assigned.school[0] ? (
                             data.assigned.school.map(
                                 (org: OrgData, index: number) => (
-                                    <OrgCard
+                                    <div
                                         key={index}
-                                        index={index + 1}
-                                        name={org.title}
-                                        district={org.district_name}
-                                        visited={org.visited}
-                                    />
+                                        onClick={() => handleModalOpen(org)}
+                                    >
+                                        <OrgCard
+                                            index={index + 1}
+                                            name={org.title}
+                                            district={org.district_name}
+                                            visited={org.visited}
+                                        />
+                                    </div>
                                 )
                             )
                         ) : (
@@ -72,6 +110,14 @@ const Dashboard = () => {
                     </div>
                 </div>
             </div>
+            {isModalOpen && selectedOrg && (
+                <DashboardModal
+                    isModalOpen={isModalOpen}
+                    org={selectedOrg}
+                    handleModalClose={handleModalClose}
+                    updateData={updateData}
+                />
+            )}
         </div>
     );
 };
