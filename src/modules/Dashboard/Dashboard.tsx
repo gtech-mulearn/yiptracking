@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { getProfile, updateOrgStatus } from "./services/DashboardApis";
 import OrgCard from "./components/OrgCard";
 import DashboardModal from "./components/DashboardModal";
+import { getAccessToken } from "../../services/ApiGateway/ApiGateway";
 const Dashboard = () => {
     const [refresh, setRefresh] = useState(false);
     const [data, setData] = useState<DashboardData>();
@@ -23,7 +24,9 @@ const Dashboard = () => {
     };
 
     useEffect(() => {
-        handleFetchDetails();
+		if(getAccessToken()) {
+			handleFetchDetails();
+		}
     }, [refresh]);
 
     const handleModalOpen = (org: OrgData) => {

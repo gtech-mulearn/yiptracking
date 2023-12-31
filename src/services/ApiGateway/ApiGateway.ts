@@ -1,6 +1,6 @@
 import axios from "axios";
 
-function getAccessToken(): string | null {
+export function getAccessToken(): string | null {
     return localStorage.getItem("accessToken");
 }
 
