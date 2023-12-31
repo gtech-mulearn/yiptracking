@@ -5,18 +5,19 @@ import toast from "react-hot-toast";
 import { getProfile } from "./services/DashboardApis";
 import OrgCard from "./components/OrgCard";
 import Modal from "../../components/Modal/Modal";
+import DashboardModal from "./components/DashboardModal";
 const Dashboard = () => {
-	const [refresh, setRefresh] = useState(false);
-	const [data, setData] = useState<DashboardData>();
-	const [isModalOpen, setIsModalOpen] = useState(false);
+    const [refresh, setRefresh] = useState(false);
+    const [data, setData] = useState<DashboardData>();
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedOrg, setSelectedOrg] = useState<OrgData | null>(null);
 
-	const handleFetchDetails = async () => {
+    const handleFetchDetails = async () => {
         try {
             const response: any = await getProfile();
-			if (response) {
-				setData(response);
-			}
+            if (response) {
+                setData(response);
+            }
         } catch (error) {
             toast.error("Something went wrong, failed to load data");
         }
@@ -26,7 +27,7 @@ const Dashboard = () => {
         handleFetchDetails();
     }, [refresh]);
 
-	const handleModalOpen = (org: OrgData) => {
+    const handleModalOpen = (org: OrgData) => {
         setSelectedOrg(org);
         setIsModalOpen(true);
     };
@@ -36,8 +37,8 @@ const Dashboard = () => {
         setSelectedOrg(null);
     };
 
-    const updateData = () => {
-        // Add logic to update data
+    const updateData = (data: OrgStatusData) => {
+        console.log(data);
         setRefresh(!refresh);
     };
 
@@ -53,7 +54,10 @@ const Dashboard = () => {
                         {data?.assigned.college[0] ? (
                             data.assigned.college.map(
                                 (org: OrgData, index: number) => (
-                                    <div key={index} onClick={() => handleModalOpen(org)}>
+                                    <div
+                                        key={index}
+                                        onClick={() => handleModalOpen(org)}
+                                    >
                                         <OrgCard
                                             index={index + 1}
                                             name={org.title}
@@ -76,13 +80,14 @@ const Dashboard = () => {
                         {data?.assigned.school[0] ? (
                             data.assigned.school.map(
                                 (org: OrgData, index: number) => (
-                                    <OrgCard
-                                        key={index}
-                                        index={index + 1}
-                                        name={org.title}
-                                        district={org.district_name}
-                                        visited={org.visited}
-                                    />
+                                    <div key={index} onClick={() => handleModalOpen(org)}>
+                                        <OrgCard
+                                            index={index + 1}
+                                            name={org.title}
+                                            district={org.district_name}
+                                            visited={org.visited}
+                                        />
+                                    </div>
                                 )
                             )
                         ) : (
@@ -94,15 +99,12 @@ const Dashboard = () => {
                 </div>
             </div>
             {isModalOpen && selectedOrg && (
-                <Modal
-                    isOpen={isModalOpen}
-                    onClose={handleModalClose}
-                    title={selectedOrg.title}
-                    type={"success"}
-                    onDone={updateData}
-                >
-                    Test
-                </Modal>
+                <DashboardModal
+                    isModalOpen={isModalOpen}
+                    org={selectedOrg}
+                    handleModalClose={handleModalClose}
+                    updateData={updateData}
+                />
             )}
         </div>
     );

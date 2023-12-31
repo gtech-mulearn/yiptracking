@@ -40,11 +40,11 @@
     padding: 1rem;
 }
 
-.dashboardContents div h3{
-	color: grey;
-	text-align: center;
-	padding: 2rem;
-} 
+.dashboardContents div h3 {
+    color: grey;
+    text-align: center;
+    padding: 2rem;
+}
 
 .profilePicture {
     max-width: 150px;
@@ -128,10 +128,10 @@
 }
 
 .statusDot {
-	display: none;
-	width: 15px;
-	height: 15px;
-	border-radius: 50%;
+    display: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
 }
 
 @media screen and (max-width: 850px) {
@@ -143,12 +143,12 @@
     .profileSection2 h4 {
         gap: 1rem;
     }
-	.statusDot {
-		display: block;
-	}
-	.orgCard div button {
-		display: none;
-	}
+    .statusDot {
+        display: block;
+    }
+    .orgCard div button {
+        display: none;
+    }
 }
 
 .btnVisited {
@@ -157,4 +157,42 @@
 
 .btnPending {
     background-color: rgba(247, 177, 85, 0.881);
+}
+
+.modalStaticContent {
+    padding: 0 1rem;
+    color: rgba(100, 100, 100, 0.927);
+    text-align: center;
+}
+
+.modalFormContainer {
+    padding: 0 1rem;
+    color: rgba(100, 100, 100, 0.927);
+}
+
+.modalFormContainer form {
+    display: flex;
+	margin: 2rem 0;
+	gap: .8rem;
+	flex-wrap: wrap;
+}
+
+.modalFormContainer form label {
+    display: flex;
+	gap: 0.5rem;
+	flex-direction: column;
+}
+
+.modalFormContainer form input {
+    border-radius: 8px;
+    background-color: #f3f3f4;
+    padding: 10px;
+    width: 300px;
+    color: black;
+	font-size: medium;
+}
+
+.toggle{
+	width: 100%;
+	text-align: center;
 }

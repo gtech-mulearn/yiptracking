@@ -25,8 +25,8 @@ interface DashboardData {
 	zone_name: string | null;
 	org_name: string | null;
     assigned: {
-        college: OrgData[]; // Replace 'any' with a more specific type if applicable
-        school: OrgData[]; // Replace 'any' with a more specific type if applicable
+        college: OrgData[]; 
+        school: OrgData[];
     };
     updated_at: string;
     created_at: string;
