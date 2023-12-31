@@ -13,12 +13,6 @@
     visibility: hidden; /* Makes the ghost element invisible */
 }
 
-@media screen and (max-width: 800px) {
-    .ghostSidebar {
-        width: 10rem;
-    }
-}
-
 @media screen and (max-width: 600px) {
     .ghostSidebar {
         display: none;

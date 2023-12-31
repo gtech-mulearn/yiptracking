@@ -6,4 +6,9 @@ export const NavData: SidebarData[] = [
 		link: "/",
 		icon: MdDashboard
 	},
+	{
+		title: "Intern Management",
+		link: "/intern",
+		icon: MdDashboard
+	},
 ]

@@ -13,5 +13,6 @@ export const yipRoutes = {
     login: "/auth/user-authentication/",
     getProfile: "/auth/profile/",
     updateOrgStatus: "/organization/update-status/",
+    getInterns: "/auth/user-list/",
 };
 

@@ -5,6 +5,7 @@ import { Toaster } from "react-hot-toast";
 import NotFound from "./modules/NotFound/NotFound";
 import Login from "./modules/Login";
 import Dashboard from './modules/Dashboard/Dashboard';
+import InternManagement from "./modules/InternManagement/InternManagement";
 
 function App() {
     const router = createBrowserRouter([
@@ -29,10 +30,10 @@ function App() {
                     element: <Dashboard/>,
                 },
 
-                // {
-                //     path: "qr",
-                //     element: <QR />,
-                // },
+                {
+                    path: "intern",
+                    element: <InternManagement />,
+                },
             ],
         },
     ]);
