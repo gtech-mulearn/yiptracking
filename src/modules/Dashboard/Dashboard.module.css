@@ -168,6 +168,9 @@
 }
 
 .modalStaticContent {
+	display: flex;
+	flex-direction: column;
+	gap: .5rem;
     padding: 0 1rem;
     color: rgba(100, 100, 100, 0.927);
     text-align: center;

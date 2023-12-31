@@ -48,7 +48,6 @@ const DashboardModal = ({
                     <h4>Code: {org.code}</h4>
                     <h4>District: {org.district_name}</h4>
                     <h4>Zone: {org.zone_name}</h4>
-                    <h4>ID: {org.org_id}</h4>
                 </div>
                 <div className={styles.modalFormContainer}>
                     <form>
