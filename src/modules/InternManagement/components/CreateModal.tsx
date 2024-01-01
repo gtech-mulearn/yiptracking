@@ -32,7 +32,7 @@ const CreateModal = ({
             label: "Email",
             type: "text",
             value: data ? data.email ?? "" : "",
-            onChange: (e: { target: { value: any; }; }) =>
+            onChange: (e: { target: { value: string } }) =>
                 setData((data) => ({ ...data, email: e.target.value })),
         },
         {
@@ -63,12 +63,12 @@ const CreateModal = ({
             options: options.iti,
             isMulti: true,
             onChange: (options: SelectOption[]) =>
-                setData((data) => ({ ...data, college: options })),
+                setData((data) => ({ ...data, iti: options })),
         },
     ];
 
     useEffect(() => {
-        const formatOrgData = (data?: any[]) => {
+        const formatOrgData = (data?: getOrgResponse[]) => {
             if (!data) return null;
             return data.map((org) => ({ value: org.org_id, label: org.name }));
         };
@@ -77,11 +77,10 @@ const CreateModal = ({
             setOptions({
                 school: formatOrgData(await getOrg("School")) ?? [],
                 college: formatOrgData(await getOrg("College")) ?? [],
-                lti: formatOrgData(await getOrg("iti")) ?? [],
+                iti: formatOrgData(await getOrg("iti")) ?? [],
             });
         })();
     }, []);
-
     return (
         <>
             <Modal
@@ -109,7 +108,9 @@ const CreateModal = ({
                                     return (
                                         <label>
                                             <h4>{template.label}:</h4>
-                                            <input {...(props as any)} />
+                                            <input
+                                                {...(props as React.InputHTMLAttributes<HTMLInputElement>)}
+                                            />
                                         </label>
                                     );
                                 } else if (type === "select") {
@@ -118,7 +119,7 @@ const CreateModal = ({
                                         <label>
                                             <h4>{template.label}:</h4>
                                             <ReactSelect
-                                                {...(props as any)}
+                                                {...(props as React.ComponentProps<ReactSelect>)}
                                             />
                                         </label>
                                     );
