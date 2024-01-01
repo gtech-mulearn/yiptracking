@@ -27,6 +27,7 @@ interface DashboardData {
     assigned: {
         college: OrgData[];
         school: OrgData[];
+		iti: OrgData[];
     };
     updated_at: string;
     created_at: string;
