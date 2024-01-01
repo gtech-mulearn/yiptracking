@@ -10,7 +10,7 @@ const InternManagement = () => {
     const [refresh, setRefresh] = useState(false);
     const [data, setData] = useState<InternsDataResponse>();
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [selectedIntern, setSelectedIntern] = useState<any>(null);
+    // const [selectedIntern, setSelectedIntern] = useState<any>(null);
     const columns: TableColumn<InternData>[] = [
         { key: "first_name", header: "First Name" },
         { key: "last_name", header: "Last Name" },
@@ -46,7 +46,17 @@ const InternManagement = () => {
             ...(data.school ? data.school.map((option) => option.value) : []),
             ...(data.lti ? data.lti.map((option) => option.value) : []),
         ];
-        assignOrg(data.email!, formattedOrgData);
+		toast
+            .promise(assignOrg(data.email!, formattedOrgData), {
+                loading: "Loading...",
+                success: <b>New Intern Added</b>,
+                error: (message) => {
+                    return <b>{message}</b>;
+                },
+            })
+            .then(() => {
+                setRefresh(!refresh);
+            });
     };
     return (
         <div className={styles.container}>
@@ -55,7 +65,7 @@ const InternManagement = () => {
                     <h1>Intern Management</h1>
                     <button onClick={handleModalOpen}>
                         {" "}
-                        <BiPlusCircle /> Create
+                        <BiPlusCircle /> Manage
                     </button>
                 </div>
                 {data?.data && (

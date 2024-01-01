@@ -3,7 +3,7 @@ import styles from "./Sidebar.module.css";
 import { NavData } from "./services/NavData";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { BiCross, BiMenu, BiX } from "react-icons/bi";
+import { BiMenu, BiX } from "react-icons/bi";
 
 type Props = {};
 
