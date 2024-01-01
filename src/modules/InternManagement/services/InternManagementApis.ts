@@ -8,6 +8,7 @@ export const getInterns = async () => {
     const response = await privateGateway.get(
         dynamicRoute(yipRoutes.getInterns)
     );
+	console.log(response.data.response);
     return response.data.response;
 };
 
@@ -34,7 +35,8 @@ export const getOrg = async (org_type: string) => {
                 org_type: org_type,
             },
         });
-        return response.data.response;
+        console.log(response);
+        return response.data.response as getOrgResponse[];
     } catch (err) {
         console.log(err);
     }
@@ -46,9 +48,8 @@ export const assignOrg = async (email: string, org: string[]) => {
             email: email,
             org_id: org,
         });
-		return res.data.response;
+		return res.data.message.general[0];
     } catch (err:any) {
-		console.log(err.message);
-        throw err.message;
+        throw err.response.data[0];
     }
 };
