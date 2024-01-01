@@ -5,8 +5,10 @@ import { assignOrg, getInterns } from "./services/InternManagementApis";
 import Table from "../../components/Table/Table";
 import CreateModal from "./components/CreateModal";
 import { BiPlusCircle } from "react-icons/bi";
+import { useNavigate } from "react-router-dom";
 
 const InternManagement = () => {
+	const navigate = useNavigate()
     const [refresh, setRefresh] = useState(false);
     const [data, setData] = useState<InternData[]>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -57,6 +59,11 @@ const InternManagement = () => {
                 setRefresh(!refresh);
             });
     };
+
+	const handleClick = (email: string) => {
+		navigate("/intern/" + email)
+	}
+
     return (
         <div className={styles.container}>
             <div className={styles.tableContainer}>
@@ -68,7 +75,7 @@ const InternManagement = () => {
                     </button>
                 </div>
                 {data && (
-                    <Table data={data as InternData[]} columns={columns} />
+                    <Table data={data as InternData[]} columns={columns} onRowClick={handleClick} />
                 )}
             </div>
             {isModalOpen && (

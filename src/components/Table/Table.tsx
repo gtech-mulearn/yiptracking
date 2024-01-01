@@ -4,11 +4,13 @@ import styles from "./Table.module.css";
 type TableProps<T extends { [key: string]: any }> = {
     data: T[];
     columns: TableColumn<T>[];
+    onRowClick: (email: string) => void;
 };
 
 const Table = <T extends { [key: string]: any }>({
     data,
     columns,
+    onRowClick,
 }: TableProps<T>) => {
     const [searchTerm, setSearchTerm] = useState("");
     const [sortKey, setSortKey] = useState("");
@@ -42,12 +44,15 @@ const Table = <T extends { [key: string]: any }>({
         })
     );
 
-
     const handleSort = (key: string) => {
         setSortDirection(
             sortKey === key && sortDirection === "asc" ? "desc" : "asc"
         );
         setSortKey(key);
+    };
+
+    const handleClick = (email: string) => {
+        onRowClick(email);
     };
 
     return (
@@ -79,7 +84,10 @@ const Table = <T extends { [key: string]: any }>({
                     </thead>
                     <tbody>
                         {filteredData.map((row) => (
-                            <tr key={row.id}>
+                            <tr
+                                key={row.id}
+                                onClick={() => handleClick(row.email)}
+                            >
                                 <td>{filteredData.indexOf(row) + 1}</td>
                                 {columns.map((column) => (
                                     <td key={column.key.toString()}>

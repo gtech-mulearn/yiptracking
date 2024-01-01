@@ -34,6 +34,10 @@ function App() {
                     path: "intern",
                     element: <InternManagement />,
                 },
+                {
+                    path: "intern/:id",
+                    element: <Dashboard />,
+                },
             ],
         },
     ]);
