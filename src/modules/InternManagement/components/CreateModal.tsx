@@ -63,21 +63,21 @@ const CreateModal = ({
             options: options.iti,
             isMulti: true,
             onChange: (options: SelectOption[]) =>
-                setData((data) => ({ ...data, college: options })),
+                setData((data) => ({ ...data, iti: options })),
         },
     ];
 
     useEffect(() => {
         const formatOrgData = (data?: any[]) => {
             if (!data) return null;
-            return data.map((org) => ({ value: org.org_id, label: org.name }));
+            return data.map((org) => ({ value: org.id, label: org.name }));
         };
 
         (async () => {
             setOptions({
                 school: formatOrgData(await getOrg("School")) ?? [],
                 college: formatOrgData(await getOrg("College")) ?? [],
-                lti: formatOrgData(await getOrg("iti")) ?? [],
+                iti: formatOrgData(await getOrg("iti")) ?? [],
             });
         })();
     }, []);
