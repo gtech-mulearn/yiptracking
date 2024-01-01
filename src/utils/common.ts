@@ -1,4 +1,5 @@
 export const convertToSimpleDate = (dateString: string) => {
-    const date = new Date(dateString);
+    let date = new Date(dateString);
+    if (isNaN(date.getTime())) date = new Date();
     return date.toISOString().split("T")[0];
-}
+};
