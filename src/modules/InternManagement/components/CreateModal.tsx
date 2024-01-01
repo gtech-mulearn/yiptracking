@@ -70,7 +70,7 @@ const CreateModal = ({
     useEffect(() => {
         const formatOrgData = (data?: getOrgResponse[]) => {
             if (!data) return null;
-            return data.map((org) => ({ value: org.org_id, label: org.name }));
+            return data.map((org) => ({ value: org.id, label: org.name }));
         };
 
         (async () => {
