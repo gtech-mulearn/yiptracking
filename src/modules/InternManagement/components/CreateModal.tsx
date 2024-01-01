@@ -24,7 +24,7 @@ const CreateModal = ({
     }>({
         school: [],
         college: [],
-        lti: [],
+        iti: [],
     });
     const formTemplate = [
         {
