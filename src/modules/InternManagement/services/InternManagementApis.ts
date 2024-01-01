@@ -8,7 +8,6 @@ export const getInterns = async () => {
     const response = await privateGateway.get(
         dynamicRoute(yipRoutes.getInterns)
     );
-	console.log(response.data.response);
     return response.data.response;
 };
 
