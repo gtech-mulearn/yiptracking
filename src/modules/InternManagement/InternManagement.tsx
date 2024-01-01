@@ -15,9 +15,9 @@ const InternManagement = () => {
         { key: "first_name", header: "First Name" },
         { key: "last_name", header: "Last Name" },
         { key: "role", header: "Role" },
+        { key: "district_name", header: "District" },
         { key: "email", header: "Email" },
         { key: "mobile", header: "Mobile" },
-        { key: "district_name", header: "District" },
     ];
 
     const handleModalOpen = () => {
@@ -44,7 +44,7 @@ const InternManagement = () => {
         const formattedOrgData = [
             ...(data.college ? data.college.map((option) => option.value) : []),
             ...(data.school ? data.school.map((option) => option.value) : []),
-            ...(data.lti ? data.lti.map((option) => option.value) : []),
+            ...(data.iti ? data.iti.map((option) => option.value) : []),
         ];
 		toast
             .promise(assignOrg(data.email!, formattedOrgData), {
