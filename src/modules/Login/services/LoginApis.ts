@@ -10,6 +10,7 @@ export const login = async (email: string, password: string) => {
         const message = response.data.response
 		localStorage.setItem("accessToken", message.accessToken);
 		localStorage.setItem("refreshToken", message.refreshToken);
+		localStorage.setItem("roles", message.roles);
 		return message;
     } catch (error: any) {
         throw error.response.data.message.general[0];
