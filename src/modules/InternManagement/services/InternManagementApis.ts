@@ -1,4 +1,3 @@
-import { AxiosError } from "axios";
 import { privateGateway } from "../../../services/ApiGateway/ApiGateway";
 import {
     dynamicRoute,
@@ -9,6 +8,7 @@ export const getInterns = async () => {
     const response = await privateGateway.get(
         dynamicRoute(yipRoutes.getInterns)
     );
+	console.log(response.data.response);
     return response.data.response;
 };
 
@@ -48,8 +48,8 @@ export const assignOrg = async (email: string, org: string[]) => {
             email: email,
             org_id: org,
         });
-        return res.data.response;
-    } catch (err) {
-        if (err instanceof AxiosError) console.log(err.message);
+		return res.data.message.general[0];
+    } catch (err:any) {
+        throw err.response.data[0];
     }
 };

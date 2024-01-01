@@ -67,9 +67,10 @@
 }
 
 .modalFormContainer form input {
-    border-radius: 8px;
-    background-color: #f3f3f4;
-    padding: 10px;
+    border-radius: 4px;
+    background-color: white;
+	border: 1px solid darkgray;
+    padding: 8px;
     width: 100%;
     color: black;
     font-size: medium;
