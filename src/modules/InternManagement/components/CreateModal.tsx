@@ -33,7 +33,7 @@ const CreateModal = ({
             label: "Email",
             type: "text",
             value: data ? data.email ?? "" : "",
-            onChange: (e: { target: { value: any; }; }) =>
+            onChange: (e: { target: { value: string } }) =>
                 setData((data) => ({ ...data, email: e.target.value })),
         },
         {
@@ -70,7 +70,7 @@ const CreateModal = ({
 
     useEffect(() => {
 		setIsLoading(true); 
-        const formatOrgData = (data?: any[]) => {
+        const formatOrgData = (data?: getOrgResponse[]) => {
             if (!data) return null;
             return data.map((org) => ({ value: org.id, label: org.name }));
         };
@@ -84,7 +84,6 @@ const CreateModal = ({
 			setIsLoading(false); 
         })();
     }, []);
-
     return (
         <>
             <Modal
@@ -112,7 +111,10 @@ const CreateModal = ({
                                     return (
                                         <label>
                                             <h4>{template.label}:</h4>
-                                            <input placeholder="enter email of intern" {...(props as any)} />
+                                            <input
+                                                placeholder="enter email of intern"
+                                                {...(props as React.InputHTMLAttributes<HTMLInputElement>)}
+                                            />
                                         </label>
                                     );
                                 } else if (type === "select") {
@@ -122,7 +124,7 @@ const CreateModal = ({
                                             <h4>{template.label}:</h4>
                                             <ReactSelect
                                                 isLoading={isLoading}
-                                                {...(props as any)}
+                                                {...(props as React.ComponentProps<ReactSelect>)}
                                             />
                                         </label>
                                     );

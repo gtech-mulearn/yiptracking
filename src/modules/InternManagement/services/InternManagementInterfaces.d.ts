@@ -47,3 +47,14 @@ interface CreateUser {
     school?: SelectOption[];
     iti?: SelectOption[];
 }
+
+interface getOrgResponse {
+    created_at: string;
+    created_by: string;
+    district_id: string;
+    name: string;
+    org_id: string;
+    org_type: string;
+    updated_at: string;
+    updated_by: string;
+}
