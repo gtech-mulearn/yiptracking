@@ -10,7 +10,6 @@
 .content {
 	width: calc(100% - 15rem);
 	height: 100vh;
-	overflow-y: scroll;
 	padding: 1rem;
 }
 
@@ -18,5 +17,4 @@
 	.content {
 		width: 100%;
 	}
-	
 }
