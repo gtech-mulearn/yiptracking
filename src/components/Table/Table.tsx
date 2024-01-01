@@ -51,7 +51,7 @@ const Table = <T extends { [key: string]: any }>({
     };
 
     return (
-        <div className={styles.container}>
+        <div className={styles.table}>
             <div className={styles.search}>
                 <input
                     type="text"
@@ -60,8 +60,8 @@ const Table = <T extends { [key: string]: any }>({
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
             </div>
-            <div className={styles.tableContainer}>
-                <table className={styles.table}>
+            <section className={styles.tableBody}>
+                <table>
                     <thead>
                         <tr>
                             <th>S/N</th>
@@ -90,7 +90,7 @@ const Table = <T extends { [key: string]: any }>({
                         ))}
                     </tbody>
                 </table>
-            </div>
+            </section>
         </div>
     );
 };
