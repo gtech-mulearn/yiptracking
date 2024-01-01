@@ -16,8 +16,6 @@ const InternManagement = () => {
         { key: "role", header: "Role" },
         { key: "email", header: "Email" },
         { key: "mobile", header: "Mobile" },
-        { key: "gender", header: "Gender" },
-        { key: "dob", header: "DOB" },
         { key: "district_name", header: "District" },
     ];
 
@@ -38,7 +36,7 @@ const InternManagement = () => {
     }, [refresh]);
     return (
         <div className={styles.container}>
-            <div>
+            <div className={styles.header}>
                 <h1>Intern Management</h1>
             </div>
             <div className={styles.tableContainer}>

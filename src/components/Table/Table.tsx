@@ -51,40 +51,46 @@ const Table = <T extends { [key: string]: any }>({
     };
 
     return (
-        <div className={styles.tableContainer}>
-            <input
-                type="text"
-                placeholder="Search..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-            />
-            <table className={styles.table}>
-                <thead>
-                    <tr>
-                        {columns.map((column) => (
-                            <th
-                                key={column.key.toString()}
-                                onClick={() =>
-                                    handleSort(column.key.toString())
-                                }
-                            >
-                                {column.header}
-                            </th>
-                        ))}
-                    </tr>
-                </thead>
-                <tbody>
-                    {filteredData.map((row) => (
-                        <tr key={row.id}>
+        <div className={styles.container}>
+            <div className={styles.search}>
+                <input
+                    type="text"
+                    placeholder="Search..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                />
+            </div>
+            <div className={styles.tableContainer}>
+                <table className={styles.table}>
+                    <thead>
+                        <tr>
+                            <th>S/N</th>
                             {columns.map((column) => (
-                                <td key={column.key.toString()}>
-                                    {row[column.key]}
-                                </td>
+                                <th
+                                    key={column.key.toString()}
+                                    onClick={() =>
+                                        handleSort(column.key.toString())
+                                    }
+                                >
+                                    {column.header}
+                                </th>
                             ))}
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {filteredData.map((row) => (
+                            <tr key={row.id}>
+                                <td>{filteredData.indexOf(row) + 1}</td>
+                                {columns.map((column) => (
+                                    <td key={column.key.toString()}>
+                                        {row[column.key]}
+                                    </td>
+                                ))}
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 };

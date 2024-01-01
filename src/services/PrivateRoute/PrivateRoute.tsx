@@ -17,7 +17,6 @@ export const PrivateRoute = () => {
 
     return (
         <div className={styles.container}>
-            {/* <div className={styles.ghostSidebar}></div> */}
             <Sidebar />
             <div className={styles.content}>
                 <Outlet />
