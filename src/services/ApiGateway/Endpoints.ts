@@ -14,5 +14,7 @@ export const yipRoutes = {
     getProfile: "/auth/profile/",
     updateOrgStatus: "/organization/update-status/",
     getInterns: "/auth/user-list/",
+    getDistrict: "/location/district/",
+    getZone: "/location/zone/",
+    getOrg: "/organization/list/",
 };
-

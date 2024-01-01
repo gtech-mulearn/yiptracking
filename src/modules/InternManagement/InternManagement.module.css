@@ -1,17 +1,76 @@
 .container {
-	padding: 1rem;
-	width: 100%;
-	overflow-x: hidden;
-	overflow-y: scroll;
-	height: 100vh;
+    padding: 1rem;
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: 100vh;
 }
 
 .header {
-	width: 100%;
-	text-align: left;
-	padding-bottom: 1rem;
+    width: 100%;
+    text-align: left;
+    padding-bottom: 1rem;
+
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+}
+
+.header button {
+    padding: 0.75rem 2rem;
+    background-color: var(--secondary);
+    border-radius: 0.5rem;
+    border: var(--primary) 2px dashed;
+    font-size: 18px;
+    font-weight: bolder;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .container h1 {
-	color: var(--primary);
+    color: var(--primary);
+}
+
+.modalStaticContent {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0 1rem;
+    color: rgba(100, 100, 100, 0.927);
+    text-align: center;
+}
+
+.modalFormContainer {
+    padding: 0 1rem;
+    color: rgba(100, 100, 100, 0.927);
+}
+
+.modalFormContainer form {
+    display: flex;
+    margin-top: 2rem;
+    gap: 0.8rem;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.modalFormContainer form label {
+    display: flex;
+    gap: 0.5rem;
+    flex-direction: column;
+}
+
+.modalFormContainer form label h4 {
+    padding-left: 0.3rem;
+}
+
+.modalFormContainer form input {
+    border-radius: 8px;
+    background-color: #f3f3f4;
+    padding: 10px;
+    width: 100%;
+    color: black;
+    font-size: medium;
 }
