@@ -65,19 +65,22 @@ const Dashboard = () => {
 
     return (
         <div className={styles.container}>
-            <div className={styles.profile}>
-                <Profile data={data} handleEdit={handleEdit} />
-            </div>
             <div className={styles.dashboard}>
                 <div className={styles.dashboardContainer}>
-                    <h2>Colleges</h2>
+                    <div className={styles.profile}>
+                        <Profile data={data} handleEdit={handleEdit} />
+                    </div>
+                </div>
+                <div className={styles.dashboardContainer}>
+                    <h2>ITIs</h2>
                     <div className={styles.dashboardContents}>
-                        {data?.assigned.college[0] ? (
-                            data.assigned.college.map(
+                        {data?.assigned.iti[0] ? (
+                            data.assigned.iti.map(
                                 (org: OrgData, index: number) => (
                                     <div
                                         key={index}
                                         onClick={() => handleModalOpen(org)}
+										title="ITI details"
                                     >
                                         <OrgCard
                                             index={index + 1}
@@ -90,11 +93,13 @@ const Dashboard = () => {
                             )
                         ) : (
                             <div>
-                                <h3>No Colleges Assigned</h3>
+                                <h3>No ITI Assigned</h3>
                             </div>
                         )}
                     </div>
                 </div>
+            </div>
+            <div className={styles.dashboard}>
                 <div className={styles.dashboardContainer}>
                     <h2>Schools</h2>
                     <div className={styles.dashboardContents}>
@@ -104,6 +109,7 @@ const Dashboard = () => {
                                     <div
                                         key={index}
                                         onClick={() => handleModalOpen(org)}
+										title="School details"
                                     >
                                         <OrgCard
                                             index={index + 1}
@@ -117,6 +123,33 @@ const Dashboard = () => {
                         ) : (
                             <div>
                                 <h3>No Schools Assigned</h3>
+                            </div>
+                        )}
+                    </div>
+                </div>
+                <div className={styles.dashboardContainer}>
+                    <h2>Colleges</h2>
+                    <div className={styles.dashboardContents}>
+                        {data?.assigned.college[0] ? (
+                            data.assigned.college.map(
+                                (org: OrgData, index: number) => (
+                                    <div
+                                        key={index}
+                                        onClick={() => handleModalOpen(org)}
+										title="College details"
+                                    >
+                                        <OrgCard
+                                            index={index + 1}
+                                            name={org.title}
+                                            district={org.district_name}
+                                            visited={org.visited}
+                                        />
+                                    </div>
+                                )
+                            )
+                        ) : (
+                            <div>
+                                <h3>No Colleges Assigned</h3>
                             </div>
                         )}
                     </div>
