@@ -10,7 +10,6 @@ const InternManagement = () => {
     const [refresh, setRefresh] = useState(false);
     const [data, setData] = useState<InternData[]>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    // const [selectedIntern, setSelectedIntern] = useState<any>(null);
     const columns: TableColumn<InternData>[] = [
         { key: "first_name", header: "First Name" },
         { key: "last_name", header: "Last Name" },

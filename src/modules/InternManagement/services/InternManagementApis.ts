@@ -1,4 +1,3 @@
-import { AxiosError } from "axios";
 import { privateGateway } from "../../../services/ApiGateway/ApiGateway";
 import {
     dynamicRoute,
