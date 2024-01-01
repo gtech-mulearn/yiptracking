@@ -41,3 +41,15 @@ export const updateOrgStatus = async (data: OrgStatusData) => {
 		console.error("API error:", error);
 	}
 }
+
+export const updateProfile = async (data: ProfileEditData) => {
+    try {
+        const response = await privateGateway.put(
+            dynamicRoute(yipRoutes.updateProfile),
+            data
+        );
+        console.log(response.data);
+    } catch (error) {
+        console.error("API error:", error);
+    }
+};

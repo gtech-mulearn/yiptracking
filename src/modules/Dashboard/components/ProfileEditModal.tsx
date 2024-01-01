@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "../../../components/Modal/Modal";
 import styles from "../Dashboard.module.css";
 import { convertToSimpleDate } from "../../../utils/common";
@@ -17,6 +17,9 @@ const ProfileEditModal = ({
     currentData,
 }: Props) => {
     const [data, setData] = useState<ProfileEditData>(currentData);
+	useEffect(() => {
+        setData(currentData); // Update local state when currentData changes
+    }, [currentData]);
     const formTemplate = [
         { name: "gender", label: "Gender", value: data.gender ?? "" },
         {
