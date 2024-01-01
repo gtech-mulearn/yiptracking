@@ -5,12 +5,12 @@
 /* 
     background-image: url(../../assets/BG.webp);
     background-size: 100% 100%; */
+	overflow-x: hidden;
 }
 
 .content {
 	width: calc(100% - 15rem);
 	height: 100vh;
-	padding: 1rem;
 }
 
 @media screen and (max-width: 600px) {
