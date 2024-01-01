@@ -8,7 +8,7 @@
 }
 
 .table {
-    width: 70vw;
+    width: 100%;
     /* height: 90vh; */
     background-color: #fff5;
 
@@ -31,8 +31,14 @@
 }
 
 .tableBody::-webkit-scrollbar{
-    width: 0.2rem;
-    height: 0.2rem;
+    width: 0.5rem;
+    height: 0.5rem;
+	background-color: var(--secondary);
+	visibility: hidden;
+}
+
+.tableBody:hover::-webkit-scrollbar{
+	visibility: visible;
 }
 
 .tableBody::-webkit-scrollbar-thumb{
