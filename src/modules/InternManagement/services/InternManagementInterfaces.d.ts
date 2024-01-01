@@ -45,5 +45,5 @@ interface CreateUser {
     email?: string;
     college?: SelectOption[];
     school?: SelectOption[];
-    lti?: SelectOption[];
+    iti?: SelectOption[];
 }
