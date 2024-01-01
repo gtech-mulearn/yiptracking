@@ -7,7 +7,9 @@ import OrgCard from "./components/OrgCard";
 import DashboardModal from "./components/DashboardModal";
 import { getAccessToken } from "../../services/ApiGateway/ApiGateway";
 import ProfileEditModal from "./components/ProfileEditModal";
+import { useParams } from "react-router-dom";
 const Dashboard = () => {
+	const {id} = useParams()
     const [refresh, setRefresh] = useState(false);
     const [data, setData] = useState<DashboardData>();
     const [modalState, setModalState] = useState<"org" | "profile" | null>(
@@ -17,7 +19,7 @@ const Dashboard = () => {
 
     const handleFetchDetails = async () => {
         try {
-            const response = await getProfile();
+            const response = await getProfile(id);
             if (response) {
                 setData(response);
             }

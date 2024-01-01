@@ -4,14 +4,30 @@ import {
     yipRoutes,
 } from "../../../services/ApiGateway/Endpoints";
 
-export const getProfile = async () => {
-    try {
-        const response = await privateGateway.get(
-            dynamicRoute(yipRoutes.getProfile)
-        );
-		return response.data.message
-    } catch (error) {
-        throw error;
+export const getProfile = async (id: string | undefined) => {
+    if (id) {
+        try {
+            const response = await privateGateway.get(
+                dynamicRoute(yipRoutes.getProfile),
+                {
+                    params: {
+                        email: id,
+                    },
+                }
+            );
+            return response.data.message;
+        } catch (error) {
+            throw error;
+        }
+    } else {
+        try {
+            const response = await privateGateway.get(
+                dynamicRoute(yipRoutes.getProfile)
+            );
+            return response.data.message;
+        } catch (error) {
+            throw error;
+        }
     }
 };
 

@@ -33,7 +33,19 @@ const Sidebar = (_props: Props) => {
                     />
                 </div>
                 <div className={styles.sidebarNav}>
-                    {NavData.map((item) => (
+                    {NavData.map((item) => item.role ? item.role?.includes(localStorage.getItem("roles") as string) && (
+                        <div
+                            key={item.link}
+                            onClick={() => navigate(item.link)}
+                            className={`${styles.navItem} ${
+                                item.link === (location.pathname as string)
+                                    ? styles.active
+                                    : ""
+                            }`}
+                        >
+                            <item.icon /> {item.title}
+                        </div>
+                    ) : (
                         <div
                             key={item.link}
                             onClick={() => navigate(item.link)}
