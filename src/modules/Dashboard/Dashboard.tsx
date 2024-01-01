@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "./Dashboard.module.css";
 import Profile from "./components/Profile";
 import toast from "react-hot-toast";
-import { getProfile, updateOrgStatus } from "./services/DashboardApis";
+import { getProfile, updateOrgStatus, updateProfile } from "./services/DashboardApis";
 import OrgCard from "./components/OrgCard";
 import DashboardModal from "./components/DashboardModal";
 import { getAccessToken } from "../../services/ApiGateway/ApiGateway";
@@ -48,7 +48,6 @@ const Dashboard = () => {
     };
 
     const updateData = (data: OrgStatusData) => {
-        console.log(data);
         toast
             .promise(updateOrgStatus(data), {
                 loading: "Loading...",
@@ -62,7 +61,17 @@ const Dashboard = () => {
             });
     };
     const updateProfileData = (data: ProfileEditData) => {
-        console.log(data);
+		toast
+            .promise(updateProfile(data), {
+                loading: "Loading...",
+                success: <b>Updated successfully</b>,
+                error: (message) => {
+                    return <b>{message}</b>;
+                },
+            })
+            .then(() => {
+                setRefresh(!refresh);
+            });
     };
 
     return (

@@ -12,6 +12,7 @@ export const yipRoutes = {
     // createReport: "/api/v1/dashboard/lc/${LcID}/report/create/",
     login: "/auth/user-authentication/",
     getProfile: "/auth/profile/",
+    updateProfile: "/auth/profile/update/",
     updateOrgStatus: "/organization/update-status/",
     getInterns: "/auth/user-list/",
     getDistrict: "/location/district/",
