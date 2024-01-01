@@ -3,6 +3,7 @@ import Modal from "../../../components/Modal/Modal";
 import styles from "../InternManagement.module.css";
 import ReactSelect from "react-select";
 import { getOrg } from "../services/InternManagementApis";
+import toast, { Toaster } from "react-hot-toast";
 
 type Props = {
     isModalOpen: boolean;
@@ -82,37 +83,44 @@ const CreateModal = ({
     }, []);
 
     return (
-        <Modal
-            isOpen={isModalOpen}
-            onClose={handleModalClose}
-            title={"Add Intern"}
-            type={"success"}
-            onDone={() => {
-                if (!(data.college && data.email && data.lti && data.lti))
-                    console.log("All inputs are required");
-                if (data) onSubmit(data);
-                handleModalClose();
-            }}
-        >
-            <div>
-                <div className={styles.modalFormContainer}>
-                    <form>
-                        {formTemplate.map((template) => {
-                            const { type, ...props } = template;
-                            return (
-                                <label>
-                                    <h4>{template.label}:</h4>
-                                    {type === "text" && <input {...props} />}
-                                    {type === "select" && (
-                                        <ReactSelect {...props} />
-                                    )}
-                                </label>
-                            );
-                        })}
-                    </form>
+        <>
+            <Modal
+                isOpen={isModalOpen}
+                onClose={handleModalClose}
+                title={"Add Intern"}
+                type={"success"}
+                onDone={() => {
+                    if (!data.email) {
+                        toast.error("Email is required");
+                        return;
+                    }
+                    if (data) onSubmit(data);
+                    handleModalClose();
+                }}
+            >
+                <div>
+                    <div className={styles.modalFormContainer}>
+                        <form>
+                            {formTemplate.map((template) => {
+                                const { type, ...props } = template;
+                                return (
+                                    <label>
+                                        <h4>{template.label}:</h4>
+                                        {type === "text" && (
+                                            <input {...props} />
+                                        )}
+                                        {type === "select" && (
+                                            <ReactSelect {...props} />
+                                        )}
+                                    </label>
+                                );
+                            })}
+                        </form>
+                    </div>
                 </div>
-            </div>
-        </Modal>
+            </Modal>
+            <Toaster position="bottom-center" />
+        </>
     );
 };
 

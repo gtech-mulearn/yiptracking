@@ -43,7 +43,7 @@ interface SelectOption {
 }
 interface CreateUser {
     email?: string;
-    college?: SelectOptions[];
-    school?: SelectOptions[];
-    lti?: SelectOptions[];
+    college?: SelectOption[];
+    school?: SelectOption[];
+    lti?: SelectOption[];
 }

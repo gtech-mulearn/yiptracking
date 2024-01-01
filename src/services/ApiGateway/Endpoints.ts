@@ -17,4 +17,5 @@ export const yipRoutes = {
     getDistrict: "/location/district/",
     getZone: "/location/zone/",
     getOrg: "/organization/list/",
+    assignOrg: "/organization/assign/",
 };

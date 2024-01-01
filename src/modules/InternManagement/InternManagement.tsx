@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "./InternManagement.module.css";
 import toast from "react-hot-toast";
-import { getInterns } from "./services/InternManagementApis";
+import { assignOrg, getInterns } from "./services/InternManagementApis";
 import Table from "../../components/Table/Table";
 import CreateModal from "./components/CreateModal";
 import { BiPlusCircle } from "react-icons/bi";
@@ -39,16 +39,25 @@ const InternManagement = () => {
     useEffect(() => {
         handleFetchDetails();
     }, [refresh]);
+
+    const handleSubmit = (data: CreateUser) => {
+        const formattedOrgData = [
+            ...(data.college ? data.college.map((option) => option.value) : []),
+            ...(data.school ? data.school.map((option) => option.value) : []),
+            ...(data.lti ? data.lti.map((option) => option.value) : []),
+        ];
+        assignOrg(data.email!, formattedOrgData);
+    };
     return (
         <div className={styles.container}>
             <div className={styles.tableContainer}>
-            <div className={styles.header}>
-                <h1>Intern Management</h1>
-                <button onClick={handleModalOpen}>
-                    {" "}
-                    <BiPlusCircle /> Create
-                </button>
-            </div>
+                <div className={styles.header}>
+                    <h1>Intern Management</h1>
+                    <button onClick={handleModalOpen}>
+                        {" "}
+                        <BiPlusCircle /> Create
+                    </button>
+                </div>
                 {data?.data && (
                     <Table data={data.data as InternData[]} columns={columns} />
                 )}
@@ -57,7 +66,7 @@ const InternManagement = () => {
                 <CreateModal
                     isModalOpen={isModalOpen}
                     handleModalClose={() => setIsModalOpen(false)}
-                    onSubmit={(a) => console.log(a)}
+                    onSubmit={handleSubmit}
                 />
             )}
         </div>

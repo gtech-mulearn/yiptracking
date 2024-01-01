@@ -39,3 +39,14 @@ export const getOrg = async (org_type: string) => {
         console.log(err);
     }
 };
+
+export const assignOrg = async (email: string, org: string[]) => {
+    try {
+        const res = await privateGateway.post(yipRoutes.assignOrg, {
+            email: email,
+            org_id: org,
+        });
+    } catch (err) {
+        console.log(err);
+    }
+};
