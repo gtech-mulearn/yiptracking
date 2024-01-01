@@ -4,7 +4,7 @@ import { PrivateRoute } from "./services/PrivateRoute/PrivateRoute";
 import { Toaster } from "react-hot-toast";
 import NotFound from "./modules/NotFound/NotFound";
 import Login from "./modules/Login";
-import Dashboard from './modules/Dashboard/Dashboard';
+import Dashboard from "./modules/Dashboard/Dashboard";
 import InternManagement from "./modules/InternManagement/InternManagement";
 
 function App() {
@@ -27,7 +27,7 @@ function App() {
             children: [
                 {
                     path: "/",
-                    element: <Dashboard/>,
+                    element: <Dashboard />,
                 },
 
                 {

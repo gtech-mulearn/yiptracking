@@ -36,3 +36,14 @@ interface Pagination {
     isPrev: boolean;
     nextPage: number;
 }
+
+interface SelectOption {
+    label: string;
+    value: string;
+}
+interface CreateUser {
+    email?: string;
+    college?: SelectOption[];
+    school?: SelectOption[];
+    lti?: SelectOption[];
+}

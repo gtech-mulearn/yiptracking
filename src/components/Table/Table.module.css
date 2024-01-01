@@ -8,64 +8,63 @@
 }
 
 .search {
-	width: 100%;
+    width: 100%;
 }
 
 .search input {
-	border: 2px solid var(--secondary);
-	padding: .7rem 1rem;
-	border-radius: 10px;
-	width: 20rem;
+    border: 2px solid var(--secondary);
+    padding: 0.7rem 1rem;
+    border-radius: 10px;
+    width: 20rem;
 }
 
 .search input::placeholder {
-	color: black;
+    color: black;
 }
 
 .table {
-    width: 100%;
+    /* width: 70vw; */
     /* height: 90vh; */
     background-color: #fff5;
 
     backdrop-filter: blur(7px);
-    border-radius: .8rem;
+    border-radius: 0.8rem;
 
-	overflow: hidden;
-}  
+    overflow: hidden;
+}
 
 .tableBody {
     width: 100%;
     max-height: fit-content;
     background-color: #fffb;
 
-    margin: .8rem auto;
-    border-radius: .6rem;
+    margin: 0.8rem auto;
+    border-radius: 0.6rem;
 
     overflow: auto;
     overflow: overlay;
 }
 
-.tableBody::-webkit-scrollbar{
+.tableBody::-webkit-scrollbar {
     width: 0.5rem;
     height: 0.5rem;
-	background-color: var(--secondary);
-	visibility: hidden;
+    background-color: var(--secondary);
+    visibility: hidden;
 }
 
-.tableBody:hover::-webkit-scrollbar{
-	visibility: visible;
+.tableBody:hover::-webkit-scrollbar {
+    visibility: visible;
 }
 
-.tableBody::-webkit-scrollbar-thumb{
-    border-radius: .5rem;
+.tableBody::-webkit-scrollbar-thumb {
+    border-radius: 0.5rem;
     background-color: #0004;
     visibility: hidden;
 }
 
-.tableBody:hover::-webkit-scrollbar-thumb{ 
+.tableBody:hover::-webkit-scrollbar-thumb {
     visibility: visible;
 }
-
 
 table {
     width: 100%;
@@ -74,12 +73,14 @@ table {
 td img {
     width: 36px;
     height: 36px;
-    margin-right: .5rem;
+    margin-right: 0.5rem;
     border-radius: 50%;
     vertical-align: middle;
 }
 
-table, th, td {
+table,
+th,
+td {
     border-collapse: collapse;
     padding: 1rem;
     text-align: left;
@@ -99,9 +100,9 @@ tbody tr:nth-child(even) {
 }
 
 tbody tr {
-    --delay: .1s;
-    transition: .5s ease-in-out var(--delay), background-color 0s;
-	cursor: pointer;
+    --delay: 0.1s;
+    transition: 0.5s ease-in-out var(--delay), background-color 0s;
+    cursor: pointer;
 }
 
 tbody tr.hide {
@@ -116,20 +117,44 @@ tbody tr:hover {
 tbody tr td,
 tbody tr td p,
 tbody tr td img {
-    transition: .2s ease-in-out;
+    transition: 0.2s ease-in-out;
 }
 
 tbody tr.hide td,
 tbody tr.hide td p {
     padding: 0;
     font: 0 / 0 sans-serif;
-    transition: .2s ease-in-out .5s;
+    transition: 0.2s ease-in-out 0.5s;
 }
 
 tbody tr.hide td img {
     width: 0;
     height: 0;
-    transition: .2s ease-in-out .5s;
+    transition: 0.2s ease-in-out 0.5s;
+}
+
+.status {
+    padding: 0.4rem 0;
+    border-radius: 2rem;
+    text-align: center;
+}
+
+.status.delivered {
+    background-color: #86e49d;
+    color: #006b21;
+}
+
+.status.cancelled {
+    background-color: #d893a3;
+    color: #b30021;
+}
+
+.status.pending {
+    background-color: #ebc474;
+}
+
+.status.shipped {
+    background-color: #6fcaea;
 }
 
 @media (max-width: 1000px) {
@@ -144,15 +169,15 @@ thead th span.icon-arrow {
     height: 1.3rem;
     border-radius: 50%;
     border: 1.4px solid transparent;
-    
+
     text-align: center;
     font-size: 1rem;
-    
-    margin-left: .5rem;
-    transition: .2s ease-in-out;
+
+    margin-left: 0.5rem;
+    transition: 0.2s ease-in-out;
 }
 
-thead th:hover span.icon-arrow{
+thead th:hover span.icon-arrow {
     border: 1.4px solid #6c00bd;
 }
 
@@ -160,15 +185,16 @@ thead th:hover {
     color: #6c00bd;
 }
 
-thead th.active span.icon-arrow{
+thead th.active span.icon-arrow {
     background-color: #6c00bd;
     color: #fff;
 }
 
-thead th.asc span.icon-arrow{
+thead th.asc span.icon-arrow {
     transform: rotate(180deg);
 }
 
-thead th.active,tbody td.active {
+thead th.active,
+tbody td.active {
     color: #6c00bd;
 }
