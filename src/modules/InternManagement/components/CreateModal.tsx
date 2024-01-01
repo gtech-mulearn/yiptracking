@@ -19,6 +19,7 @@ const CreateModal = ({
     email,
 }: Props) => {
     const [data, setData] = useState<CreateUser>({ email: email ?? "" });
+	const [isLoading, setIsLoading] = useState<boolean>(false);
     const [options, setOptions] = useState<{
         [key: string]: { label: string; value: string }[];
     }>({
@@ -68,6 +69,7 @@ const CreateModal = ({
     ];
 
     useEffect(() => {
+		setIsLoading(true); 
         const formatOrgData = (data?: any[]) => {
             if (!data) return null;
             return data.map((org) => ({ value: org.id, label: org.name }));
@@ -79,6 +81,7 @@ const CreateModal = ({
                 college: formatOrgData(await getOrg("College")) ?? [],
                 iti: formatOrgData(await getOrg("iti")) ?? [],
             });
+			setIsLoading(false); 
         })();
     }, []);
 
@@ -87,7 +90,7 @@ const CreateModal = ({
             <Modal
                 isOpen={isModalOpen}
                 onClose={handleModalClose}
-                title={"Add Intern"}
+                title={"Assign Organizations to Intern"}
                 type={"success"}
                 onDone={() => {
                     if (!data.email) {
@@ -109,7 +112,7 @@ const CreateModal = ({
                                     return (
                                         <label>
                                             <h4>{template.label}:</h4>
-                                            <input {...(props as any)} />
+                                            <input placeholder="enter email of intern" {...(props as any)} />
                                         </label>
                                     );
                                 } else if (type === "select") {
@@ -118,6 +121,7 @@ const CreateModal = ({
                                         <label>
                                             <h4>{template.label}:</h4>
                                             <ReactSelect
+                                                isLoading={isLoading}
                                                 {...(props as any)}
                                             />
                                         </label>

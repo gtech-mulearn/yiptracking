@@ -30,7 +30,6 @@ const InternManagement = () => {
             if (response) {
                 setData(response);
             }
-            console.log(response);
         } catch (error) {
             toast.error("Something went wrong, failed to load data");
         }
@@ -49,7 +48,9 @@ const InternManagement = () => {
 		toast
             .promise(assignOrg(data.email!, formattedOrgData), {
                 loading: "Loading...",
-                success: <b>New Intern Added</b>,
+                success: (message) => {
+                    return <b>{message}</b>;
+                },
                 error: (message) => {
                     return <b>{message}</b>;
                 },
