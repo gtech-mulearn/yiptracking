@@ -26,7 +26,7 @@ const Sidebar = (_props: Props) => {
             >
                 <div>
                     <img
-                        src="https://yip.kerala.gov.in/wp-content/uploads/2022/10/logonew-1.png"
+                        src="https://yip.mulearn.org/assets/logo-c5ae7308.webp"
                         alt="YIP logo"
                         width={100}
                     />

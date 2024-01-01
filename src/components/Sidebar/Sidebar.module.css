@@ -8,34 +8,7 @@
     width: 15rem;
     background-color: rgba(255, 255, 255, 0.918);
     z-index: 100;
-    position: fixed;
-
-    transition: transform 0.25s;
-}
-
-.hamburger {
-    display: none;
-    position: absolute;
-    top: 0;
-    right: 0;
-    z-index: 101;
-    padding: 1rem;
-    color: var(--primary);
-    cursor: pointer;
-}
-
-@media screen and (max-width: 600px) {
-    .sidebarContianer:not(.menuactive) {
-        transform: translateX(100%);
-    }
-
-    .sidebarContianer {
-        width: 100%;
-    }
-
-    .hamburger {
-        display: block;
-    }
+	flex-shrink: 0;
 }
 
 .sidebarNav {

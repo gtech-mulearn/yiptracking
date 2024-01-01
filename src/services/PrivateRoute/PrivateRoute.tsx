@@ -17,9 +17,10 @@ export const PrivateRoute = () => {
 
     return (
         <div className={styles.container}>
-            <div className={styles.ghostSidebar}></div>
             <Sidebar />
-            <Outlet />
+            <div className={styles.content}>
+                <Outlet />
+            </div>
         </div>
     );
 };

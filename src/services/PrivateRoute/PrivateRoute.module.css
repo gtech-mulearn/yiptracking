@@ -7,14 +7,16 @@
     background-size: 100% 100%; */
 }
 
-.ghostSidebar {
-    width: 15rem;
-    flex-shrink: 0; /* Prevents the ghost element from shrinking */
-    visibility: hidden; /* Makes the ghost element invisible */
+.content {
+	width: calc(100% - 15rem);
+	height: 100vh;
+	overflow-y: scroll;
+	padding: 1rem;
 }
 
 @media screen and (max-width: 600px) {
-    .ghostSidebar {
-        display: none;
-    }
+	.content {
+		width: 100%;
+	}
+	
 }
