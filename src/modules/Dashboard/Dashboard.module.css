@@ -10,7 +10,7 @@
 }
 
 .profile {
-    width: 100%;
+    width: fit-content
 }
 
 .dashboard {
@@ -89,6 +89,23 @@
     justify-content: space-between;
     gap: 5rem;
     color: black;
+}
+
+@media screen and (1100px <= width <= 1290px) {
+	.profileSection2 h4{
+		gap: 2rem;
+		font-size: 14px;
+	}
+	.profileInfo {
+		font-size: 14px;
+		text-align: center;		
+	}
+	.profileContents {
+		gap: 1rem;
+	}
+	.editBtn {
+		width: 20px;
+	}
 }
 
 @media screen and (max-width: 1100px) {
@@ -242,4 +259,12 @@
     width: 100%;
     height: 100%;
     color: white;
+}
+
+@media screen and (1100px <= width <= 1290px) {
+	.editBtn {
+		width: 25px;
+		height: 25px;
+		font-size: 10px;
+	}
 }

@@ -41,6 +41,7 @@ const InternManagement = () => {
     }, [refresh]);
     return (
         <div className={styles.container}>
+            <div className={styles.tableContainer}>
             <div className={styles.header}>
                 <h1>Intern Management</h1>
                 <button onClick={handleModalOpen}>
@@ -48,7 +49,6 @@ const InternManagement = () => {
                     <BiPlusCircle /> Create
                 </button>
             </div>
-            <div className={styles.tableContainer}>
                 {data?.data && (
                     <Table data={data.data as InternData[]} columns={columns} />
                 )}

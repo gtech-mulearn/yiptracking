@@ -74,3 +74,10 @@
     color: black;
     font-size: medium;
 }
+
+.tableContainer {
+    width: 100%;
+    background-color: white;
+    padding: 1rem;
+    border-radius: 10px;
+}

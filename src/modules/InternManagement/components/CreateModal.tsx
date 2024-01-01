@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Modal from "../../../components/Modal/Modal";
 import styles from "../InternManagement.module.css";
 import ReactSelect from "react-select";
-import { getDistrict, getOrg, getZone } from "../services/InternManagementApis";
+import { getOrg } from "../services/InternManagementApis";
 
 type Props = {
     isModalOpen: boolean;
