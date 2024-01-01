@@ -32,7 +32,7 @@ const CreateModal = ({
             label: "Email",
             type: "text",
             value: data ? data.email ?? "" : "",
-            onChange: (e) =>
+            onChange: (e: { target: { value: any; }; }) =>
                 setData((data) => ({ ...data, email: e.target.value })),
         },
         {
@@ -103,17 +103,26 @@ const CreateModal = ({
                         <form>
                             {formTemplate.map((template) => {
                                 const { type, ...props } = template;
-                                return (
-                                    <label>
-                                        <h4>{template.label}:</h4>
-                                        {type === "text" && (
-                                            <input {...props} />
-                                        )}
-                                        {type === "select" && (
-                                            <ReactSelect {...props} />
-                                        )}
-                                    </label>
-                                );
+
+                                if (type === "text") {
+                                    // Ensure that value is a string for text input
+                                    return (
+                                        <label>
+                                            <h4>{template.label}:</h4>
+                                            <input {...(props as any)} />
+                                        </label>
+                                    );
+                                } else if (type === "select") {
+                                    // Ensure correct typing for ReactSelect component
+                                    return (
+                                        <label>
+                                            <h4>{template.label}:</h4>
+                                            <ReactSelect
+                                                {...(props as any)}
+                                            />
+                                        </label>
+                                    );
+                                }
                             })}
                         </form>
                     </div>

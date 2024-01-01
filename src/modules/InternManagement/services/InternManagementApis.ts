@@ -46,7 +46,9 @@ export const assignOrg = async (email: string, org: string[]) => {
             email: email,
             org_id: org,
         });
-    } catch (err) {
-        console.log(err);
+		return res.data.response;
+    } catch (err:any) {
+		console.log(err.message);
+        throw err.message;
     }
 };
