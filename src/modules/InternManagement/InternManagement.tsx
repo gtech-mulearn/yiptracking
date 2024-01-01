@@ -8,7 +8,7 @@ import { BiPlusCircle } from "react-icons/bi";
 
 const InternManagement = () => {
     const [refresh, setRefresh] = useState(false);
-    const [data, setData] = useState<InternsDataResponse>();
+    const [data, setData] = useState<InternData[]>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     // const [selectedIntern, setSelectedIntern] = useState<any>(null);
     const columns: TableColumn<InternData>[] = [
@@ -17,7 +17,6 @@ const InternManagement = () => {
         { key: "role", header: "Role" },
         { key: "district_name", header: "District" },
         { key: "email", header: "Email" },
-        { key: "mobile", header: "Mobile" },
     ];
 
     const handleModalOpen = () => {
@@ -26,13 +25,13 @@ const InternManagement = () => {
 
     const handleFetchDetails = async () => {
         try {
-            const response: any = await getInterns();
+            const response: InternData[] = await getInterns();
             if (response) {
                 setData(response);
             }
         } catch (error) {
             toast.error("Something went wrong, failed to load data");
-        }
+		}
     };
 
     useEffect(() => {
@@ -69,8 +68,8 @@ const InternManagement = () => {
                         <BiPlusCircle /> Manage
                     </button>
                 </div>
-                {data?.data && (
-                    <Table data={data.data as InternData[]} columns={columns} />
+                {data && (
+                    <Table data={data as InternData[]} columns={columns} />
                 )}
             </div>
             {isModalOpen && (
