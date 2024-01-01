@@ -4,6 +4,7 @@ import { NavData } from "./services/NavData";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { BiMenu, BiX } from "react-icons/bi";
+import yip from "../../assets/YIP Logo.png";
 
 type Props = {};
 
@@ -26,7 +27,7 @@ const Sidebar = (_props: Props) => {
             >
                 <div>
                     <img
-                        src="https://yip.mulearn.org/assets/logo-c5ae7308.webp"
+                        src={yip}
                         alt="YIP logo"
                         width={100}
                     />

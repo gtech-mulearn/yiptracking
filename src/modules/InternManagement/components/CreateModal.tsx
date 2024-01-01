@@ -56,11 +56,11 @@ const CreateModal = ({
                 setData((data) => ({ ...data, college: options })),
         },
         {
-            name: "lti",
+            name: "iti",
             label: "Industrial Training Institute",
             type: "select",
-            value: data ? data.lti ?? [] : [],
-            options: options.lti,
+            value: data ? data.iti ?? [] : [],
+            options: options.iti,
             isMulti: true,
             onChange: (options: SelectOption[]) =>
                 setData((data) => ({ ...data, college: options })),
@@ -77,7 +77,7 @@ const CreateModal = ({
             setOptions({
                 school: formatOrgData(await getOrg("School")) ?? [],
                 college: formatOrgData(await getOrg("College")) ?? [],
-                lti: formatOrgData(await getOrg("lti")) ?? [],
+                lti: formatOrgData(await getOrg("iti")) ?? [],
             });
         })();
     }, []);
