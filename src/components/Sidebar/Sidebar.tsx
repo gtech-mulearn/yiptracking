@@ -2,7 +2,7 @@ import { MdOutlineLogout } from "react-icons/md";
 import styles from "./Sidebar.module.css";
 import { NavData } from "./services/NavData";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { BiMenu, BiX } from "react-icons/bi";
 import yip from "../../assets/YIP Logo.png";
 
@@ -13,9 +13,9 @@ const Sidebar = (_props: Props) => {
     const location = useLocation();
     const [ismobileMenuActive, setIsMobileMenuActive] = useState(false);
 
-    useEffect(() => {
-        console.log(location.pathname);
-    });
+    // useEffect(() => {
+    //     console.log(location.pathname);
+    // });
     return (
         <>
             <div

@@ -205,3 +205,12 @@ thead th.active,
 tbody td.active {
     color: #6c00bd;
 }
+
+.loaderContainer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+	min-height: 15rem;
+	width: 100%;
+}
