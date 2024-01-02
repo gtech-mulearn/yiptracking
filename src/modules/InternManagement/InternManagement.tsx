@@ -14,11 +14,11 @@ const InternManagement = () => {
     const [data, setData] = useState<InternData[]>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const columns: TableColumn<InternData>[] = [
-        { key: "first_name", header: "First Name" },
-        { key: "last_name", header: "Last Name" },
-        { key: "role", header: "Role" },
-        { key: "district_name", header: "District" },
-        { key: "email", header: "Email" },
+        { key: "first_name", header: "First Name", isSortable: true },
+        { key: "last_name", header: "Last Name", isSortable: true },
+        { key: "role", header: "Role", isSortable: true },
+        { key: "district_name", header: "District", isSortable: true },
+        { key: "email", header: "Email", isSortable: true },
     ];
 
     const handleModalOpen = () => {

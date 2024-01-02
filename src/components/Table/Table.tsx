@@ -1,6 +1,7 @@
 import { useState, useMemo } from "react";
 import styles from "./Table.module.css";
 import Loader from "../Loader/Loader";
+import { TbArrowsSort } from "react-icons/tb";
 
 type Action<T> = {
     icon: React.ReactNode; // Can be a JSX element like an icon
@@ -94,7 +95,14 @@ const Table = <T extends { [key: string]: any }>({
                                         handleSort(column.key.toString())
                                     }
                                 >
-                                    {column.header}
+                                    <div>
+                                        {column.header}{" "}
+                                        {column.isSortable && (
+                                            <span>
+                                                <TbArrowsSort />
+                                            </span>
+                                        )}
+                                    </div>
                                 </th>
                             ))}
                             {actions && <th>Actions</th>}
