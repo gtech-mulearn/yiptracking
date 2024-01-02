@@ -75,7 +75,12 @@ const InternManagement = () => {
                     </button>
                 </div>
                 {data && (
-                    <Table data={data as InternData[]} columns={columns} onRowClick={handleClick} />
+                    <Table
+                        data={data as InternData[]}
+                        columns={columns}
+                        onRowClick={handleClick}
+                        isLoading={data.length === 0}
+                    />
                 )}
             </div>
             {isModalOpen && (
