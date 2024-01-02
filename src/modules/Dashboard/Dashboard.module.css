@@ -215,7 +215,8 @@
 }
 
 .modalFormContainer form label {
-    display: flex;
+	display: flex;
+	position: relative;
     gap: 0.5rem;
     flex-direction: column;
 }
@@ -231,6 +232,26 @@
     width: 300px;
     color: black;
     font-size: medium;
+}
+
+.modalFormContainer form div {
+    border-radius: 8px;
+    padding: 10px;
+    width: 300px;
+    color: black;
+    font-size: medium;
+}
+
+.modalFormContainer form div input {
+	width: 25px;
+}
+
+.modalFormContainer form label i {
+	position: absolute;
+	bottom: 1px;
+	font-size: 26px;
+	cursor: pointer;
+	right: 10px;
 }
 
 .toggle {

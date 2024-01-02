@@ -55,4 +55,6 @@ interface ProfileEditData {
     gender: string;
     dob: string;
     mobile: string;
+	currentPassword: string;
+	newPassword: string;
 }

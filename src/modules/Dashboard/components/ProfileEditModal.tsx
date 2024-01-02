@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Modal from "../../../components/Modal/Modal";
 import styles from "../Dashboard.module.css";
 import { convertToSimpleDate } from "../../../utils/common";
+import { BiHide, BiShow } from "react-icons/bi";
 
 type Props = {
     isModalOpen: boolean;
@@ -17,7 +18,12 @@ const ProfileEditModal = ({
     currentData,
 }: Props) => {
     const [data, setData] = useState<ProfileEditData>(currentData);
-	useEffect(() => {
+    const [isShowPassword, setIsShowPassword] = useState({
+        currentPassword: false,
+        newPassword: false,
+    });
+    const [resetPassword, setResetPassword] = useState<boolean>(false);
+    useEffect(() => {
         setData(currentData); // Update local state when currentData changes
     }, [currentData]);
     const formTemplate = [
@@ -29,6 +35,7 @@ const ProfileEditModal = ({
             type: "date",
         },
         { name: "mobile", label: "Mobile No.", value: data.mobile ?? "" },
+        // { name: "resetPassword", label: "Reset Password", type: "checkbox" },
     ];
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setData({ ...data, [e.target.name]: e.target.value });
@@ -59,6 +66,82 @@ const ProfileEditModal = ({
                                 />
                             </label>
                         ))}
+                        <label>
+                            <h4>Reset Password:</h4>
+                            <div
+                                className={styles.checkboxContainer}
+                                title="Reset Password"
+                            >
+                                <input
+                                    type="checkbox"
+                                    name="resetPassword"
+                                    onClick={() =>
+                                        setResetPassword(!resetPassword)
+                                    }
+                                />
+                            </div>
+                        </label>
+
+                        {resetPassword && (
+                            <>
+                                <label>
+                                    <h4>Current Password:</h4>
+                                    <input
+                                        type={
+                                            isShowPassword.currentPassword
+                                                ? "text"
+                                                : "password"
+                                        }
+                                        name="currentPassword"
+                                        value={data.currentPassword}
+                                        onChange={handleChange}
+                                    />
+                                    <i
+                                        onClick={() =>
+                                            setIsShowPassword({
+                                                ...isShowPassword,
+                                                currentPassword:
+                                                    !isShowPassword.currentPassword,
+                                            })
+                                        }
+                                    >
+                                        {isShowPassword.currentPassword ? (
+                                            <BiHide />
+                                        ) : (
+                                            <BiShow />
+                                        )}
+                                    </i>
+                                </label>
+                                <label>
+                                    <h4>New Password:</h4>
+                                    <input
+                                        type={
+                                            isShowPassword.newPassword
+                                                ? "text"
+                                                : "password"
+                                        }
+                                        name="newPassword"
+                                        value={data.newPassword}
+                                        onChange={handleChange}
+                                    />
+                                    <i
+                                        onClick={() =>
+                                            setIsShowPassword({
+                                                ...isShowPassword,
+                                                newPassword:
+                                                    !isShowPassword.newPassword,
+                                            })
+                                        }
+                                    >
+                                        {isShowPassword.newPassword ? (
+                                            <BiHide />
+                                        ) : (
+                                            <BiShow />
+                                        )}
+                                    </i>
+                                </label>
+                            </>
+                        )}
                     </form>
                 </div>
             </div>
