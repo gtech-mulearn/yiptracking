@@ -1,16 +1,19 @@
 import { useState, useMemo } from "react";
 import styles from "./Table.module.css";
+import Loader from "../Loader/Loader";
 
 type TableProps<T extends { [key: string]: any }> = {
     data: T[];
     columns: TableColumn<T>[];
     onRowClick: (email: string) => void;
+    isLoading: boolean;
 };
 
 const Table = <T extends { [key: string]: any }>({
     data,
     columns,
     onRowClick,
+    isLoading,
 }: TableProps<T>) => {
     const [searchTerm, setSearchTerm] = useState("");
     const [sortKey, setSortKey] = useState("");
@@ -55,7 +58,11 @@ const Table = <T extends { [key: string]: any }>({
         onRowClick(email);
     };
 
-    return (
+    return isLoading ? (
+        <div className={styles.loaderContainer}>
+            <Loader />
+        </div>
+    ) : (
         <div className={styles.table}>
             <div className={styles.search}>
                 <input
