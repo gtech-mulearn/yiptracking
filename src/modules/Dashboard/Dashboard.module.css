@@ -31,21 +31,26 @@
 .dashboardContainer {
     display: flex;
     flex-direction: column;
-    padding: 1rem;
     background-color: rgba(255, 255, 255, 0.918);
     border-radius: 15px;
     /* box-shadow: var(--shadow); */
 }
 
 .dashboardContainer {
+	padding: 1rem;
     width: 50%;
 }
 
 .profileContents {
     display: flex;
-    gap: 5rem;
+    gap: 2rem;
+	justify-content: space-between;
     width: 100%;
-    padding: 1rem;
+	padding: .5rem;
+}
+
+.profileContents h3 {
+	text-align: center;
 }
 
 .dashboardContents div h3 {
@@ -99,7 +104,7 @@
     color: black;
 }
 
-@media screen and (1100px <= width <= 1290px) {
+@media screen and (1100px <= width <= 1300px) {
 	.profileSection2 h4{
 		gap: 2rem;
 		font-size: 14px;
@@ -123,6 +128,9 @@
     .dashboardContainer {
         width: 100%;
     }
+	.profileContents {
+		gap: 5rem;
+	}
 }
 
 .orgCard {
@@ -255,7 +263,7 @@
 }
 
 .toggle {
-    width: 100%;
+    width: 100% !important;
     text-align: center;
     margin-bottom: 1rem;
 }

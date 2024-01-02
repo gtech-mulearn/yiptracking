@@ -1,12 +1,20 @@
 import { useState, useMemo } from "react";
 import styles from "./Table.module.css";
 import Loader from "../Loader/Loader";
+import { TbArrowsSort } from "react-icons/tb";
+
+type Action<T> = {
+    icon: React.ReactNode; // Can be a JSX element like an icon
+    onClick: (item: T) => void; // Function to be called on click
+    title: string;
+};
 
 type TableProps<T extends { [key: string]: any }> = {
     data: T[];
     columns: TableColumn<T>[];
-    onRowClick: (email: string) => void;
-    isLoading: boolean;
+    isLoading?: boolean;
+    onRowClick?: (item: T) => void;
+    actions?: Action<T>[]; // Optional actions array
 };
 
 const Table = <T extends { [key: string]: any }>({
@@ -14,6 +22,7 @@ const Table = <T extends { [key: string]: any }>({
     columns,
     onRowClick,
     isLoading,
+    actions,
 }: TableProps<T>) => {
     const [searchTerm, setSearchTerm] = useState("");
     const [sortKey, setSortKey] = useState("");
@@ -54,8 +63,10 @@ const Table = <T extends { [key: string]: any }>({
         setSortKey(key);
     };
 
-    const handleClick = (email: string) => {
-        onRowClick(email);
+    const handleClick = (item: T) => {
+        if (onRowClick) {
+            onRowClick(item);
+        }
     };
 
     return isLoading ? (
@@ -84,23 +95,48 @@ const Table = <T extends { [key: string]: any }>({
                                         handleSort(column.key.toString())
                                     }
                                 >
-                                    {column.header}
+                                    <div>
+                                        {column.header}{" "}
+                                        {column.isSortable && (
+                                            <span>
+                                                <TbArrowsSort />
+                                            </span>
+                                        )}
+                                    </div>
                                 </th>
                             ))}
+                            {actions && <th>Actions</th>}
                         </tr>
                     </thead>
                     <tbody>
                         {filteredData.map((row) => (
-                            <tr
-                                key={row.id}
-                                onClick={() => handleClick(row.email)}
-                            >
+                            <tr key={row.id} onClick={() => handleClick(row)}>
                                 <td>{filteredData.indexOf(row) + 1}</td>
                                 {columns.map((column) => (
                                     <td key={column.key.toString()}>
                                         {row[column.key]}
                                     </td>
                                 ))}
+                                {actions && (
+                                    <td>
+                                        <div className={styles.action}>
+                                            {actions.map(
+                                                (action, actionIndex) => (
+                                                    <div
+                                                        key={actionIndex}
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            action.onClick(row);
+                                                        }}
+                                                        title={action.title}
+                                                    >
+                                                        {action.icon}
+                                                    </div>
+                                                )
+                                            )}
+                                        </div>
+                                    </td>
+                                )}
                             </tr>
                         ))}
                     </tbody>

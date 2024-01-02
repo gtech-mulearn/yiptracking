@@ -170,39 +170,20 @@ tbody tr.hide td img {
     }
 }
 
-thead th span.icon-arrow {
-    display: inline-block;
-    width: 1.3rem;
-    height: 1.3rem;
-    border-radius: 50%;
-    border: 1.4px solid transparent;
-
-    text-align: center;
-    font-size: 1rem;
-
-    margin-left: 0.5rem;
-    transition: 0.2s ease-in-out;
+thead th div span {
+	font-size: 20px;
 }
 
-thead th:hover span.icon-arrow {
-    border: 1.4px solid #6c00bd;
+thead th div span:hover {
+	scale: 1.2;
+}
+
+thead th div {
+	display: flex;
+	gap: 0.3rem;
 }
 
 thead th:hover {
-    color: #6c00bd;
-}
-
-thead th.active span.icon-arrow {
-    background-color: #6c00bd;
-    color: #fff;
-}
-
-thead th.asc span.icon-arrow {
-    transform: rotate(180deg);
-}
-
-thead th.active,
-tbody td.active {
     color: #6c00bd;
 }
 
@@ -213,4 +194,24 @@ tbody td.active {
 	height: 100%;
 	min-height: 15rem;
 	width: 100%;
+}
+
+.action {
+	display: flex;
+	justify-content: start;
+	font-size: 20px;
+	align-items: center;
+	gap: 0.1rem;
+}
+
+.action div {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 0.5rem;
+}
+
+.action div:hover {
+	background-color: rgba(169, 169, 169, 0.726);
+	border-radius: 50%;
 }

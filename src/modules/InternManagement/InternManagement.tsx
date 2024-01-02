@@ -6,6 +6,7 @@ import Table from "../../components/Table/Table";
 import CreateModal from "./components/CreateModal";
 import { useNavigate } from "react-router-dom";
 import { MdAssignmentAdd } from "react-icons/md";
+import { BiShow } from "react-icons/bi";
 
 const InternManagement = () => {
 	const navigate = useNavigate()
@@ -13,11 +14,11 @@ const InternManagement = () => {
     const [data, setData] = useState<InternData[]>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const columns: TableColumn<InternData>[] = [
-        { key: "first_name", header: "First Name" },
-        { key: "last_name", header: "Last Name" },
-        { key: "role", header: "Role" },
-        { key: "district_name", header: "District" },
-        { key: "email", header: "Email" },
+        { key: "first_name", header: "First Name", isSortable: true },
+        { key: "last_name", header: "Last Name", isSortable: true },
+        { key: "role", header: "Role", isSortable: true },
+        { key: "district_name", header: "District", isSortable: true },
+        { key: "email", header: "Email", isSortable: true },
     ];
 
     const handleModalOpen = () => {
@@ -60,8 +61,8 @@ const InternManagement = () => {
             });
     };
 
-	const handleClick = (email: string) => {
-		navigate("/intern/" + email)
+	const handleClick = (data: InternData) => {
+		navigate("/intern/" + data.email)
 	}
 
     return (
@@ -80,6 +81,15 @@ const InternManagement = () => {
                         columns={columns}
                         onRowClick={handleClick}
                         isLoading={data.length === 0}
+                        actions={[
+                            {
+                                icon: <BiShow />,
+                                onClick: (item) => {
+                                    handleClick(item);
+                                },
+								title: "View Details",
+                            },
+                        ]}
                     />
                 )}
             </div>
