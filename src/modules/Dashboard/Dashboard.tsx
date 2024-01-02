@@ -2,14 +2,19 @@ import { useEffect, useState } from "react";
 import styles from "./Dashboard.module.css";
 import Profile from "./components/Profile";
 import toast from "react-hot-toast";
-import { getProfile, updateOrgStatus, updateProfile } from "./services/DashboardApis";
+import {
+    getProfile,
+    resetPassword,
+    updateOrgStatus,
+    updateProfile,
+} from "./services/DashboardApis";
 import OrgCard from "./components/OrgCard";
 import DashboardModal from "./components/DashboardModal";
 import { getAccessToken } from "../../services/ApiGateway/ApiGateway";
 import ProfileEditModal from "./components/ProfileEditModal";
 import { useParams } from "react-router-dom";
 const Dashboard = () => {
-	const {id} = useParams()
+    const { id } = useParams();
     const [refresh, setRefresh] = useState(false);
     const [data, setData] = useState<DashboardData>();
     const [modalState, setModalState] = useState<"org" | "profile" | null>(
@@ -61,13 +66,24 @@ const Dashboard = () => {
             });
     };
     const updateProfileData = (data: ProfileEditData) => {
-		toast
+        toast
             .promise(updateProfile(data), {
                 loading: "Loading...",
                 success: <b>Updated successfully</b>,
                 error: (message) => {
                     return <b>{message}</b>;
                 },
+            })
+            .then(() => {
+                if (data.newPassword && data.currentPassword) {
+                    toast.promise(resetPassword(data), {
+                        loading: "Loading...",
+                        success: <b>Password reset successfull</b>,
+                        error: (message) => {
+                            return <b>{message}</b>;
+                        },
+                    });
+                }
             })
             .then(() => {
                 setRefresh(!refresh);
@@ -91,7 +107,7 @@ const Dashboard = () => {
                                     <div
                                         key={index}
                                         onClick={() => handleModalOpen(org)}
-										title="ITI details"
+                                        title="ITI details"
                                     >
                                         <OrgCard
                                             index={index + 1}
@@ -120,7 +136,7 @@ const Dashboard = () => {
                                     <div
                                         key={index}
                                         onClick={() => handleModalOpen(org)}
-										title="School details"
+                                        title="School details"
                                     >
                                         <OrgCard
                                             index={index + 1}
@@ -147,7 +163,7 @@ const Dashboard = () => {
                                     <div
                                         key={index}
                                         onClick={() => handleModalOpen(org)}
-										title="College details"
+                                        title="College details"
                                     >
                                         <OrgCard
                                             index={index + 1}
@@ -183,6 +199,8 @@ const Dashboard = () => {
                         mobile: data.mobile ?? "",
                         dob: data.dob ?? "",
                         gender: data.gender ?? "",
+                        newPassword: "",
+                        currentPassword: "",
                     }}
                 />
             )}

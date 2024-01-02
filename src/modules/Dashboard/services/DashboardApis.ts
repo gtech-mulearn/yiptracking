@@ -46,10 +46,30 @@ export const updateProfile = async (data: ProfileEditData) => {
     try {
         const response = await privateGateway.put(
             dynamicRoute(yipRoutes.updateProfile),
-            data
+            {
+				gender: data.gender,
+				dob: data.dob,
+				mobile: data.mobile,
+			}
         );
-        console.log(response.data);
+		return response.data;
     } catch (error) {
-        console.error("API error:", error);
+        throw error;
+    }
+};
+
+export const resetPassword = async (data: ProfileEditData) => {
+    try {
+        const response = await privateGateway.patch(
+            dynamicRoute(yipRoutes.resetPassword),
+            {
+				old_password: data.currentPassword,
+				new_password: data.newPassword,
+			}
+        );
+		return response.data;
+    } catch (error: any) {
+        console.log(error);
+		throw error.response.data.message.general[0];
     }
 };
