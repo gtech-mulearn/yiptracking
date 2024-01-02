@@ -9,6 +9,14 @@
 	padding: 1rem;
 }
 
+@media screen and (max-width: 600px) {
+	.container {
+		margin-top: 70px;
+		height: calc(100% - 70px);
+	}
+	
+}
+
 .profile {
     width: fit-content
 }
