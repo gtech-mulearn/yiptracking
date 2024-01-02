@@ -4,8 +4,8 @@ import toast from "react-hot-toast";
 import { assignOrg, getInterns } from "./services/InternManagementApis";
 import Table from "../../components/Table/Table";
 import CreateModal from "./components/CreateModal";
-import { BiPlusCircle } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
+import { MdAssignmentAdd } from "react-icons/md";
 
 const InternManagement = () => {
 	const navigate = useNavigate()
@@ -71,7 +71,7 @@ const InternManagement = () => {
                     <h1>Intern Management</h1>
                     <button onClick={handleModalOpen}>
                         {" "}
-                        <BiPlusCircle /> Manage
+                        <MdAssignmentAdd /> Manage
                     </button>
                 </div>
                 {data && (
