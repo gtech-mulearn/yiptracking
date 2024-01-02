@@ -214,3 +214,23 @@ tbody td.active {
 	min-height: 15rem;
 	width: 100%;
 }
+
+.action {
+	display: flex;
+	justify-content: start;
+	font-size: 20px;
+	align-items: center;
+	gap: 0.1rem;
+}
+
+.action div {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 0.5rem;
+}
+
+.action div:hover {
+	background-color: rgba(169, 169, 169, 0.726);
+	border-radius: 50%;
+}
