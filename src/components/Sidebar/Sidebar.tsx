@@ -26,42 +26,52 @@ const Sidebar = (_props: Props) => {
                 }
             >
                 <div>
-                    <img
-                        src={yip}
-                        alt="YIP logo"
-                        width={100}
-                    />
+                    <img src={yip} alt="YIP logo" width={100} />
                 </div>
                 <div className={styles.sidebarNav}>
-                    {NavData.map((item) => item.role ? item.role?.includes(localStorage.getItem("roles") as string) && (
-                        <div
-                            key={item.link}
-                            onClick={() => navigate(item.link)}
-                            className={`${styles.navItem} ${
-                                item.link === (location.pathname as string)
-                                    ? styles.active
-                                    : ""
-                            }`}
-                        >
-                            <item.icon /> {item.title}
-                        </div>
-                    ) : (
-                        <div
-                            key={item.link}
-                            onClick={() => navigate(item.link)}
-                            className={`${styles.navItem} ${
-                                item.link === (location.pathname as string)
-                                    ? styles.active
-                                    : ""
-                            }`}
-                        >
-                            <item.icon /> {item.title}
-                        </div>
-                    ))}
+                    {NavData.map((item) =>
+                        item.role ? (
+                            item.role?.includes(
+                                localStorage.getItem("roles") as string
+                            ) && (
+                                <div
+                                    key={item.link}
+                                    onClick={() => {
+                                        navigate(item.link);
+                                        setIsMobileMenuActive(false);
+                                    }}
+                                    className={`${styles.navItem} ${
+                                        item.link ===
+                                        (location.pathname as string)
+                                            ? styles.active
+                                            : ""
+                                    }`}
+                                >
+                                    <item.icon /> {item.title}
+                                </div>
+                            )
+                        ) : (
+                            <div
+                                key={item.link}
+                                onClick={() => {
+                                    setIsMobileMenuActive(false);
+                                    navigate(item.link);
+                                }}
+                                className={`${styles.navItem} ${
+                                    item.link === (location.pathname as string)
+                                        ? styles.active
+                                        : ""
+                                }`}
+                            >
+                                <item.icon /> {item.title}
+                            </div>
+                        )
+                    )}
                 </div>
                 <div
                     className={styles.logout}
                     onClick={() => {
+                        setIsMobileMenuActive(!ismobileMenuActive);
                         localStorage.removeItem("accessToken");
                         localStorage.removeItem("refreshToken");
                         navigate("/login");
@@ -71,11 +81,17 @@ const Sidebar = (_props: Props) => {
                     Logout
                 </div>
             </div>
-            <div
-                className={styles.hamburger}
-                onClick={() => setIsMobileMenuActive(!ismobileMenuActive)}
-            >
-                {ismobileMenuActive ? <BiX size={40} /> : <BiMenu size={40} />}
+            <div className={styles.hamburgerContainer}>
+                <div
+                    className={styles.hamburger}
+                    onClick={() => setIsMobileMenuActive(!ismobileMenuActive)}
+                >
+                    {ismobileMenuActive ? (
+                        <BiX size={40} />
+                    ) : (
+                        <BiMenu size={40} />
+                    )}
+                </div>
             </div>
         </>
     );

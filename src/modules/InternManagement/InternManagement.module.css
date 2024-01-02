@@ -16,6 +16,16 @@
     gap: 2rem;
 }
 
+@media screen and (max-width: 600px) {
+	.container {
+		margin-top: 70px;
+		height: calc(100% - 70px);
+	}	
+	.header {
+		flex-direction: column;
+	}
+}
+
 .header button {
     padding: 0.75rem 2rem;
     background-color: var(--secondary);
