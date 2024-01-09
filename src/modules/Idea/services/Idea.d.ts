@@ -14,6 +14,6 @@ interface OrgIdeaStats {
     code: string;
     pre_registration: number;
     vos_completed: number;
-    group_formation: number;
     idea_submissions: number;
+    group_formation: number;
 }

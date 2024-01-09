@@ -1,8 +1,9 @@
 .container {
 	display: flex;
-	height: 100%;
-	min-height: 100vh;
 	justify-content: center;
+	height: 100vh;
+	overflow-y: scroll;
+	overflow-x: hidden;
 }
 
 @media screen and (max-width: 600px) {
@@ -46,6 +47,25 @@
 	justify-content: center;
 }
 
+.tableContainer {
+	width: 100%;
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+@media screen and (max-width: 1200px) {
+	.tableContainer {
+		width: 50rem;
+	}
+}
+
+@media screen and (max-width: 1150px) {
+	.tableContainer {
+		width: 45rem;
+	}
+}
+
+
 /* Idea Card CSS */
 .IdeaStatsCard {
 	background-color: var(--secondary);
@@ -56,6 +76,46 @@
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
+}
+
+@media screen and (max-width: 1050px) {
+	.tableContainer {
+		width: 40rem;
+	}
+	.IdeaStatsCard {
+		min-width: 10rem;
+	}
+}
+
+@media screen and (max-width: 950px) {
+	.tableContainer {
+		width: 35rem;
+	}
+}
+
+@media screen and (max-width: 860px) {
+	.tableContainer {
+		width: 30rem;
+	}
+}
+
+@media screen and (max-width: 790px) {
+	.tableContainer {
+		width: 25rem;
+	}
+}
+
+@media screen and (max-width: 700px) {
+	.tableContainer {
+		width: 20rem;
+	}
+}
+
+@media screen and (max-width: 600px) {
+	.tableContainer {
+		width: 84vw;
+		padding: 0;
+	}
 }
 
 .IdeaStatsCard div {
