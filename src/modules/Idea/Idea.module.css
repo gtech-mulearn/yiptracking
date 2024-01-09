@@ -1,10 +1,16 @@
 .container {
 	display: flex;
-	height: 100%;
-	min-height: 100vh;
-	width: 100%;
 	justify-content: center;
-	align-items: center;
+	height: 100vh;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+@media screen and (max-width: 600px) {
+	.container {
+		margin-top: 5rem;
+		height: calc(100% - 5rem);
+	}
 }
 
 .loaderContainer {
@@ -12,4 +18,138 @@
 	margin-top: 2rem;
 	justify-content: center;
 	align-items: center;
+}
+
+.IdeaStatsContainer {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	height: fit-content;
+	padding: 1rem .5rem;
+	background-color: white;
+	margin: 1rem;
+	gap : 2rem;
+	align-items: center;
+	border-radius: 10px;
+}
+
+.IdeaStatsContainer .title {
+	text-align: left;
+	width: 100%;
+	padding: 0 1rem;
+	color: var(--primary);
+}
+
+.IdeaStatsRow {
+	display: flex;
+	gap: 2rem;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.tableContainer {
+	width: 100%;
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+@media screen and (max-width: 1200px) {
+	.tableContainer {
+		width: 50rem;
+	}
+}
+
+@media screen and (max-width: 1150px) {
+	.tableContainer {
+		width: 45rem;
+	}
+}
+
+.IdeaTypeSelect {
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 1rem;
+	align-items: center;
+}
+
+.IdeaTypeSelect select {
+	padding: .8rem;
+	border-radius: 8px;
+	width: 30%;
+	border: 3px solid var(--secondary);
+}
+
+@media screen and (max-width: 600px) {
+	.IdeaTypeSelect select {
+		width: 70%;
+	}
+	
+}
+
+/* Idea Card CSS */
+.IdeaStatsCard {
+	background-color: var(--secondary);
+	padding: 1rem;
+	border-radius: 10px;
+	min-width: 20rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+@media screen and (max-width: 1050px) {
+	.tableContainer {
+		width: 40rem;
+	}
+	.IdeaStatsCard {
+		min-width: 10rem;
+	}
+}
+
+@media screen and (max-width: 950px) {
+	.tableContainer {
+		width: 35rem;
+	}
+}
+
+@media screen and (max-width: 860px) {
+	.tableContainer {
+		width: 30rem;
+	}
+}
+
+@media screen and (max-width: 790px) {
+	.tableContainer {
+		width: 25rem;
+	}
+}
+
+@media screen and (max-width: 700px) {
+	.tableContainer {
+		width: 20rem;
+	}
+}
+
+@media screen and (max-width: 600px) {
+	.tableContainer {
+		width: 84vw;
+		padding: 0;
+	}
+}
+
+.IdeaStatsCard div {
+	background-color: white;
+	padding: 1rem;
+	width: 100%;
+	margin: 0 1rem;
+	height: 6rem;
+	border-radius: 10px;
+	color: var(--primary);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
 }
