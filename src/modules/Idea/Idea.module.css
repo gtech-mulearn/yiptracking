@@ -2,9 +2,14 @@
 	display: flex;
 	height: 100%;
 	min-height: 100vh;
-	width: 100%;
 	justify-content: center;
-	align-items: center;
+}
+
+@media screen and (max-width: 600px) {
+	.container {
+		margin-top: 5rem;
+		height: calc(100% - 5rem);
+	}
 }
 
 .loaderContainer {
@@ -12,4 +17,57 @@
 	margin-top: 2rem;
 	justify-content: center;
 	align-items: center;
+}
+
+.IdeaStatsContainer {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	height: fit-content;
+	padding: 1rem;
+	background-color: white;
+	margin: 1rem;
+	gap : 2rem;
+	align-items: center;
+	border-radius: 10px;
+}
+
+.IdeaStatsContainer .title {
+	text-align: left;
+	width: 100%;
+	padding: 0 1rem;
+	color: var(--primary);
+}
+
+.IdeaStatsRow {
+	display: flex;
+	gap: 2rem;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+/* Idea Card CSS */
+.IdeaStatsCard {
+	background-color: var(--secondary);
+	padding: 1rem;
+	border-radius: 10px;
+	min-width: 20rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.IdeaStatsCard div {
+	background-color: white;
+	padding: 1rem;
+	width: 100%;
+	margin: 0 1rem;
+	height: 6rem;
+	border-radius: 10px;
+	color: var(--primary);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
 }
