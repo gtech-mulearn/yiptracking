@@ -25,7 +25,7 @@
 	flex-direction: column;
 	width: 100%;
 	height: fit-content;
-	padding: 1rem;
+	padding: 1rem .5rem;
 	background-color: white;
 	margin: 1rem;
 	gap : 2rem;
@@ -65,6 +65,28 @@
 	}
 }
 
+.IdeaTypeSelect {
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 1rem;
+	align-items: center;
+}
+
+.IdeaTypeSelect select {
+	padding: .8rem;
+	border-radius: 8px;
+	width: 30%;
+	border: 3px solid var(--secondary);
+}
+
+@media screen and (max-width: 600px) {
+	.IdeaTypeSelect select {
+		width: 70%;
+	}
+	
+}
 
 /* Idea Card CSS */
 .IdeaStatsCard {

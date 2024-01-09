@@ -5,10 +5,10 @@ import { useEffect, useState } from "react";
 import { getIdeaData } from "./services/IdeaApis";
 import IdeaStatsCard from "./components/IdeaStatsCard";
 import Table from "../../components/Table/Table";
-import { BiShow } from "react-icons/bi";
 
 const Idea = () => {
     const [data, setData] = useState<IdeaData>();
+    const [type, setType] = useState<string>("");
     const [refresh, _setRefresh] = useState(false);
     const columns: TableColumn<OrgIdeaStats>[] = [
         { key: "code", header: "Code", isSortable: true },
@@ -25,7 +25,7 @@ const Idea = () => {
 
     const handleFetchDetails = async () => {
         try {
-            const response = await getIdeaData();
+            const response = await getIdeaData(type);
             if (response) {
                 setData(response);
             }
@@ -36,10 +36,30 @@ const Idea = () => {
 
     useEffect(() => {
         handleFetchDetails();
-    }, [refresh]);
+    }, [refresh, type]);
 
-    const handleClick = (data: OrgIdeaStats) => {
-        console.log(data);
+    // const handleClick = (data: OrgIdeaStats) => {
+    //     console.log(data);
+    // };
+
+    function mergeOrg(data: IdeaData): OrgIdeaStats[] {
+        return [...data.college, ...data.school, ...data.iti];
+    }
+
+    const tableData = () => {
+        if (data) {
+            if (type === "") {
+                return mergeOrg(data);
+            } else if (type === "School") {
+                return data.school;
+            } else if (type === "College") {
+                return data.college;
+            } else if (type === "Iti") {
+                return data.iti;
+            } else {
+                return [];
+            }
+        }
     };
 
     return (
@@ -47,6 +67,20 @@ const Idea = () => {
             {data ? (
                 <div className={styles.IdeaStatsContainer}>
                     <h1 className={styles.title}>Idea Stats</h1>
+                    <div className={styles.IdeaTypeSelect}>
+                        <label htmlFor="type">Select Organization Type :</label>
+                        <select
+                            name="type"
+                            id="type"
+                            value={type}
+                            onChange={(e) => setType(e.target.value)}
+                        >
+                            <option value="">Total</option>
+                            <option value="School">School</option>
+                            <option value="College">College</option>
+                            <option value="Iti">Iti</option>
+                        </select>
+                    </div>
                     <div className={styles.IdeaStatsRow}>
                         <IdeaStatsCard
                             title="Group Formation"
@@ -69,19 +103,19 @@ const Idea = () => {
                     </div>
                     <div className={styles.tableContainer}>
                         <Table
-                            data={data.school as OrgIdeaStats[]}
+                            data={tableData() as OrgIdeaStats[]}
                             columns={columns}
-                            onRowClick={handleClick}
+                            // onRowClick={handleClick}
                             isLoading={data ? false : true}
-                            actions={[
-                                {
-                                    icon: <BiShow />,
-                                    onClick: (item) => {
-                                        handleClick(item);
-                                    },
-                                    title: "View Details",
-                                },
-                            ]}
+                            // actions={[
+                            //     {
+                            //         icon: <BiShow />,
+                            //         onClick: (item) => {
+                            //             handleClick(item);
+                            //         },
+                            //         title: "View Details",
+                            //     },
+                            // ]}
                         />
                     </div>
                 </div>
