@@ -20,4 +20,5 @@ export const yipRoutes = {
     getZone: "/location/zone/",
     getOrg: "/organization/list/",
     assignOrg: "/organization/assign/",
+    getIdeaData: "/organization/idea/total/",
 };
