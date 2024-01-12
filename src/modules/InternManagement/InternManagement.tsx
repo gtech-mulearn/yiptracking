@@ -7,13 +7,14 @@ import CreateModal from "./components/CreateModal";
 import { useNavigate } from "react-router-dom";
 import { MdAssignmentAdd } from "react-icons/md";
 import { BiShow } from "react-icons/bi";
+import { dynamicRoute, yipRoutes } from "../../services/ApiGateway/Endpoints";
 
 const InternManagement = () => {
 	const navigate = useNavigate()
     const [refresh, setRefresh] = useState(false);
-    const [data, setData] = useState<InternData[]>([]);
+    const [data, setData] = useState<InternDataWithPagination>();
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const columns: TableColumn<InternData>[] = [
+    const columns: TableColumn<InternData>[]= [
         { key: "first_name", header: "First Name", isSortable: true },
         { key: "last_name", header: "Last Name", isSortable: true },
         { key: "role", header: "Role", isSortable: true },
@@ -27,7 +28,7 @@ const InternManagement = () => {
 
     const handleFetchDetails = async () => {
         try {
-            const response: InternData[] = await getInterns();
+            const response: InternDataWithPagination = await getInterns();
             if (response) {
                 setData(response);
             }
@@ -76,18 +77,18 @@ const InternManagement = () => {
                     </button>
                 </div>
                 {data && (
-                    <Table
-                        data={data as InternData[]}
+                    <Table<InternData>
                         columns={columns}
+                        keyColumn="user_id"
                         onRowClick={handleClick}
-                        isLoading={data.length === 0}
+                        apiEndpoint={dynamicRoute(yipRoutes.getInterns)}
                         actions={[
                             {
                                 icon: <BiShow />,
                                 onClick: (item) => {
                                     handleClick(item);
                                 },
-								title: "View Details",
+                                title: "View Details",
                             },
                         ]}
                     />

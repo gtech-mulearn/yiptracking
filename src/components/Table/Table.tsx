@@ -1,7 +1,9 @@
-import { useState, useMemo } from "react";
+import { useState, useEffect } from "react";
 import styles from "./Table.module.css";
 import Loader from "../Loader/Loader";
 import { TbArrowsSort } from "react-icons/tb";
+import Pagination from "./components/Pagination";
+import { getTableData } from "./services/TableApis";
 
 type Action<T> = {
     icon: React.ReactNode; // Can be a JSX element like an icon
@@ -9,58 +11,64 @@ type Action<T> = {
     title: string;
 };
 
-type TableProps<T extends { [key: string]: any }> = {
-    data: T[];
+type TableProps<T> = {
     columns: TableColumn<T>[];
-    isLoading?: boolean;
+    keyColumn: keyof T;
+    apiEndpoint: string;
     onRowClick?: (item: T) => void;
-    actions?: Action<T>[]; // Optional actions array
+    actions?: Action<T>[];
 };
 
-const Table = <T extends { [key: string]: any }>({
-    data,
+const Table = <T extends {}>({
     columns,
+    keyColumn,
     onRowClick,
-    isLoading,
     actions,
+    apiEndpoint,
 }: TableProps<T>) => {
+    const [data, setData] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
+    const [totalRows, setTotalRows] = useState(0);
     const [searchTerm, setSearchTerm] = useState("");
-    const [sortKey, setSortKey] = useState("");
-    const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
+    const [sortColumn, setSortColumn] = useState("");
 
-    const sortedData = useMemo(() => {
-        let sorted = [...data];
-        if (sortKey) {
-            sorted.sort((a, b) => {
-                const aValue = a[sortKey];
-                const bValue = b[sortKey];
-                if (typeof aValue === "string" && typeof bValue === "string") {
-                    return (
-                        aValue.localeCompare(bValue) *
-                        (sortDirection === "asc" ? 1 : -1)
-                    );
-                }
-                return aValue < bValue ? -1 : aValue > bValue ? 1 : 0;
+    // Function to fetch data
+    const fetchData = async () => {
+        setIsLoading(true);
+        getTableData(
+            apiEndpoint,
+            rowsPerPage,
+            currentPage,
+            searchTerm,
+            sortColumn
+        )
+            .then((response) => {
+                setData(response.data);
+                setTotalRows(response.pagination.count);
+            })
+            .finally(() => {
+                setIsLoading(false);
             });
-        }
-        return sorted;
-    }, [data, sortKey, sortDirection]);
+    };
 
-    const filteredData = sortedData.filter((item) =>
-        columns.some((column) => {
-            const itemValue = item[column.key];
-            return itemValue
-                ?.toString()
-                .toLowerCase()
-                .includes(searchTerm.toLowerCase());
-        })
-    );
+    // Fetch data when dependencies change
+    useEffect(() => {
+        fetchData();
+    }, [currentPage, rowsPerPage, searchTerm]);
 
-    const handleSort = (key: string) => {
-        setSortDirection(
-            sortKey === key && sortDirection === "asc" ? "desc" : "asc"
-        );
-        setSortKey(key);
+    useEffect(() => {
+        console.log(data); // This will log every time 'data' changes
+    }, [data]);
+
+    const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+
+    const handleRowsPerPageChange = (
+        event: React.ChangeEvent<HTMLSelectElement>
+    ) => {
+        setRowsPerPage(parseInt(event.target.value, 10));
+        setCurrentPage(1); // Reset to first page when rows per page changes
     };
 
     const handleClick = (item: T) => {
@@ -92,7 +100,7 @@ const Table = <T extends { [key: string]: any }>({
                                 <th
                                     key={column.key.toString()}
                                     onClick={() =>
-                                        handleSort(column.key.toString())
+                                        setSortColumn(column.key.toString())
                                     }
                                 >
                                     <div>
@@ -109,12 +117,15 @@ const Table = <T extends { [key: string]: any }>({
                         </tr>
                     </thead>
                     <tbody>
-                        {filteredData.map((row) => (
-                            <tr key={row.id} onClick={() => handleClick(row)}>
-                                <td>{filteredData.indexOf(row) + 1}</td>
+                        {data.map((row, index) => (
+                            <tr
+                                key={String(row[keyColumn])}
+                                onClick={() => handleClick(row)}
+                            >
+                                <td>{index + 1}</td>
                                 {columns.map((column) => (
                                     <td key={column.key.toString()}>
-                                        {row[column.key]}
+                                        {String(row[column.key])}
                                     </td>
                                 ))}
                                 {actions && (
@@ -142,6 +153,13 @@ const Table = <T extends { [key: string]: any }>({
                     </tbody>
                 </table>
             </section>
+            <Pagination
+                rowsPerPage={rowsPerPage}
+                totalRows={totalRows}
+                paginate={paginate}
+                currentPage={currentPage}
+                onRowsPerPageChange={handleRowsPerPageChange}
+            />
         </div>
     );
 };
