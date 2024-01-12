@@ -1,4 +1,5 @@
-import styles from "../Table.module.css"
+import styles from "../Table.module.css";
+import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 
 type PaginationProps = {
     rowsPerPage: number;
@@ -11,8 +12,6 @@ type PaginationProps = {
 const Pagination: React.FC<PaginationProps> = ({
     rowsPerPage,
     totalRows,
-    currentPage,
-    paginate,
     onRowsPerPageChange,
 }) => {
     const pageNumbers = [];
@@ -36,7 +35,7 @@ const Pagination: React.FC<PaginationProps> = ({
                     ))}
                 </select>
             </div>
-            <ul className={styles.pageNumbers}>
+            {/* <ul className={styles.pageNumbers}>
                 {pageNumbers.map((number) => (
                     <li
                         key={number}
@@ -47,9 +46,50 @@ const Pagination: React.FC<PaginationProps> = ({
                         </a>
                     </li>
                 ))}
-            </ul>
+            </ul> */}
         </div>
     );
 };
 
 export default Pagination;
+
+type PaginationFooterProps = {
+    currentPage: number;
+    paginate: (pageNumber: number) => void;
+    isNext: boolean;
+};
+
+export const PaginationFooter: React.FC<PaginationFooterProps> = ({
+    currentPage,
+    paginate,
+    isNext,
+}) => {
+    return (
+        <div className={styles.paginationFooter}>
+            <div className={styles.pageButtonContainer}>
+                <div
+                    onClick={() => {
+                        if (currentPage > 1) {
+                            paginate(currentPage - 1);
+                        }
+                    }}
+                    className={currentPage === 1 ? styles.disabled : ""}
+                >
+                    <FaAngleLeft />
+                </div>
+                <b>{currentPage}</b>
+                <div
+                    onClick={() => {
+                        console.log(isNext);
+                        if (isNext) {
+                            paginate(currentPage + 1);
+                        }
+                    }}
+                    className={isNext ? "" : styles.disabled}
+                >
+                    <FaAngleRight />
+                </div>
+            </div>
+        </div>
+    );
+};

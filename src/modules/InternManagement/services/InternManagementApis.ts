@@ -1,15 +1,7 @@
 import { privateGateway } from "../../../services/ApiGateway/ApiGateway";
 import {
-    dynamicRoute,
     yipRoutes,
 } from "../../../services/ApiGateway/Endpoints";
-
-export const getInterns = async () => {
-    const response = await privateGateway.get(
-        dynamicRoute(yipRoutes.getInterns)
-    );
-    return response.data.response;
-};
 
 export const getDistrict = async () => {
     try {

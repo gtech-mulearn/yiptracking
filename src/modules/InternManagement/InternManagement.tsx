@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styles from "./InternManagement.module.css";
 import toast from "react-hot-toast";
-import { assignOrg, getInterns } from "./services/InternManagementApis";
+import { assignOrg } from "./services/InternManagementApis";
 import Table from "../../components/Table/Table";
 import CreateModal from "./components/CreateModal";
 import { useNavigate } from "react-router-dom";
@@ -12,7 +12,6 @@ import { dynamicRoute, yipRoutes } from "../../services/ApiGateway/Endpoints";
 const InternManagement = () => {
 	const navigate = useNavigate()
     const [refresh, setRefresh] = useState(false);
-    const [data, setData] = useState<InternDataWithPagination>();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const columns: TableColumn<InternData>[]= [
         { key: "first_name", header: "First Name", isSortable: true },
@@ -25,21 +24,6 @@ const InternManagement = () => {
     const handleModalOpen = () => {
         setIsModalOpen(true);
     };
-
-    const handleFetchDetails = async () => {
-        try {
-            const response: InternDataWithPagination = await getInterns();
-            if (response) {
-                setData(response);
-            }
-        } catch (error) {
-            toast.error("Something went wrong, failed to load data");
-		}
-    };
-
-    useEffect(() => {
-        handleFetchDetails();
-    }, [refresh]);
 
     const handleSubmit = (data: CreateUser) => {
         const formattedOrgData = [
@@ -76,7 +60,6 @@ const InternManagement = () => {
                         <MdAssignmentAdd /> Manage
                     </button>
                 </div>
-                {data && (
                     <Table<InternData>
                         columns={columns}
                         keyColumn="user_id"
@@ -92,7 +75,6 @@ const InternManagement = () => {
                             },
                         ]}
                     />
-                )}
             </div>
             {isModalOpen && (
                 <CreateModal

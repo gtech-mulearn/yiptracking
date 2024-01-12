@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import styles from "./Table.module.css";
 import Loader from "../Loader/Loader";
 import { TbArrowsSort } from "react-icons/tb";
-import Pagination from "./components/Pagination";
+import Pagination, { PaginationFooter } from "./components/Pagination";
 import { getTableData } from "./services/TableApis";
 
 type Action<T> = {
@@ -30,7 +30,7 @@ const Table = <T extends {}>({
     const [isLoading, setIsLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [rowsPerPage, setRowsPerPage] = useState(10);
-    const [totalRows, setTotalRows] = useState(0);
+    const [pagination, setPagination] = useState<Pagination>();
     const [searchTerm, setSearchTerm] = useState("");
     const [sortColumn, setSortColumn] = useState("");
 
@@ -46,7 +46,7 @@ const Table = <T extends {}>({
         )
             .then((response) => {
                 setData(response.data);
-                setTotalRows(response.pagination.count);
+                setPagination(response.pagination);
             })
             .finally(() => {
                 setIsLoading(false);
@@ -56,13 +56,12 @@ const Table = <T extends {}>({
     // Fetch data when dependencies change
     useEffect(() => {
         fetchData();
-    }, [currentPage, rowsPerPage, searchTerm]);
+    }, [currentPage, rowsPerPage, searchTerm, sortColumn]);
 
-    useEffect(() => {
-        console.log(data); // This will log every time 'data' changes
-    }, [data]);
-
-    const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+    const paginate = (pageNumber: number) => {
+        setCurrentPage(pageNumber);
+        console.log(pageNumber);
+    };
 
     const handleRowsPerPageChange = (
         event: React.ChangeEvent<HTMLSelectElement>
@@ -77,90 +76,116 @@ const Table = <T extends {}>({
         }
     };
 
-    return isLoading ? (
-        <div className={styles.loaderContainer}>
-            <Loader />
-        </div>
-    ) : (
-        <div className={styles.table}>
-            <div className={styles.search}>
-                <input
-                    type="text"
-                    placeholder="Search..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                />
+    return (
+        <>
+            <div className={styles.tableHeader}>
+                <div className={styles.search}>
+                    <input
+                        type="text"
+                        placeholder="Search..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+                </div>
+                <div>
+                    <Pagination
+                        rowsPerPage={rowsPerPage}
+                        totalRows={pagination?.totalPages || 0}
+                        paginate={paginate}
+                        currentPage={currentPage}
+                        onRowsPerPageChange={handleRowsPerPageChange}
+                    />
+                </div>
             </div>
-            <section className={styles.tableBody}>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>S/N</th>
-                            {columns.map((column) => (
-                                <th
-                                    key={column.key.toString()}
-                                    onClick={() =>
-                                        setSortColumn(column.key.toString())
-                                    }
-                                >
-                                    <div>
-                                        {column.header}{" "}
-                                        {column.isSortable && (
-                                            <span>
-                                                <TbArrowsSort />
-                                            </span>
-                                        )}
-                                    </div>
-                                </th>
-                            ))}
-                            {actions && <th>Actions</th>}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {data.map((row, index) => (
-                            <tr
-                                key={String(row[keyColumn])}
-                                onClick={() => handleClick(row)}
-                            >
-                                <td>{index + 1}</td>
-                                {columns.map((column) => (
-                                    <td key={column.key.toString()}>
-                                        {String(row[column.key])}
-                                    </td>
-                                ))}
-                                {actions && (
-                                    <td>
-                                        <div className={styles.action}>
-                                            {actions.map(
-                                                (action, actionIndex) => (
-                                                    <div
-                                                        key={actionIndex}
-                                                        onClick={(e) => {
-                                                            e.stopPropagation();
-                                                            action.onClick(row);
-                                                        }}
-                                                        title={action.title}
-                                                    >
-                                                        {action.icon}
-                                                    </div>
+            {isLoading ? (
+                <div className={styles.loaderContainer}>
+                    <Loader />
+                </div>
+            ) : (
+                <div className={styles.table}>
+                    <section className={styles.tableBody}>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>S/N</th>
+                                    {columns.map((column) => (
+                                        <th
+                                            key={column.key.toString()}
+                                            onClick={() =>
+                                                setSortColumn(
+                                                    column.key.toString()
                                                 )
-                                            )}
-                                        </div>
-                                    </td>
-                                )}
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </section>
-            <Pagination
-                rowsPerPage={rowsPerPage}
-                totalRows={totalRows}
-                paginate={paginate}
+                                            }
+                                        >
+                                            <div>
+                                                {column.header}{" "}
+                                                {column.isSortable && (
+                                                    <span>
+                                                        <TbArrowsSort />
+                                                    </span>
+                                                )}
+                                            </div>
+                                        </th>
+                                    ))}
+                                    {actions && <th>Actions</th>}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {data.map((row, index) => (
+                                    <tr
+                                        key={String(row[keyColumn])}
+                                        onClick={() => handleClick(row)}
+                                    >
+                                        <td>{index + 1}</td>
+                                        {columns.map((column) => (
+                                            <td key={column.key.toString()}>
+                                                {String(row[column.key])}
+                                            </td>
+                                        ))}
+                                        {actions && (
+                                            <td>
+                                                <div className={styles.action}>
+                                                    {actions.map(
+                                                        (
+                                                            action,
+                                                            actionIndex
+                                                        ) => (
+                                                            <div
+                                                                key={
+                                                                    actionIndex
+                                                                }
+                                                                onClick={(
+                                                                    e
+                                                                ) => {
+                                                                    e.stopPropagation();
+                                                                    action.onClick(
+                                                                        row
+                                                                    );
+                                                                }}
+                                                                title={
+                                                                    action.title
+                                                                }
+                                                            >
+                                                                {action.icon}
+                                                            </div>
+                                                        )
+                                                    )}
+                                                </div>
+                                            </td>
+                                        )}
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </section>
+                </div>
+            )}
+            <PaginationFooter
                 currentPage={currentPage}
-                onRowsPerPageChange={handleRowsPerPageChange}
+                paginate={paginate}
+                isNext={pagination?.isNext || false}
             />
-        </div>
+        </>
     );
 };
 
