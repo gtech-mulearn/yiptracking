@@ -37,6 +37,7 @@ privateGateway.interceptors.response.use(
     function (error) {
         if (error.response && error.response.status === 403) {
             localStorage.removeItem("accessToken");
+			window.location.href = "/login";
         }
         return Promise.reject(error);
     }
