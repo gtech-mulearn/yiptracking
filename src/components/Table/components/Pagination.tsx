@@ -80,7 +80,6 @@ export const PaginationFooter: React.FC<PaginationFooterProps> = ({
                 <b>{currentPage}</b>
                 <div
                     onClick={() => {
-                        console.log(isNext);
                         if (isNext) {
                             paginate(currentPage + 1);
                         }

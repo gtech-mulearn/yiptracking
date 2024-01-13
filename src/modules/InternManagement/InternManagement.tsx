@@ -1,13 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./InternManagement.module.css";
 import toast from "react-hot-toast";
-import { assignOrg } from "./services/InternManagementApis";
+import { assignOrg, getInterns } from "./services/InternManagementApis";
 import Table from "../../components/Table/Table";
 import CreateModal from "./components/CreateModal";
 import { useNavigate } from "react-router-dom";
 import { MdAssignmentAdd } from "react-icons/md";
 import { BiShow } from "react-icons/bi";
-import { dynamicRoute, yipRoutes } from "../../services/ApiGateway/Endpoints";
+	import useTableState from "../../components/Table/services/hooks/useTableState";
 
 const InternManagement = () => {
 	const navigate = useNavigate()
@@ -20,6 +20,24 @@ const InternManagement = () => {
         { key: "district_name", header: "District", isSortable: true },
         { key: "email", header: "Email", isSortable: true },
     ];
+
+	const tableState = useTableState<InternData>();
+
+    useEffect(() => {
+        tableState.handleFetchData(() =>
+            getInterns(
+                tableState.rowsPerPage,
+                tableState.currentPage,
+                tableState.searchTerm,
+                tableState.sortColumn
+            )
+        );
+    }, [
+        tableState.currentPage,
+        tableState.rowsPerPage,
+        tableState.searchTerm,
+        tableState.sortColumn,
+    ]);
 
     const handleModalOpen = () => {
         setIsModalOpen(true);
@@ -60,21 +78,21 @@ const InternManagement = () => {
                         <MdAssignmentAdd /> Manage
                     </button>
                 </div>
-                    <Table<InternData>
-                        columns={columns}
-                        keyColumn="user_id"
-                        onRowClick={handleClick}
-                        apiEndpoint={dynamicRoute(yipRoutes.getInterns)}
-                        actions={[
-                            {
-                                icon: <BiShow />,
-                                onClick: (item) => {
-                                    handleClick(item);
-                                },
-                                title: "View Details",
+                <Table<InternData>
+                    keyColumn="user_id"
+                    columns={columns}
+                    tableState={tableState}
+                    onRowClick={handleClick}
+                    actions={[
+                        {
+                            icon: <BiShow />,
+                            onClick: (item) => {
+                                handleClick(item);
                             },
-                        ]}
-                    />
+                            title: "View Details",
+                        },
+                    ]}
+                />
             </div>
             {isModalOpen && (
                 <CreateModal

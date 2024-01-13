@@ -5,9 +5,10 @@ import { useEffect, useState } from "react";
 import { getIdeaData } from "./services/IdeaApis";
 import IdeaStatsCard from "./components/IdeaStatsCard";
 import Table from "../../components/Table/Table";
+import useTableState from "../../components/Table/services/hooks/useTableState";
 
 const Idea = () => {
-    const [data, setData] = useState<IdeaData>();
+    // const [data, setData] = useState<IdeaData>();
     const [type, setType] = useState<string>("");
     const [refresh, _setRefresh] = useState(false);
     const columns: TableColumn<OrgIdeaStats>[] = [
@@ -23,16 +24,30 @@ const Idea = () => {
         { key: "group_formation", header: "Groups", isSortable: true },
     ];
 
-    const handleFetchDetails = async () => {
-        try {
-            const response = await getIdeaData(type);
-            if (response) {
-                setData(response);
-            }
-        } catch (error) {
-            toast.error("Something went wrong, failed to load data");
-        }
-    };
+	const {
+        data,
+        isLoading,
+        currentPage,
+        setCurrentPage,
+        rowsPerPage,
+        setRowsPerPage,
+        totalRows,
+        searchTerm,
+        setSearchTerm,
+        sortColumn,
+        setSortColumn,
+        handleFetchData,
+    } = useTableState();
+
+	 useEffect(() => {
+         const fetchData = () => {
+             return getIdeaData(type);
+         };
+
+         handleFetchData(fetchData);
+     }, [currentPage, rowsPerPage, searchTerm, sortColumn, handleFetchData]);
+
+ 
 
     useEffect(() => {
         handleFetchDetails();
@@ -102,11 +117,8 @@ const Idea = () => {
                         />
                     </div>
                     <div className={styles.tableContainer}>
-                        <Table
-                            data={tableData() as OrgIdeaStats[]}
-                            columns={columns}
-                            // onRowClick={handleClick}
-                            isLoading={data ? false : true}
+                        <Table<OrgIdeaStats>
+							columns={columns} keyColumn={"code"} apiEndpoint={""}                            // onRowClick={handleClick}
                             // actions={[
                             //     {
                             //         icon: <BiShow />,

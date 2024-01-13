@@ -1,7 +1,26 @@
 import { privateGateway } from "../../../services/ApiGateway/ApiGateway";
 import {
+	dynamicRoute,
     yipRoutes,
 } from "../../../services/ApiGateway/Endpoints";
+
+export const getInterns = async (
+    rowsPerPage: number,
+    currentPage: number,
+    searchTerm: string,
+    sortColumn: string
+) => {
+    const response = await privateGateway.get(
+        dynamicRoute(yipRoutes.getInterns), {
+			params: {
+				perPage: rowsPerPage,
+				pageIndex: currentPage,
+				search: searchTerm,
+				sort: sortColumn
+		}}
+    );
+    return response.data.response;
+};
 
 export const getDistrict = async () => {
     try {

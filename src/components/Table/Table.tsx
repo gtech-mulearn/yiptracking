@@ -1,9 +1,7 @@
-import { useState, useEffect } from "react";
 import styles from "./Table.module.css";
 import Loader from "../Loader/Loader";
 import { TbArrowsSort } from "react-icons/tb";
 import Pagination, { PaginationFooter } from "./components/Pagination";
-import { getTableData } from "./services/TableApis";
 
 type Action<T> = {
     icon: React.ReactNode; // Can be a JSX element like an icon
@@ -14,7 +12,7 @@ type Action<T> = {
 type TableProps<T> = {
     columns: TableColumn<T>[];
     keyColumn: keyof T;
-    apiEndpoint: string;
+    tableState: UseTableStateProps<T>;
     onRowClick?: (item: T) => void;
     actions?: Action<T>[];
 };
@@ -22,52 +20,20 @@ type TableProps<T> = {
 const Table = <T extends {}>({
     columns,
     keyColumn,
+    tableState,
     onRowClick,
     actions,
-    apiEndpoint,
-}: TableProps<T>) => {
-    const [data, setData] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [rowsPerPage, setRowsPerPage] = useState(10);
-    const [pagination, setPagination] = useState<Pagination>();
-    const [searchTerm, setSearchTerm] = useState("");
-    const [sortColumn, setSortColumn] = useState("");
-
-    // Function to fetch data
-    const fetchData = async () => {
-        setIsLoading(true);
-        getTableData(
-            apiEndpoint,
-            rowsPerPage,
-            currentPage,
-            searchTerm,
-            sortColumn
-        )
-            .then((response) => {
-                setData(response.data);
-                setPagination(response.pagination);
-            })
-            .finally(() => {
-                setIsLoading(false);
-            });
-    };
-
-    // Fetch data when dependencies change
-    useEffect(() => {
-        fetchData();
-    }, [currentPage, rowsPerPage, searchTerm, sortColumn]);
+}: TableProps<T> & { tableState: UseTableStateProps<T> }) => {
 
     const paginate = (pageNumber: number) => {
-        setCurrentPage(pageNumber);
-        console.log(pageNumber);
+        tableState.setCurrentPage(pageNumber);
     };
 
     const handleRowsPerPageChange = (
         event: React.ChangeEvent<HTMLSelectElement>
     ) => {
-        setRowsPerPage(parseInt(event.target.value, 10));
-        setCurrentPage(1); // Reset to first page when rows per page changes
+        tableState.setRowsPerPage(parseInt(event.target.value, 10));
+        tableState.setCurrentPage(1); // Reset to first page when rows per page changes
     };
 
     const handleClick = (item: T) => {
@@ -83,21 +49,23 @@ const Table = <T extends {}>({
                     <input
                         type="text"
                         placeholder="Search..."
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
+                        value={tableState.searchTerm}
+                        onChange={(e) =>
+                            tableState.setSearchTerm(e.target.value)
+                        }
                     />
                 </div>
                 <div>
                     <Pagination
-                        rowsPerPage={rowsPerPage}
-                        totalRows={pagination?.totalPages || 0}
+                        rowsPerPage={tableState.rowsPerPage}
+                        totalRows={tableState.pagination?.totalPages || 0}
                         paginate={paginate}
-                        currentPage={currentPage}
+                        currentPage={tableState.currentPage}
                         onRowsPerPageChange={handleRowsPerPageChange}
                     />
                 </div>
             </div>
-            {isLoading ? (
+            {tableState.isLoading ? (
                 <div className={styles.loaderContainer}>
                     <Loader />
                 </div>
@@ -112,7 +80,7 @@ const Table = <T extends {}>({
                                         <th
                                             key={column.key.toString()}
                                             onClick={() =>
-                                                setSortColumn(
+                                                tableState.setSortColumn(
                                                     column.key.toString()
                                                 )
                                             }
@@ -131,7 +99,7 @@ const Table = <T extends {}>({
                                 </tr>
                             </thead>
                             <tbody>
-                                {data.map((row, index) => (
+                                {tableState.data.map((row, index) => (
                                     <tr
                                         key={String(row[keyColumn])}
                                         onClick={() => handleClick(row)}
@@ -181,9 +149,9 @@ const Table = <T extends {}>({
                 </div>
             )}
             <PaginationFooter
-                currentPage={currentPage}
+                currentPage={tableState.currentPage}
                 paginate={paginate}
-                isNext={pagination?.isNext || false}
+                isNext={tableState.pagination?.isNext || false}
             />
         </>
     );
