@@ -1,4 +1,3 @@
-import toast from "react-hot-toast";
 import Loader from "../../components/Loader/Loader";
 import styles from "./Idea.module.css";
 import { useEffect, useState } from "react";
@@ -10,7 +9,6 @@ import useTableState from "../../components/Table/services/hooks/useTableState";
 const Idea = () => {
     // const [data, setData] = useState<IdeaData>();
     const [type, setType] = useState<string>("");
-    const [refresh, _setRefresh] = useState(false);
     const columns: TableColumn<OrgIdeaStats>[] = [
         { key: "code", header: "Code", isSortable: true },
         { key: "name", header: "Name", isSortable: true },
@@ -24,38 +22,28 @@ const Idea = () => {
         { key: "group_formation", header: "Groups", isSortable: true },
     ];
 
-	const {
-        data,
-        isLoading,
-        currentPage,
-        setCurrentPage,
-        rowsPerPage,
-        setRowsPerPage,
-        totalRows,
-        searchTerm,
-        setSearchTerm,
-        sortColumn,
-        setSortColumn,
-        handleFetchData,
-    } = useTableState();
-
-	 useEffect(() => {
-         const fetchData = () => {
-             return getIdeaData(type);
-         };
-
-         handleFetchData(fetchData);
-     }, [currentPage, rowsPerPage, searchTerm, sortColumn, handleFetchData]);
-
- 
+	const tableState = useTableState<InternData>();
 
     useEffect(() => {
-        handleFetchDetails();
-    }, [refresh, type]);
+        tableState.handleFetchData(() =>
+            getIdeaData(
+                tableState.rowsPerPage,
+                tableState.currentPage,
+                tableState.searchTerm,
+                tableState.sortColumn
+            )
+        );
+		getIdeaCardData();
+    }, [
+        tableState.currentPage,
+        tableState.rowsPerPage,
+        tableState.searchTerm,
+        tableState.sortColumn,
+    ]);
 
-    // const handleClick = (data: OrgIdeaStats) => {
-    //     console.log(data);
-    // };
+    const handleClick = (data: OrgIdeaStats) => {
+        console.log(data);
+    };
 
     function mergeOrg(data: IdeaData): OrgIdeaStats[] {
         return [...data.college, ...data.school, ...data.iti];
