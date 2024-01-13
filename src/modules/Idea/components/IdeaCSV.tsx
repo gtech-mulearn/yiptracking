@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, FunctionComponent, useRef } from "react";
+import { ChangeEvent, FunctionComponent, useRef } from "react";
 import styles from "../Idea.module.css";
 import { MdOutlineUploadFile } from "react-icons/md";
 
