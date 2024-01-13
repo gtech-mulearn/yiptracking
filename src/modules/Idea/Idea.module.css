@@ -33,6 +33,12 @@
 	border-radius: 10px;
 }
 
+.IdeaPageHeader {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+}
+
 .IdeaStatsContainer .title {
 	text-align: left;
 	width: 100%;
@@ -45,6 +51,20 @@
 	gap: 2rem;
 	flex-wrap: wrap;
 	justify-content: center;
+}
+
+.IdeaCSV {
+	border: 3px dashed var(--primary);
+	border-radius: 10px;
+	background-color: var(--secondary);
+	margin-right: 1rem;
+	min-width: 10rem;
+	padding: .5rem;
+	gap: .5rem;
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .tableContainer {

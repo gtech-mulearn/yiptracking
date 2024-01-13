@@ -1,14 +1,20 @@
 import Loader from "../../components/Loader/Loader";
 import styles from "./Idea.module.css";
 import { useEffect, useState } from "react";
-import { getIdeaCardData, getIdeaData } from "./services/IdeaApis";
+import {
+    getIdeaCardData,
+    getIdeaData,
+    uploadIdeaCSV,
+} from "./services/IdeaApis";
 import IdeaStatsCard from "./components/IdeaStatsCard";
 import Table from "../../components/Table/Table";
 import useTableState from "../../components/Table/services/hooks/useTableState";
 import toast from "react-hot-toast";
+import IdeaCSV from "./components/IdeaCSV";
 
 const Idea = () => {
     const [cardData, setCardData] = useState<IdeaCardData>();
+    const [refresh, setRefresh] = useState<boolean>(false);
     const [type, setType] = useState<string>("");
     const columns: TableColumn<OrgIdeaStats>[] = [
         // { key: "code", header: "Code", isSortable: true },
@@ -40,7 +46,8 @@ const Idea = () => {
         tableState.rowsPerPage,
         tableState.searchTerm,
         tableState.sortColumn,
-		type
+        type,
+        refresh,
     ]);
 
     const handleFetchDetails = async () => {
@@ -56,7 +63,23 @@ const Idea = () => {
 
     useEffect(() => {
         handleFetchDetails();
-    }, [type]);
+    }, [type, refresh]);
+
+    const handleFileSelect = async (file: File) => {
+        const formData = new FormData();
+        formData.append("file", file);
+
+        toast.promise(uploadIdeaCSV(formData), {
+            loading: "Uploading...",
+            success: (message) => {
+                return <b>{message}</b>;
+            },
+            error: (message) => {
+                return <b>{message}</b>;
+            },
+        });
+        setRefresh(!refresh);
+    };
 
     // const handleClick = (data: OrgIdeaStats) => {
     //     console.log(data);
@@ -66,9 +89,12 @@ const Idea = () => {
         <div className={styles.container}>
             {cardData ? (
                 <div className={styles.IdeaStatsContainer}>
-                    <h1 className={styles.title}>Idea Stats</h1>
+                    <div className={styles.IdeaPageHeader}>
+                        <h1 className={styles.title}>Idea Stats</h1>
+                        <IdeaCSV onFileSelect={handleFileSelect} />
+                    </div>
                     <div className={styles.IdeaTypeSelect}>
-                        <label htmlFor="type">Select Organization Type :</label>
+                        <label htmlFor="type">Filter based on:</label>
                         <select
                             name="type"
                             id="type"
@@ -105,7 +131,7 @@ const Idea = () => {
                         <Table<OrgIdeaStats>
                             keyColumn={"id"}
                             columns={columns}
-							tableState={tableState}
+                            tableState={tableState}
                             // onRowClick={handleClick}
                             // actions={[
                             //     {

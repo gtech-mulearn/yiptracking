@@ -18,6 +18,7 @@ export const getIdeaData = async (
                     pageIndex: currentPage,
                     search: searchTerm,
                     sort: sortColumn,
+					is_pagination: true
                 },
             }
         );
@@ -37,9 +38,26 @@ export const getIdeaCardData = async (type: string) => {
                 },
             }
         );
-		console.log(response.data.response);
         return response.data.response;
     } catch (error) {
         throw error;
+    }
+};
+
+export const uploadIdeaCSV = async (formData: FormData) => {
+    try {
+        const response = await privateGateway.post(
+            dynamicRoute(yipRoutes.uploadIdeaCSV),
+            formData,
+            {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            }
+        );
+        // Handle response...
+		return response.data.message.general[0]
+    } catch (error: any) {
+		throw error.response.data.message.general[0]
     }
 };
