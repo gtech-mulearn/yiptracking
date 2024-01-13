@@ -1,20 +1,21 @@
 import Loader from "../../components/Loader/Loader";
 import styles from "./Idea.module.css";
 import { useEffect, useState } from "react";
-import { getIdeaData } from "./services/IdeaApis";
+import { getIdeaCardData, getIdeaData } from "./services/IdeaApis";
 import IdeaStatsCard from "./components/IdeaStatsCard";
 import Table from "../../components/Table/Table";
 import useTableState from "../../components/Table/services/hooks/useTableState";
+import toast from "react-hot-toast";
 
 const Idea = () => {
-    // const [data, setData] = useState<IdeaData>();
+    const [cardData, setCardData] = useState<IdeaCardData>();
     const [type, setType] = useState<string>("");
     const columns: TableColumn<OrgIdeaStats>[] = [
-        { key: "code", header: "Code", isSortable: true },
+        // { key: "code", header: "Code", isSortable: true },
         { key: "name", header: "Name", isSortable: true },
         {
             key: "pre_registration",
-            header: "Pre-Registration",
+            header: "Pre-Reg",
             isSortable: true,
         },
         { key: "vos_completed", header: "VOS", isSortable: true },
@@ -22,52 +23,48 @@ const Idea = () => {
         { key: "group_formation", header: "Groups", isSortable: true },
     ];
 
-	const tableState = useTableState<InternData>();
+    const tableState = useTableState<OrgIdeaStats>();
 
     useEffect(() => {
         tableState.handleFetchData(() =>
             getIdeaData(
+                type,
                 tableState.rowsPerPage,
                 tableState.currentPage,
                 tableState.searchTerm,
                 tableState.sortColumn
             )
         );
-		getIdeaCardData();
     }, [
         tableState.currentPage,
         tableState.rowsPerPage,
         tableState.searchTerm,
         tableState.sortColumn,
+		type
     ]);
 
-    const handleClick = (data: OrgIdeaStats) => {
-        console.log(data);
-    };
-
-    function mergeOrg(data: IdeaData): OrgIdeaStats[] {
-        return [...data.college, ...data.school, ...data.iti];
-    }
-
-    const tableData = () => {
-        if (data) {
-            if (type === "") {
-                return mergeOrg(data);
-            } else if (type === "School") {
-                return data.school;
-            } else if (type === "College") {
-                return data.college;
-            } else if (type === "Iti") {
-                return data.iti;
-            } else {
-                return [];
+    const handleFetchDetails = async () => {
+        try {
+            const response = await getIdeaCardData(type);
+            if (response) {
+                setCardData(response);
             }
+        } catch (error) {
+            toast.error("Something went wrong, failed to load data");
         }
     };
 
+    useEffect(() => {
+        handleFetchDetails();
+    }, [type]);
+
+    // const handleClick = (data: OrgIdeaStats) => {
+    //     console.log(data);
+    // };
+
     return (
         <div className={styles.container}>
-            {data ? (
+            {cardData ? (
                 <div className={styles.IdeaStatsContainer}>
                     <h1 className={styles.title}>Idea Stats</h1>
                     <div className={styles.IdeaTypeSelect}>
@@ -87,26 +84,29 @@ const Idea = () => {
                     <div className={styles.IdeaStatsRow}>
                         <IdeaStatsCard
                             title="Group Formation"
-                            value={data.group_formation}
+                            value={cardData.group_formation}
                         />
                         <IdeaStatsCard
                             title="Idea Submissions"
-                            value={data.idea_submissions}
+                            value={cardData.idea_submissions}
                         />
                     </div>
                     <div className={styles.IdeaStatsRow}>
                         <IdeaStatsCard
                             title="Pre-Registration"
-                            value={data.pre_registration}
+                            value={cardData.pre_registration}
                         />
                         <IdeaStatsCard
                             title="VOS Completed"
-                            value={data.vos_completed}
+                            value={cardData.vos_completed}
                         />
                     </div>
                     <div className={styles.tableContainer}>
                         <Table<OrgIdeaStats>
-							columns={columns} keyColumn={"code"} apiEndpoint={""}                            // onRowClick={handleClick}
+                            keyColumn={"id"}
+                            columns={columns}
+							tableState={tableState}
+                            // onRowClick={handleClick}
                             // actions={[
                             //     {
                             //         icon: <BiShow />,

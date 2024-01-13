@@ -10,7 +10,7 @@ export const getIdeaData = async (
 ) => {
     try {
         const response = await privateGateway.get(
-            dynamicRoute(yipRoutes.getIdeaData),
+            dynamicRoute(yipRoutes.getOrg),
             {
                 params: {
                     org_type: type,
@@ -21,6 +21,23 @@ export const getIdeaData = async (
                 },
             }
         );
+        return response.data.response;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const getIdeaCardData = async (type: string) => {
+    try {
+        const response = await privateGateway.get(
+            dynamicRoute(yipRoutes.getIdeaData),
+            {
+                params: {
+                    org_type: type,
+                },
+            }
+        );
+		console.log(response.data.response);
         return response.data.response;
     } catch (error) {
         throw error;

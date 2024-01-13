@@ -1,7 +1,4 @@
-interface IdeaData {
-    college: OrgIdeaStats[];
-    school: OrgIdeaStats[];
-    iti: OrgIdeaStats[];
+interface IdeaCardData {
     pre_registration: number;
     vos_completed: number;
     group_formation: number;
