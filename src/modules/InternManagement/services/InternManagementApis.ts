@@ -44,6 +44,7 @@ export const getOrg = async (org_type: string) => {
             params: {
                 org_type: org_type,
 				perPage: 6500,
+				is_pagination: true
             },
         });
         return response.data.response.data as getOrgResponse[];

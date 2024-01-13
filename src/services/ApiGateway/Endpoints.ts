@@ -21,4 +21,5 @@ export const yipRoutes = {
     getOrg: "/organization/list/",
     assignOrg: "/organization/assign/",
     getIdeaData: "/organization/idea/total/",
+    uploadIdeaCSV: "/organization/idea/csv/",
 };
