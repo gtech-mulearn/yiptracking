@@ -12,7 +12,6 @@ import useTableState from "../../components/Table/services/hooks/useTableState";
 import toast from "react-hot-toast";
 import IdeaCSV from "./components/IdeaCSV";
 import { HiDownload } from "react-icons/hi";
-import { useNavigate } from "react-router-dom";
 
 const Idea = () => {
     const [cardData, setCardData] = useState<IdeaCardData>();
@@ -30,7 +29,6 @@ const Idea = () => {
         { key: "idea_submissions", header: "Ideas", isSortable: true },
         { key: "group_formation", header: "Groups", isSortable: true },
     ];
-    const naviagte = useNavigate();
     const tableState = useTableState<OrgIdeaStats>();
 
     useEffect(() => {
