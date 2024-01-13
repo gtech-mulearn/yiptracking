@@ -1,12 +1,23 @@
 import { privateGateway } from "../../../services/ApiGateway/ApiGateway";
 import {
-    dynamicRoute,
+	dynamicRoute,
     yipRoutes,
 } from "../../../services/ApiGateway/Endpoints";
 
-export const getInterns = async () => {
+export const getInterns = async (
+    rowsPerPage: number,
+    currentPage: number,
+    searchTerm: string,
+    sortColumn: string
+) => {
     const response = await privateGateway.get(
-        dynamicRoute(yipRoutes.getInterns)
+        dynamicRoute(yipRoutes.getInterns), {
+			params: {
+				perPage: rowsPerPage,
+				pageIndex: currentPage,
+				search: searchTerm,
+				sort: sortColumn
+		}}
     );
     return response.data.response;
 };
@@ -32,10 +43,10 @@ export const getOrg = async (org_type: string) => {
         const response = await privateGateway.get(yipRoutes.getOrg, {
             params: {
                 org_type: org_type,
+				perPage: 6500,
             },
         });
-        console.log(response);
-        return response.data.response as getOrgResponse[];
+        return response.data.response.data as getOrgResponse[];
     } catch (err) {
         console.log(err);
     }

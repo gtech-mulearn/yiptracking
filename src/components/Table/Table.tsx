@@ -1,7 +1,7 @@
-import { useState, useMemo } from "react";
 import styles from "./Table.module.css";
 import Loader from "../Loader/Loader";
 import { TbArrowsSort } from "react-icons/tb";
+import Pagination, { PaginationFooter } from "./components/Pagination";
 
 type Action<T> = {
     icon: React.ReactNode; // Can be a JSX element like an icon
@@ -9,58 +9,31 @@ type Action<T> = {
     title: string;
 };
 
-type TableProps<T extends { [key: string]: any }> = {
-    data: T[];
+type TableProps<T> = {
     columns: TableColumn<T>[];
-    isLoading?: boolean;
+    keyColumn: keyof T;
+    tableState: UseTableStateProps<T>;
     onRowClick?: (item: T) => void;
-    actions?: Action<T>[]; // Optional actions array
+    actions?: Action<T>[];
 };
 
-const Table = <T extends { [key: string]: any }>({
-    data,
+const Table = <T extends {}>({
     columns,
+    keyColumn,
+    tableState,
     onRowClick,
-    isLoading,
     actions,
-}: TableProps<T>) => {
-    const [searchTerm, setSearchTerm] = useState("");
-    const [sortKey, setSortKey] = useState("");
-    const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
+}: TableProps<T> & { tableState: UseTableStateProps<T> }) => {
 
-    const sortedData = useMemo(() => {
-        let sorted = [...data];
-        if (sortKey) {
-            sorted.sort((a, b) => {
-                const aValue = a[sortKey];
-                const bValue = b[sortKey];
-                if (typeof aValue === "string" && typeof bValue === "string") {
-                    return (
-                        aValue.localeCompare(bValue) *
-                        (sortDirection === "asc" ? 1 : -1)
-                    );
-                }
-                return aValue < bValue ? -1 : aValue > bValue ? 1 : 0;
-            });
-        }
-        return sorted;
-    }, [data, sortKey, sortDirection]);
+    const paginate = (pageNumber: number) => {
+        tableState.setCurrentPage(pageNumber);
+    };
 
-    const filteredData = sortedData.filter((item) =>
-        columns.some((column) => {
-            const itemValue = item[column.key];
-            return itemValue
-                ?.toString()
-                .toLowerCase()
-                .includes(searchTerm.toLowerCase());
-        })
-    );
-
-    const handleSort = (key: string) => {
-        setSortDirection(
-            sortKey === key && sortDirection === "asc" ? "desc" : "asc"
-        );
-        setSortKey(key);
+    const handleRowsPerPageChange = (
+        event: React.ChangeEvent<HTMLSelectElement>
+    ) => {
+        tableState.setRowsPerPage(parseInt(event.target.value, 10));
+        tableState.setCurrentPage(1); // Reset to first page when rows per page changes
     };
 
     const handleClick = (item: T) => {
@@ -69,80 +42,118 @@ const Table = <T extends { [key: string]: any }>({
         }
     };
 
-    return isLoading ? (
-        <div className={styles.loaderContainer}>
-            <Loader />
-        </div>
-    ) : (
-        <div className={styles.table}>
-            <div className={styles.search}>
-                <input
-                    type="text"
-                    placeholder="Search..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                />
+    return (
+        <>
+            <div className={styles.tableHeader}>
+                <div className={styles.search}>
+                    <input
+                        type="text"
+                        placeholder="Search..."
+                        value={tableState.searchTerm}
+                        onChange={(e) =>
+                            tableState.setSearchTerm(e.target.value)
+                        }
+                    />
+                </div>
+                <div>
+                    <Pagination
+                        rowsPerPage={tableState.rowsPerPage}
+                        totalRows={tableState.pagination?.totalPages || 0}
+                        paginate={paginate}
+                        currentPage={tableState.currentPage}
+                        onRowsPerPageChange={handleRowsPerPageChange}
+                    />
+                </div>
             </div>
-            <section className={styles.tableBody}>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>S/N</th>
-                            {columns.map((column) => (
-                                <th
-                                    key={column.key.toString()}
-                                    onClick={() =>
-                                        handleSort(column.key.toString())
-                                    }
-                                >
-                                    <div>
-                                        {column.header}{" "}
-                                        {column.isSortable && (
-                                            <span>
-                                                <TbArrowsSort />
-                                            </span>
-                                        )}
-                                    </div>
-                                </th>
-                            ))}
-                            {actions && <th>Actions</th>}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {filteredData.map((row) => (
-                            <tr key={row.id} onClick={() => handleClick(row)}>
-                                <td>{filteredData.indexOf(row) + 1}</td>
-                                {columns.map((column) => (
-                                    <td key={column.key.toString()}>
-                                        {row[column.key]}
-                                    </td>
-                                ))}
-                                {actions && (
-                                    <td>
-                                        <div className={styles.action}>
-                                            {actions.map(
-                                                (action, actionIndex) => (
-                                                    <div
-                                                        key={actionIndex}
-                                                        onClick={(e) => {
-                                                            e.stopPropagation();
-                                                            action.onClick(row);
-                                                        }}
-                                                        title={action.title}
-                                                    >
-                                                        {action.icon}
-                                                    </div>
+            {tableState.isLoading ? (
+                <div className={styles.loaderContainer}>
+                    <Loader />
+                </div>
+            ) : (
+                <div className={styles.table}>
+                    <section className={styles.tableBody}>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>S/N</th>
+                                    {columns.map((column) => (
+                                        <th
+                                            key={column.key.toString()}
+                                            onClick={() =>
+                                                tableState.setSortColumn(
+                                                    column.key.toString()
                                                 )
-                                            )}
-                                        </div>
-                                    </td>
-                                )}
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </section>
-        </div>
+                                            }
+                                        >
+                                            <div>
+                                                {column.header}{" "}
+                                                {column.isSortable && (
+                                                    <span>
+                                                        <TbArrowsSort />
+                                                    </span>
+                                                )}
+                                            </div>
+                                        </th>
+                                    ))}
+                                    {actions && <th>Actions</th>}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {tableState.data.map((row, index) => (
+                                    <tr
+                                        key={String(row[keyColumn])}
+                                        onClick={() => handleClick(row)}
+                                    >
+                                        <td>{index + 1}</td>
+                                        {columns.map((column) => (
+                                            <td key={column.key.toString()}>
+                                                {String(row[column.key])}
+                                            </td>
+                                        ))}
+                                        {actions && (
+                                            <td>
+                                                <div className={styles.action}>
+                                                    {actions.map(
+                                                        (
+                                                            action,
+                                                            actionIndex
+                                                        ) => (
+                                                            <div
+                                                                key={
+                                                                    actionIndex
+                                                                }
+                                                                onClick={(
+                                                                    e
+                                                                ) => {
+                                                                    e.stopPropagation();
+                                                                    action.onClick(
+                                                                        row
+                                                                    );
+                                                                }}
+                                                                title={
+                                                                    action.title
+                                                                }
+                                                            >
+                                                                {action.icon}
+                                                            </div>
+                                                        )
+                                                    )}
+                                                </div>
+                                            </td>
+                                        )}
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </section>
+                </div>
+            )}
+            <PaginationFooter
+                currentPage={tableState.currentPage}
+                paginate={paginate}
+                isNext={tableState.pagination?.isNext || false}
+            />
+        </>
     );
 };
 
