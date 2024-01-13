@@ -67,6 +67,17 @@
 	align-items: center;
 }
 
+.IdeaCSVContainer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.IdeaCSVContainer a {
+	color: black;
+	text-decoration: none;
+}
+
 @media screen and (max-width: 600px) {
 	.IdeaPageHeader {
 		flex-direction: column;
@@ -76,8 +87,13 @@
 	.IdeaCSV {
 		width: 80%;
 		margin-right: 0;
-		margin: 1rem;
+		margin: .2rem;
 		margin-bottom: 0;	
+	}
+	.IdeaCSVContainer {
+		flex-direction: column;
+		gap: .3rem;
+		margin-top: 1rem;
 	}
 }
 

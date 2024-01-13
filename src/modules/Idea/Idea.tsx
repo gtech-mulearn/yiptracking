@@ -11,6 +11,8 @@ import Table from "../../components/Table/Table";
 import useTableState from "../../components/Table/services/hooks/useTableState";
 import toast from "react-hot-toast";
 import IdeaCSV from "./components/IdeaCSV";
+import { HiDownload } from "react-icons/hi";
+import { useNavigate } from "react-router-dom";
 
 const Idea = () => {
     const [cardData, setCardData] = useState<IdeaCardData>();
@@ -28,7 +30,7 @@ const Idea = () => {
         { key: "idea_submissions", header: "Ideas", isSortable: true },
         { key: "group_formation", header: "Groups", isSortable: true },
     ];
-
+    const naviagte = useNavigate();
     const tableState = useTableState<OrgIdeaStats>();
 
     useEffect(() => {
@@ -91,7 +93,18 @@ const Idea = () => {
                 <div className={styles.IdeaStatsContainer}>
                     <div className={styles.IdeaPageHeader}>
                         <h1 className={styles.title}>Idea Stats</h1>
-                        <IdeaCSV onFileSelect={handleFileSelect} />
+                        <div className={styles.IdeaCSVContainer}>
+                            <a
+                                className={styles.IdeaCSV}
+                                href="https://fastupload.io/en/TNgIsmMgs8dI/raLPvkHUA4m4yJu/0PdzyOqePmeAR/IdeaViewTemplate.xlsx"
+								target="_blank"
+								rel="noreferrer"
+                            >
+                                <HiDownload />
+                                <b>Template</b>
+                            </a>
+                            <IdeaCSV onFileSelect={handleFileSelect} />
+                        </div>
                     </div>
                     <div className={styles.IdeaTypeSelect}>
                         <label htmlFor="type">Filter based on:</label>
