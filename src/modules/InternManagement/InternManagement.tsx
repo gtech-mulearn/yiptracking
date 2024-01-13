@@ -7,13 +7,13 @@ import CreateModal from "./components/CreateModal";
 import { useNavigate } from "react-router-dom";
 import { MdAssignmentAdd } from "react-icons/md";
 import { BiShow } from "react-icons/bi";
+	import useTableState from "../../components/Table/services/hooks/useTableState";
 
 const InternManagement = () => {
 	const navigate = useNavigate()
     const [refresh, setRefresh] = useState(false);
-    const [data, setData] = useState<InternData[]>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const columns: TableColumn<InternData>[] = [
+    const columns: TableColumn<InternData>[]= [
         { key: "first_name", header: "First Name", isSortable: true },
         { key: "last_name", header: "Last Name", isSortable: true },
         { key: "role", header: "Role", isSortable: true },
@@ -21,24 +21,27 @@ const InternManagement = () => {
         { key: "email", header: "Email", isSortable: true },
     ];
 
+	const tableState = useTableState<InternData>();
+
+    useEffect(() => {
+        tableState.handleFetchData(() =>
+            getInterns(
+                tableState.rowsPerPage,
+                tableState.currentPage,
+                tableState.searchTerm,
+                tableState.sortColumn
+            )
+        );
+    }, [
+        tableState.currentPage,
+        tableState.rowsPerPage,
+        tableState.searchTerm,
+        tableState.sortColumn,
+    ]);
+
     const handleModalOpen = () => {
         setIsModalOpen(true);
     };
-
-    const handleFetchDetails = async () => {
-        try {
-            const response: InternData[] = await getInterns();
-            if (response) {
-                setData(response);
-            }
-        } catch (error) {
-            toast.error("Something went wrong, failed to load data");
-		}
-    };
-
-    useEffect(() => {
-        handleFetchDetails();
-    }, [refresh]);
 
     const handleSubmit = (data: CreateUser) => {
         const formattedOrgData = [
@@ -75,23 +78,21 @@ const InternManagement = () => {
                         <MdAssignmentAdd /> Manage
                     </button>
                 </div>
-                {data && (
-                    <Table
-                        data={data as InternData[]}
-                        columns={columns}
-                        onRowClick={handleClick}
-                        isLoading={data.length === 0}
-                        actions={[
-                            {
-                                icon: <BiShow />,
-                                onClick: (item) => {
-                                    handleClick(item);
-                                },
-								title: "View Details",
+                <Table<InternData>
+                    keyColumn="user_id"
+                    columns={columns}
+                    tableState={tableState}
+                    onRowClick={handleClick}
+                    actions={[
+                        {
+                            icon: <BiShow />,
+                            onClick: (item) => {
+                                handleClick(item);
                             },
-                        ]}
-                    />
-                )}
+                            title: "View Details",
+                        },
+                    ]}
+                />
             </div>
             {isModalOpen && (
                 <CreateModal

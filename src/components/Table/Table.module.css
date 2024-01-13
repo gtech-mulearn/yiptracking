@@ -7,10 +7,6 @@
     }
 }
 
-.search {
-    width: 100%;
-}
-
 .search input {
     border: 2px solid var(--secondary);
     padding: 0.7rem 1rem;
@@ -18,11 +14,74 @@
     width: 20rem;
 }
 
+.tableHeader {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pagination select {
+    border: 2px solid var(--secondary);
+    padding: 0.5rem 0.5rem;
+    margin-left: 10px;
+    border-radius: 10px;
+}
+
+.paginationFooter {
+    width: 100%;
+    color: var(--primary);
+}
+
+.pageButtonContainer {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.pageButtonContainer div {
+    color: var(--primary);
+	border: 3px solid var(--secondary);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 8px;
+	padding: .3rem;
+	font-size: 20px;
+}
+
+.pageButtonContainer div:hover {
+	cursor: pointer;
+	background-color: var(--secondary);
+}
+
+.pageButtonContainer b {
+	font-size: 16px;
+	border: none;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.pageButtonContainer .disabled {
+	cursor: not-allowed;
+	opacity: 0.5;
+	background-color: rgba(0, 0, 0, 0.114);
+}
+
 @media screen and (max-width: 600px) {
-	.search input {
-		width: 100%;
-	}
-	
+    .search input {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+    .search {
+        width: 100%;
+    }
+    .pagination {
+        padding: 0 0.5rem;
+    }
 }
 
 .search input::placeholder {
@@ -100,7 +159,7 @@ thead th {
     background-color: var(--secondary);
     cursor: pointer;
     text-transform: capitalize;
-	text-wrap: nowrap;
+    text-wrap: nowrap;
 }
 
 tbody tr:nth-child(even) {
@@ -172,16 +231,16 @@ tbody tr.hide td img {
 }
 
 thead th div span {
-	font-size: 20px;
+    font-size: 20px;
 }
 
 thead th div span:hover {
-	scale: 1.2;
+    scale: 1.2;
 }
 
 thead th div {
-	display: flex;
-	gap: 0.3rem;
+    display: flex;
+    gap: 0.3rem;
 }
 
 thead th:hover {
@@ -189,30 +248,30 @@ thead th:hover {
 }
 
 .loaderContainer {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 100%;
-	min-height: 15rem;
-	width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    min-height: 15rem;
+    width: 100%;
 }
 
 .action {
-	display: flex;
-	justify-content: start;
-	font-size: 20px;
-	align-items: center;
-	gap: 0.1rem;
+    display: flex;
+    justify-content: start;
+    font-size: 20px;
+    align-items: center;
+    gap: 0.1rem;
 }
 
 .action div {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	padding: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem;
 }
 
 .action div:hover {
-	background-color: rgba(169, 169, 169, 0.726);
-	border-radius: 50%;
+    background-color: rgba(169, 169, 169, 0.726);
+    border-radius: 50%;
 }
