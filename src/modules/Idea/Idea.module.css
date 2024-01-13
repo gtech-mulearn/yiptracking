@@ -67,6 +67,20 @@
 	align-items: center;
 }
 
+@media screen and (max-width: 600px) {
+	.IdeaPageHeader {
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+	.IdeaCSV {
+		width: 80%;
+		margin-right: 0;
+		margin: 1rem;
+		margin-bottom: 0;	
+	}
+}
+
 .tableContainer {
 	width: 100%;
     padding: 1rem;
@@ -105,7 +119,6 @@
 	.IdeaTypeSelect select {
 		width: 70%;
 	}
-	
 }
 
 /* Idea Card CSS */
