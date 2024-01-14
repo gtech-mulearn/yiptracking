@@ -14,29 +14,20 @@ import IdeaCSV from "./components/IdeaCSV";
 import { HiDownload } from "react-icons/hi";
 import { Select, Tooltip } from "@radix-ui/themes";
 import { FaFilter } from "react-icons/fa";
+import { DistrictColumns, InternColumns, OrgColumns, ZoneColumns } from "./services/IdeaColumnData";
 
 const Idea = () => {
     const [cardData, setCardData] = useState<IdeaCardData>();
     const [refresh, setRefresh] = useState<boolean>(false);
-    const [type, setType] = useState<string>("total");
-    const columns: TableColumn<OrgIdeaStats>[] = [
-        // { key: "code", header: "Code", isSortable: true },
-        { key: "name", header: "Name", isSortable: true },
-        {
-            key: "pre_registration",
-            header: "Pre-Reg",
-            isSortable: true,
-        },
-        { key: "vos_completed", header: "VOS", isSortable: true },
-        { key: "idea_submissions", header: "Ideas", isSortable: true },
-        { key: "group_formation", header: "Groups", isSortable: true },
-    ];
+    const [type, setType] = useState<string>("organization");
+    const [orgType, setOrgType] = useState<string>("total");
     const tableState = useTableState<OrgIdeaStats>();
 
     useEffect(() => {
         tableState.handleFetchData(() =>
             getIdeaData(
                 type,
+				orgType,
                 tableState.rowsPerPage,
                 tableState.currentPage,
                 tableState.searchTerm,
@@ -50,11 +41,12 @@ const Idea = () => {
         tableState.sortColumn,
         type,
         refresh,
+		orgType,
     ]);
 
     const handleFetchDetails = async () => {
         try {
-            const response = await getIdeaCardData(type);
+            const response = await getIdeaCardData(orgType);
             if (response) {
                 setCardData(response);
             }
@@ -65,7 +57,7 @@ const Idea = () => {
 
     useEffect(() => {
         handleFetchDetails();
-    }, [type, refresh]);
+    }, [type, refresh, orgType]);
 
     const handleFileSelect = async (file: File) => {
         const formData = new FormData();
@@ -83,6 +75,18 @@ const Idea = () => {
         setRefresh(!refresh);
     };
 
+	const handleTableColumns = (): TableColumn<OrgIdeaStats>[] => {
+        if (type === "organization") {
+            return OrgColumns;
+        } else if (type === "intern") {
+            return InternColumns;
+		} else if (type === "district") {
+			return DistrictColumns;
+		} else {
+			return ZoneColumns;
+		}
+    };
+
     return (
         <div className={styles.container}>
             {cardData ? (
@@ -90,7 +94,7 @@ const Idea = () => {
                     <div className={styles.IdeaPageHeader}>
                         <h1 className={styles.title}>Idea Stats</h1>
                         <div className={styles.IdeaCSVContainer}>
-                            <Tooltip content="Download Excel template" >
+                            <Tooltip content="Download Excel template">
                                 <a
                                     className={styles.IdeaCSV}
                                     href="https://fastupload.io/en/TNgIsmMgs8dI/raLPvkHUA4m4yJu/0PdzyOqePmeAR/IdeaViewTemplate.xlsx"
@@ -107,10 +111,31 @@ const Idea = () => {
                     <div className={styles.IdeaTypeSelect}>
                         <FaFilter />
                         <Select.Root
-                            defaultValue="total"
+                            defaultValue="organization"
                             size={"3"}
                             value={type}
                             onValueChange={(e) => setType(e)}
+                        >
+                            <Select.Trigger
+                                variant="soft"
+                                className={styles.radixSelect}
+                            />
+                            <Select.Content position="popper">
+                                <Select.Item value="organization">
+                                    Organization
+                                </Select.Item>
+                                <Select.Item value="intern">Intern</Select.Item>
+                                <Select.Item value="district">
+                                    District
+                                </Select.Item>
+                                <Select.Item value="zone">Zone</Select.Item>
+                            </Select.Content>
+                        </Select.Root>
+                        {type === "organization" && <Select.Root
+                            defaultValue="total"
+                            size={"3"}
+                            value={orgType}
+                            onValueChange={(e) => setOrgType(e)}
                         >
                             <Select.Trigger
                                 variant="soft"
@@ -124,7 +149,7 @@ const Idea = () => {
                                 </Select.Item>
                                 <Select.Item value="Iti">ITI</Select.Item>
                             </Select.Content>
-                        </Select.Root>
+                        </Select.Root>}
                     </div>
                     <div className={styles.IdeaStatsWrapper}>
                         <div className={styles.IdeaStatsRow}>
@@ -151,7 +176,7 @@ const Idea = () => {
                     <div className={styles.tableContainer}>
                         <Table<OrgIdeaStats>
                             keyColumn={"id"}
-                            columns={columns}
+                            columns={handleTableColumns()}
                             tableState={tableState}
                             // onRowClick={handleClick}
                             // actions={[

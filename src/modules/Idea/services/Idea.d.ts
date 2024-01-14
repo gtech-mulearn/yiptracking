@@ -9,6 +9,11 @@ interface OrgIdeaStats {
     id: string;
     name: string;
     code: string;
+    full_name: string;
+    no_of_entries: number;
+    district: string;
+    zone: string;
+    email: string;
     pre_registration: number;
     vos_completed: number;
     idea_submissions: number;

@@ -3,18 +3,20 @@ import { dynamicRoute, yipRoutes } from "../../../services/ApiGateway/Endpoints"
 
 export const getIdeaData = async (
     type: string,
+	org_type: string,
     rowsPerPage: number,
     currentPage: number,
     searchTerm: string,
     sortColumn: string
 ) => {
-	const orgType = type === "total" ? "" : type
+	const orgType = type === "organization" ? org_type === "total" ? "" : org_type : "";
     try {
         const response = await privateGateway.get(
-            dynamicRoute(yipRoutes.getOrg),
+            dynamicRoute(yipRoutes.getIdeaTableData),
             {
                 params: {
-                    org_type: orgType,
+                    type: type,
+					org_type: orgType,
                     perPage: rowsPerPage,
                     pageIndex: currentPage,
                     search: searchTerm,
