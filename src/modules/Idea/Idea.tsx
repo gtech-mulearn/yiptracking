@@ -92,12 +92,12 @@ const Idea = () => {
         let url: string = "/intern/";
         if (type === "organization") {
             url += item.assigned_to_email;
+			// Open the URL in a new tab
+			window.open(url, "_blank");
         } else if (type === "intern") {
-            url += item.email;
+			url += item.email;
+			window.open(url, "_blank");
         }
-
-        // Open the URL in a new tab
-        window.open(url, "_blank");
     }
 
     return (
