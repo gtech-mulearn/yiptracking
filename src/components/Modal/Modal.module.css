@@ -26,8 +26,11 @@
     position: relative;
     max-height: 100vh; /* This will make sure the modal content does not exceed 80% of the viewport height */
     overflow-y: auto; /* This will enable vertical scrolling when the content exceeds the max height */
-
     animation: appear 0.5s forwards cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.modalContent::-webkit-scrollbar {
+	display: none;
 }
 
 .iconContainer {

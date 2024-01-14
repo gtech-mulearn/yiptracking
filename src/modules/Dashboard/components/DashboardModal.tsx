@@ -1,8 +1,8 @@
 import { useState } from "react";
 import Modal from "../../../components/Modal/Modal";
 import styles from "../Dashboard.module.css";
-import Toggle from "./Toggle/Toggle";
 import { convertToSimpleDate } from "../../../utils/common";
+import { Switch } from "@radix-ui/themes";
 
 type Props = {
     isModalOpen: boolean;
@@ -19,15 +19,18 @@ const DashboardModal = ({
 }: Props) => {
     const [data, setData] = useState<OrgStatusData>({
         org_id: org.org_id,
-        visited: org.visited, // Assuming visited is a property of OrgData
+        visited: org.visited,
         whatsapp: org.whatsapp || "",
         pta: org.pta || "",
         alumni: org.alumni || "",
         visited_at: convertToSimpleDate(org.visited_at as string) || "",
         participants: org.participants || 0,
         association: org.association || "",
+		orientation: org.orientation || false,
+		is_scheduled: org.is_scheduled || false,
+		orientation_date: convertToSimpleDate(org.orientation_date as string) || "",
+		scheduled_date: convertToSimpleDate(org.scheduled_date as string) || "",
     });
-    console.log(data);
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setData({ ...data, [e.target.name]: e.target.value });
     };
@@ -54,18 +57,77 @@ const DashboardModal = ({
                         <div className={styles.toggle}>
                             <label>
                                 <h4>Visited</h4>
-                                <Toggle data={data} setData={setData} />
+                                <Switch
+                                    size={"3"}
+                                    checked={data.visited}
+                                    onCheckedChange={() =>
+                                        setData({
+                                            ...data,
+                                            visited: !data.visited,
+                                        })
+                                    }
+                                />
+                            </label>
+                            <label>
+                                <h4>Orientation</h4>
+                                <Switch
+                                    size={"3"}
+                                    checked={data.orientation}
+                                    onCheckedChange={() =>
+                                        setData({
+                                            ...data,
+                                            orientation: !data.orientation,
+                                        })
+                                    }
+                                />
+                            </label>
+                            <label>
+                                <h4>Orientation Scheduled</h4>
+                                <Switch
+                                    size={"3"}
+                                    checked={data.is_scheduled}
+                                    onCheckedChange={() =>
+                                        setData({
+                                            ...data,
+                                            is_scheduled: !data.is_scheduled,
+                                        })
+                                    }
+                                />
                             </label>
                         </div>
-                        <label>
-                            <h4>Visited At:</h4>
-                            <input
-                                type="date"
-                                name="visited_at"
-                                value={data.visited_at}
-                                onChange={handleChange}
-                            />
-                        </label>
+                        {data.visited && (
+                            <label>
+                                <h4>Visited At:</h4>
+                                <input
+                                    type="date"
+                                    name="visited_at"
+                                    value={data.visited_at}
+                                    onChange={handleChange}
+                                />
+                            </label>
+                        )}
+                        {data.orientation && (
+                            <label>
+                                <h4>Orientation date:</h4>
+                                <input
+                                    type="date"
+                                    name="orientation_date"
+                                    value={data.orientation_date}
+                                    onChange={handleChange}
+                                />
+                            </label>
+                        )}
+                        {data.is_scheduled && (
+                            <label>
+                                <h4>Orientation Scheduled date:</h4>
+                                <input
+                                    type="date"
+                                    name="scheduled_date"
+                                    value={data.scheduled_date}
+                                    onChange={handleChange}
+                                />
+                            </label>
+                        )}
                         <label>
                             <h4>WhatsApp:</h4>
                             <input

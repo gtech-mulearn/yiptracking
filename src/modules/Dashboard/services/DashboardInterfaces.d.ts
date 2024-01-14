@@ -4,9 +4,14 @@ interface OrgStatusData {
     whatsapp: string;
     pta: string;
     alumni: string;
-    visited_at: string;
+    visited_at?: string;
     participants: number;
     association: string;
+
+    orientation: boolean;
+    is_scheduled?: boolean;
+	orientation_date?: string;
+	scheduled_date?: string;
 }
 
 interface DashboardData {
@@ -44,11 +49,15 @@ interface OrgData {
     association: string | null;
     whatsapp: string | null;
     participants: number;
-    visited_at: string | null;
+    visited_at?: string;
     district_id: string;
     district_name: string;
     zone_id: string;
     zone_name: string;
+    orientation: boolean;
+    is_scheduled?: boolean;
+    orientation_date?: string;
+    scheduled_date?: string;
 }
 
 interface ProfileEditData {

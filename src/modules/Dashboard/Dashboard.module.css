@@ -271,12 +271,19 @@
 
 .toggle {
     width: 100% !important;
-    text-align: center;
-    margin-bottom: 1rem;
+    margin-bottom: .5rem;
+	display: flex;
+	justify-content: center;
+	gap : 1rem;
 }
 
 .toggle h4 {
     padding: 0 !important;
+}
+
+.toggle label {
+	display: flex;
+	align-items: center;
 }
 
 .editBtn {
