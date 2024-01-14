@@ -8,12 +8,13 @@ export const getIdeaData = async (
     searchTerm: string,
     sortColumn: string
 ) => {
+	const orgType = type === "total" ? "" : type
     try {
         const response = await privateGateway.get(
             dynamicRoute(yipRoutes.getOrg),
             {
                 params: {
-                    org_type: type,
+                    org_type: orgType,
                     perPage: rowsPerPage,
                     pageIndex: currentPage,
                     search: searchTerm,
@@ -29,12 +30,13 @@ export const getIdeaData = async (
 };
 
 export const getIdeaCardData = async (type: string) => {
+	const orgType = type === "total" ? "" : type;
     try {
         const response = await privateGateway.get(
             dynamicRoute(yipRoutes.getIdeaData),
             {
                 params: {
-                    org_type: type,
+                    org_type: orgType,
                 },
             }
         );

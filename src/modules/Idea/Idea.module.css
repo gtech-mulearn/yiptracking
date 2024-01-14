@@ -80,9 +80,13 @@
 
 @media screen and (max-width: 600px) {
 	.IdeaPageHeader {
-		flex-direction: column;
+		/* flex-direction: column; */
 		justify-content: center;
-		align-items: center;
+		align-items: end;
+	}
+	.title {
+		font-size: 46px;
+		line-height: 50px;
 	}
 	.IdeaCSV {
 		width: 80%;
@@ -116,25 +120,36 @@
 }
 
 .IdeaTypeSelect {
-	width: 100%;
+	width: 88%;
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: center;
-	gap: 1rem;
+	gap: .8rem;
+	color: var(--primary);
 	align-items: center;
 }
 
-.IdeaTypeSelect select {
+.IdeaTypeSelect .radixSelect {
 	padding: .8rem;
 	border-radius: 8px;
-	width: 30%;
-	border: 3px solid var(--secondary);
+	min-width: 7rem;
+	border: 3px dashed var(--primary);
+	cursor: pointer;
 }
 
 @media screen and (max-width: 600px) {
 	.IdeaTypeSelect select {
 		width: 70%;
 	}
+	.IdeaTypeSelect {
+		justify-content: center;
+	}
+}
+
+.IdeaStatsWrapper {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 2rem;
 }
 
 /* Idea Card CSS */
@@ -142,7 +157,7 @@
 	background-color: var(--secondary);
 	padding: 1rem;
 	border-radius: 10px;
-	min-width: 20rem;
+	min-width: 10rem;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -154,7 +169,10 @@
 		width: 40rem;
 	}
 	.IdeaStatsCard {
-		min-width: 10rem;
+		min-width: 18rem;
+	}
+	.IdeaStatsWrapper {
+		gap: 0;
 	}
 }
 
@@ -167,6 +185,13 @@
 @media screen and (max-width: 860px) {
 	.tableContainer {
 		width: 30rem;
+	}
+	.IdeaStatsCard {
+		min-width: 18rem;
+	}
+	.IdeaStatsWrapper {
+		gap: 2rem;
+		flex-direction: column;
 	}
 }
 

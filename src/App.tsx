@@ -9,6 +9,8 @@ import InternManagement from "./modules/InternManagement/InternManagement";
 import Idea from "./modules/Idea/Idea";
 import { RoleChecker } from "./services/RoleChecker/RoleChecker";
 import { Roles } from "./services/RoleChecker/Roles";
+import "@radix-ui/themes/styles.css";
+import { Theme } from "@radix-ui/themes";
 
 function App() {
     const router = createBrowserRouter([
@@ -65,8 +67,10 @@ function App() {
     ]);
     return (
         <>
-            <Toaster position="bottom-center" reverseOrder={false} />
-            <RouterProvider router={router} />
+            <Theme hasBackground={false}>
+                <Toaster position="bottom-center" reverseOrder={false} />
+                <RouterProvider router={router} />
+            </Theme>
         </>
     );
 }
