@@ -55,13 +55,6 @@ function App() {
                         },
                     ],
                 },
-                // {
-                //     path: "idea",
-                //     element: (
-                //         <RoleChecker allowedRoles={[Roles.ADMIN, Roles.DC]} />
-                //     ),
-                //     children: [],
-                // },
             ],
         },
     ]);

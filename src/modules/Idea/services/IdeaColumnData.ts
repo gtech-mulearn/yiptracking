@@ -1,5 +1,6 @@
 export const OrgColumns: TableColumn<OrgIdeaStats>[] = [
     { key: "name", header: "Name", isSortable: false },
+    { key: "assigned_to", header: "Assigned To", isSortable: false },
     {
         key: "pre_registration",
         header: "Pre-Reg",
@@ -13,7 +14,7 @@ export const OrgColumns: TableColumn<OrgIdeaStats>[] = [
 export const InternColumns: TableColumn<OrgIdeaStats>[] = [
     { key: "full_name", header: "Name", isSortable: false },
     { key: "email", header: "Email", isSortable: false },
-    { key: "no_of_entries", header: "No. of Org", isSortable: false },
+    { key: "no_of_entries", header: "Assigned", isSortable: false },
     {
         key: "pre_registration",
         header: "Pre-Reg",
@@ -26,7 +27,7 @@ export const InternColumns: TableColumn<OrgIdeaStats>[] = [
 
 export const DistrictColumns: TableColumn<OrgIdeaStats>[] = [
     { key: "district", header: "District", isSortable: false },
-    { key: "no_of_entries", header: "No. of Org", isSortable: false },
+    { key: "no_of_entries", header: "Assigned", isSortable: false },
     {
         key: "pre_registration",
         header: "Pre-Reg",
@@ -39,7 +40,7 @@ export const DistrictColumns: TableColumn<OrgIdeaStats>[] = [
 
 export const ZoneColumns: TableColumn<OrgIdeaStats>[] = [
     { key: "zone", header: "Zone", isSortable: false },
-    { key: "no_of_entries", header: "No. of Districts", isSortable: false },
+    { key: "no_of_entries", header: "Assigned", isSortable: false },
     {
         key: "pre_registration",
         header: "Pre-Reg",

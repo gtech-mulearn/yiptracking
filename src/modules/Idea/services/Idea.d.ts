@@ -14,6 +14,8 @@ interface OrgIdeaStats {
     district: string;
     zone: string;
     email: string;
+    assigned_to: string;
+    assigned_to_email: string;
     pre_registration: number;
     vos_completed: number;
     idea_submissions: number;

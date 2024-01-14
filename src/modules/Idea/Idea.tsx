@@ -15,6 +15,8 @@ import { HiDownload } from "react-icons/hi";
 import { Select, Tooltip } from "@radix-ui/themes";
 import { FaFilter } from "react-icons/fa";
 import { DistrictColumns, InternColumns, OrgColumns, ZoneColumns } from "./services/IdeaColumnData";
+import { BiShow } from "react-icons/bi";
+import { useNavigate } from "react-router-dom";
 
 const Idea = () => {
     const [cardData, setCardData] = useState<IdeaCardData>();
@@ -22,6 +24,7 @@ const Idea = () => {
     const [type, setType] = useState<string>("organization");
     const [orgType, setOrgType] = useState<string>("total");
     const tableState = useTableState<OrgIdeaStats>();
+	const navigate = useNavigate();
 
     useEffect(() => {
         tableState.handleFetchData(() =>
@@ -86,6 +89,18 @@ const Idea = () => {
 			return ZoneColumns;
 		}
     };
+
+	function handleClick(item: OrgIdeaStats): void {
+        let url: string = "/intern/";
+        if (type === "organization") {
+            url += item.assigned_to_email;
+        } else if (type === "intern") {
+            url += item.email;
+        }
+
+        // Open the URL in a new tab
+        window.open(url, "_blank");
+    }
 
     return (
         <div className={styles.container}>
@@ -178,16 +193,16 @@ const Idea = () => {
                             keyColumn={"id"}
                             columns={handleTableColumns()}
                             tableState={tableState}
-                            // onRowClick={handleClick}
-                            // actions={[
-                            //     {
-                            //         icon: <BiShow />,
-                            //         onClick: (item) => {
-                            //             handleClick(item);
-                            //         },
-                            //         title: "View Details",
-                            //     },
-                            // ]}
+                            onRowClick={handleClick}
+                            actions={[
+                                {
+                                    icon: <BiShow />,
+                                    onClick: (item) => {
+                                        handleClick(item);
+                                    },
+                                    title: "View Details",
+                                },
+                            ]}
                         />
                     </div>
                 </div>

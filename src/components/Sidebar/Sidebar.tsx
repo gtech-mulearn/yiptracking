@@ -13,9 +13,6 @@ const Sidebar = (_props: Props) => {
     const location = useLocation();
     const [ismobileMenuActive, setIsMobileMenuActive] = useState(false);
 
-    // useEffect(() => {
-    //     console.log(location.pathname);
-    // });
     return (
         <>
             <div
