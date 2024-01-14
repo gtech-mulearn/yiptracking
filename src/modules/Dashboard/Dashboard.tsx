@@ -13,6 +13,7 @@ import DashboardModal from "./components/DashboardModal";
 import { getAccessToken } from "../../services/ApiGateway/ApiGateway";
 import ProfileEditModal from "./components/ProfileEditModal";
 import { useParams } from "react-router-dom";
+import Loader from "../../components/Loader/Loader";
 const Dashboard = () => {
     const { id } = useParams();
     const [refresh, setRefresh] = useState(false);
@@ -90,7 +91,11 @@ const Dashboard = () => {
             });
     };
 
-    return (
+    return !data ? (
+        <div className={styles.loaderContainer}>
+            <Loader />
+        </div>
+    ) : (
         <div className={styles.container}>
             <div className={styles.dashboard}>
                 <div className={styles.dashboardContainer}>

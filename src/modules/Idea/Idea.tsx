@@ -120,22 +120,22 @@ const Idea = () => {
                     </div>
                     <div className={styles.IdeaStatsRow}>
                         <IdeaStatsCard
-                            title="Group Formation"
-                            value={cardData.group_formation}
-                        />
-                        <IdeaStatsCard
-                            title="Idea Submissions"
-                            value={cardData.idea_submissions}
-                        />
-                    </div>
-                    <div className={styles.IdeaStatsRow}>
-                        <IdeaStatsCard
                             title="Pre-Registration"
                             value={cardData.pre_registration}
                         />
                         <IdeaStatsCard
                             title="VOS Completed"
                             value={cardData.vos_completed}
+                        />
+                    </div>
+                    <div className={styles.IdeaStatsRow}>
+                        <IdeaStatsCard
+                            title="Group Formation"
+                            value={cardData.group_formation}
+                        />
+                        <IdeaStatsCard
+                            title="Idea Submissions"
+                            value={cardData.idea_submissions}
                         />
                     </div>
                     <div className={styles.tableContainer}>
