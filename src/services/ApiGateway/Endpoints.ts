@@ -20,6 +20,7 @@ export const yipRoutes = {
     getZone: "/location/zone/",
     getOrg: "/organization/list/",
     assignOrg: "/organization/assign/",
-    getIdeaData: "/organization/idea/total/",
-    uploadIdeaCSV: "/organization/idea/csv/",
+    getIdeaData: "/ideaview/total/",
+    getIdeaTableData: "/ideaview/list/",
+    uploadIdeaCSV: "/ideaview/csv/",
 };

@@ -4,14 +4,14 @@ interface OrgStatusData {
     whatsapp: string;
     pta: string;
     alumni: string;
-    visited_at?: string;
+    visited_at?: string | null;
     participants: number;
     association: string;
 
     orientation: boolean;
     is_scheduled?: boolean;
-	orientation_date?: string;
-	scheduled_date?: string;
+	orientation_date?: string | null;
+	scheduled_date?: string | null;
 }
 
 interface DashboardData {

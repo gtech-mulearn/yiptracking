@@ -26,10 +26,10 @@ const DashboardModal = ({
         visited_at: convertToSimpleDate(org.visited_at as string) || "",
         participants: org.participants || 0,
         association: org.association || "",
-		orientation: org.orientation || false,
-		is_scheduled: org.is_scheduled || false,
-		orientation_date: convertToSimpleDate(org.orientation_date as string) || "",
-		scheduled_date: convertToSimpleDate(org.scheduled_date as string) || "",
+        orientation: org.orientation || false,
+        is_scheduled: org.is_scheduled || false,
+        orientation_date: convertToSimpleDate(org.orientation_date as string),
+        scheduled_date: convertToSimpleDate(org.scheduled_date as string),
     });
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setData({ ...data, [e.target.name]: e.target.value });
@@ -64,6 +64,9 @@ const DashboardModal = ({
                                         setData({
                                             ...data,
                                             visited: !data.visited,
+                                            visited_at: data.visited
+                                                ? data.visited_at
+                                                : null,
                                         })
                                     }
                                 />
@@ -77,6 +80,9 @@ const DashboardModal = ({
                                         setData({
                                             ...data,
                                             orientation: !data.orientation,
+                                            orientation_date: data.orientation
+                                                ? data.orientation_date
+                                                : null,
                                         })
                                     }
                                 />
@@ -90,6 +96,9 @@ const DashboardModal = ({
                                         setData({
                                             ...data,
                                             is_scheduled: !data.is_scheduled,
+                                            scheduled_date: data.is_scheduled
+                                                ? data.scheduled_date
+                                                : null,
                                         })
                                     }
                                 />
@@ -101,7 +110,7 @@ const DashboardModal = ({
                                 <input
                                     type="date"
                                     name="visited_at"
-                                    value={data.visited_at}
+                                    value={data.visited_at as string}
                                     onChange={handleChange}
                                 />
                             </label>
@@ -112,7 +121,7 @@ const DashboardModal = ({
                                 <input
                                     type="date"
                                     name="orientation_date"
-                                    value={data.orientation_date}
+                                    value={data.orientation_date as string}
                                     onChange={handleChange}
                                 />
                             </label>
@@ -123,7 +132,7 @@ const DashboardModal = ({
                                 <input
                                     type="date"
                                     name="scheduled_date"
-                                    value={data.scheduled_date}
+                                    value={data.scheduled_date as string}
                                     onChange={handleChange}
                                 />
                             </label>
