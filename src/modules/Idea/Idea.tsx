@@ -24,7 +24,6 @@ const Idea = () => {
     const [type, setType] = useState<string>("organization");
     const [orgType, setOrgType] = useState<string>("total");
     const tableState = useTableState<OrgIdeaStats>();
-	const navigate = useNavigate();
 
     useEffect(() => {
         tableState.handleFetchData(() =>
