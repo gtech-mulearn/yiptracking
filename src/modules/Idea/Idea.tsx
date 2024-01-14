@@ -16,7 +16,6 @@ import { Select, Tooltip } from "@radix-ui/themes";
 import { FaFilter } from "react-icons/fa";
 import { DistrictColumns, InternColumns, OrgColumns, ZoneColumns } from "./services/IdeaColumnData";
 import { BiShow } from "react-icons/bi";
-import { useNavigate } from "react-router-dom";
 
 const Idea = () => {
     const [cardData, setCardData] = useState<IdeaCardData>();
