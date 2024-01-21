@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "./InternManagement.module.css";
 import toast from "react-hot-toast";
-import { assignOrg, deleteUser, getInterns } from "./services/InternManagementApis";
+import { assignOrg, deleteUser, deleteUserAssignments, getInterns } from "./services/InternManagementApis";
 import Table from "../../components/Table/Table";
 import CreateModal from "./components/CreateModal";
 import { useNavigate } from "react-router-dom";
@@ -83,6 +83,20 @@ const InternManagement = () => {
 				},
 			})
 	}
+	
+	const handleDeleteUserAssignments = (data: InternData) => {
+		toast
+			.promise(deleteUserAssignments(data.user_id), {
+				loading: "Loading...",
+				success: (message) => {
+					setRefresh(!refresh);
+					return <b>{message}</b>;
+				},
+				error: (message) => {
+					return <b>{message}</b>;
+				},
+			})
+	}
 
     return (
         <div className={styles.container}>
@@ -111,7 +125,7 @@ const InternManagement = () => {
                         {
                             icon: <MdPlaylistRemove />,
                             onClick: (item) => {
-                                handleDeleteUser(item);
+                                handleDeleteUserAssignments(item);
                             },
                             title: "Un-assign Organisations",
 							color: "red"

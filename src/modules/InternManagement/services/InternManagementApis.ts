@@ -77,3 +77,16 @@ export const deleteUser = async (userId: string) => {
         throw err.response.data.message.general[0];
     }
 };
+
+export const deleteUserAssignments = async (userId: string) => {
+    try {
+        const res = await privateGateway.delete(yipRoutes.deleteUserAssignments, {
+            data: {
+                user_id: userId,
+            },
+        });
+        return res.data.message.general[0];
+    } catch (err: any) {
+        throw err.response.data.message.general[0];
+    }
+};
