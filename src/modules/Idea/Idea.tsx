@@ -91,9 +91,11 @@ const Idea = () => {
 	function handleClick(item: OrgIdeaStats): void {
         let url: string = "/intern/";
         if (type === "organization") {
-            url += item.assigned_to_email;
-			// Open the URL in a new tab
-			window.open(url, "_blank");
+			if (item.assigned_to_email) {
+                url += item.assigned_to_email;
+                // Open the URL in a new tab
+                window.open(url, "_blank");
+            }
         } else if (type === "intern") {
 			url += item.email;
 			window.open(url, "_blank");
