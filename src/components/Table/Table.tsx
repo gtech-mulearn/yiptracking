@@ -7,6 +7,7 @@ type Action<T> = {
     icon: React.ReactNode; // Can be a JSX element like an icon
     onClick: (item: T) => void; // Function to be called on click
     title: string;
+	color?: string;
 };
 
 type TableProps<T> = {
@@ -119,6 +120,9 @@ const Table = <T extends {}>({
                                                             actionIndex
                                                         ) => (
                                                             <div
+																style={{
+																	color: action.color || "black"
+																}}
                                                                 key={
                                                                     actionIndex
                                                                 }

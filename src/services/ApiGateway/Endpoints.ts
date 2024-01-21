@@ -23,4 +23,6 @@ export const yipRoutes = {
     getIdeaData: "/ideaview/total/",
     getIdeaTableData: "/ideaview/list/",
     uploadIdeaCSV: "/ideaview/csv/",
+    deleteUser: "/auth/delete-user/",
+    deleteUserAssignments: "/auth/delete-user-assignments/",
 };

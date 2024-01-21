@@ -1,19 +1,20 @@
 import { useEffect, useState } from "react";
 import styles from "./InternManagement.module.css";
 import toast from "react-hot-toast";
-import { assignOrg, getInterns } from "./services/InternManagementApis";
+import { assignOrg, deleteUser, deleteUserAssignments, getInterns } from "./services/InternManagementApis";
 import Table from "../../components/Table/Table";
 import CreateModal from "./components/CreateModal";
 import { useNavigate } from "react-router-dom";
-import { MdAssignmentAdd } from "react-icons/md";
+import { MdAssignmentAdd, MdPlaylistRemove } from "react-icons/md";
 import { BiShow } from "react-icons/bi";
-	import useTableState from "../../components/Table/services/hooks/useTableState";
+import useTableState from "../../components/Table/services/hooks/useTableState";
+import { MdDeleteForever } from "react-icons/md";
 
 const InternManagement = () => {
-	const navigate = useNavigate()
+    const navigate = useNavigate();
     const [refresh, setRefresh] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const columns: TableColumn<InternData>[]= [
+    const columns: TableColumn<InternData>[] = [
         { key: "first_name", header: "First Name", isSortable: true },
         { key: "last_name", header: "Last Name", isSortable: true },
         { key: "role", header: "Role", isSortable: true },
@@ -21,7 +22,7 @@ const InternManagement = () => {
         { key: "email", header: "Email", isSortable: true },
     ];
 
-	const tableState = useTableState<InternData>();
+    const tableState = useTableState<InternData>();
 
     useEffect(() => {
         tableState.handleFetchData(() =>
@@ -37,6 +38,7 @@ const InternManagement = () => {
         tableState.rowsPerPage,
         tableState.searchTerm,
         tableState.sortColumn,
+		refresh,
     ]);
 
     const handleModalOpen = () => {
@@ -49,7 +51,7 @@ const InternManagement = () => {
             ...(data.school ? data.school.map((option) => option.value) : []),
             ...(data.iti ? data.iti.map((option) => option.value) : []),
         ];
-		toast
+        toast
             .promise(assignOrg(data.email!, formattedOrgData), {
                 loading: "Loading...",
                 success: (message) => {
@@ -64,8 +66,36 @@ const InternManagement = () => {
             });
     };
 
-	const handleClick = (data: InternData) => {
-		navigate("/intern/" + data.email)
+    const handleClick = (data: InternData) => {
+        navigate("/intern/" + data.email);
+    };
+
+	const handleDeleteUser = (data: InternData) => {
+		toast
+			.promise(deleteUser(data.user_id), {
+				loading: "Loading...",
+				success: (message) => {
+					setRefresh(!refresh);
+					return <b>{message}</b>;
+				},
+				error: (message) => {
+					return <b>{message}</b>;
+				},
+			})
+	}
+	
+	const handleDeleteUserAssignments = (data: InternData) => {
+		toast
+			.promise(deleteUserAssignments(data.user_id), {
+				loading: "Loading...",
+				success: (message) => {
+					setRefresh(!refresh);
+					return <b>{message}</b>;
+				},
+				error: (message) => {
+					return <b>{message}</b>;
+				},
+			})
 	}
 
     return (
@@ -90,6 +120,23 @@ const InternManagement = () => {
                                 handleClick(item);
                             },
                             title: "View Details",
+							color: "blue"
+                        },
+                        {
+                            icon: <MdPlaylistRemove />,
+                            onClick: (item) => {
+                                handleDeleteUserAssignments(item);
+                            },
+                            title: "Un-assign Organisations",
+							color: "red"
+                        },
+                        {
+                            icon: <MdDeleteForever />,
+                            onClick: (item) => {
+                                handleDeleteUser(item);
+                            },
+                            title: "Delete User",
+							color: "red"
                         },
                     ]}
                 />
