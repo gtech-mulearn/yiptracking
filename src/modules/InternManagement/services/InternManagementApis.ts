@@ -90,3 +90,23 @@ export const deleteUserAssignments = async (userId: string) => {
         throw err.response.data.message.general[0];
     }
 };
+
+
+export const getDistrictOptions = async () => {
+    try {
+        const response = await privateGateway.get(yipRoutes.getDistrict);
+        console.log(response.data.response);
+        return response.data.response as getDistrictResponse[];
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+export const addNewUser = async (data: AddNewUser) => {
+    try {
+        const res = await privateGateway.post(yipRoutes.addNewUser, data);
+        return res.data.message.general[0];
+    } catch (err: any) {
+        throw err.response.data[0];
+    }
+};

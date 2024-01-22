@@ -35,3 +35,17 @@ interface getOrgResponse {
     name: string;
     id: string;
 }
+
+interface getDistrictResponse {
+	name: string;
+	district_id: string;
+	zone_id: string;
+}
+
+
+interface AddNewUser {
+	first_name: string;
+	last_name: string;
+	email: string;
+	district_id: string;
+}
