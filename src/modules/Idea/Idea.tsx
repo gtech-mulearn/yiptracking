@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import {
     getIdeaCardData,
     getIdeaData,
+    getIdeaDataCsv,
     uploadIdeaCSV,
 } from "./services/IdeaApis";
 import IdeaStatsCard from "./components/IdeaStatsCard";
@@ -14,7 +15,12 @@ import IdeaCSV from "./components/IdeaCSV";
 import { HiDownload } from "react-icons/hi";
 import { Select, Tooltip } from "@radix-ui/themes";
 import { FaFilter } from "react-icons/fa";
-import { DistrictColumns, InternColumns, OrgColumns, ZoneColumns } from "./services/IdeaColumnData";
+import {
+    DistrictColumns,
+    InternColumns,
+    OrgColumns,
+    ZoneColumns,
+} from "./services/IdeaColumnData";
 import { BiShow } from "react-icons/bi";
 
 const Idea = () => {
@@ -28,7 +34,7 @@ const Idea = () => {
         tableState.handleFetchData(() =>
             getIdeaData(
                 type,
-				orgType,
+                orgType,
                 tableState.rowsPerPage,
                 tableState.currentPage,
                 tableState.searchTerm,
@@ -42,7 +48,7 @@ const Idea = () => {
         tableState.sortColumn,
         type,
         refresh,
-		orgType,
+        orgType,
     ]);
 
     const handleFetchDetails = async () => {
@@ -76,31 +82,65 @@ const Idea = () => {
         setRefresh(!refresh);
     };
 
-	const handleTableColumns = (): TableColumn<OrgIdeaStats>[] => {
+    const handleTableColumns = (): TableColumn<OrgIdeaStats>[] => {
         if (type === "organization") {
             return OrgColumns;
         } else if (type === "intern") {
             return InternColumns;
-		} else if (type === "district") {
-			return DistrictColumns;
-		} else {
-			return ZoneColumns;
-		}
+        } else if (type === "district") {
+            return DistrictColumns;
+        } else {
+            return ZoneColumns;
+        }
     };
 
-	function handleClick(item: OrgIdeaStats): void {
+    function handleClick(item: OrgIdeaStats): void {
         let url: string = "/intern/";
         if (type === "organization") {
-			if (item.assigned_to_email) {
+            if (item.assigned_to_email) {
                 url += item.assigned_to_email;
                 // Open the URL in a new tab
                 window.open(url, "_blank");
             }
         } else if (type === "intern") {
-			url += item.email;
-			window.open(url, "_blank");
+            url += item.email;
+            window.open(url, "_blank");
         }
     }
+
+    async function handleDownload() {
+        try {
+            const data: string = await getIdeaDataCsv(
+                type,
+                orgType,
+                tableState.rowsPerPage,
+                tableState.currentPage,
+                tableState.searchTerm,
+                tableState.sortColumn,
+                true
+            );
+
+            if (data && data.length > 0) {
+
+                const blob = new Blob([data], {
+                    type: "text/csv;charset=utf-8;",
+                });
+                const link = document.createElement("a");
+                link.href = URL.createObjectURL(blob);
+                link.setAttribute("download", "data.csv");
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(link.href);
+            } else {
+                toast.error("No data available to download");
+            }
+        } catch (error) {
+            console.error("Error downloading CSV:", error);
+            toast.error("Failed to download CSV");
+        }
+    }
+
 
     return (
         <div className={styles.container}>
@@ -146,25 +186,31 @@ const Idea = () => {
                                 <Select.Item value="zone">Zone</Select.Item>
                             </Select.Content>
                         </Select.Root>
-                        {type === "organization" && <Select.Root
-                            defaultValue="total"
-                            size={"3"}
-                            value={orgType}
-                            onValueChange={(e) => setOrgType(e)}
-                        >
-                            <Select.Trigger
-                                variant="soft"
-                                className={styles.radixSelect}
-                            />
-                            <Select.Content position="popper">
-                                <Select.Item value="total">Total</Select.Item>
-                                <Select.Item value="School">School</Select.Item>
-                                <Select.Item value="College">
-                                    College
-                                </Select.Item>
-                                <Select.Item value="Iti">ITI</Select.Item>
-                            </Select.Content>
-                        </Select.Root>}
+                        {type === "organization" && (
+                            <Select.Root
+                                defaultValue="total"
+                                size={"3"}
+                                value={orgType}
+                                onValueChange={(e) => setOrgType(e)}
+                            >
+                                <Select.Trigger
+                                    variant="soft"
+                                    className={styles.radixSelect}
+                                />
+                                <Select.Content position="popper">
+                                    <Select.Item value="total">
+                                        Total
+                                    </Select.Item>
+                                    <Select.Item value="School">
+                                        School
+                                    </Select.Item>
+                                    <Select.Item value="College">
+                                        College
+                                    </Select.Item>
+                                    <Select.Item value="Iti">ITI</Select.Item>
+                                </Select.Content>
+                            </Select.Root>
+                        )}
                     </div>
                     <div className={styles.IdeaStatsWrapper}>
                         <div className={styles.IdeaStatsRow}>
@@ -186,6 +232,15 @@ const Idea = () => {
                                 title="Idea Submissions"
                                 value={cardData.idea_submissions}
                             />
+                        </div>
+                    </div>
+                    <div className={styles.IdeaCSVDownload}>
+                        <div
+                            className={styles.IdeaCSV}
+                            onClick={handleDownload}
+                        >
+                            <HiDownload />
+                            <b>CSV</b>
                         </div>
                     </div>
                     <div className={styles.tableContainer}>
