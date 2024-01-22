@@ -34,7 +34,10 @@ function App() {
                     path: "/",
                     element: <Dashboard />,
                 },
-
+                {
+                    path: "idea",
+                    element: <Idea />,
+                },
                 {
                     path: "/",
                     element: (
@@ -48,10 +51,6 @@ function App() {
                         {
                             path: "intern/:id",
                             element: <Dashboard />,
-                        },
-                        {
-                            path: "idea",
-                            element: <Idea />,
                         },
                     ],
                 },
