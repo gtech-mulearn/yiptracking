@@ -7,7 +7,7 @@ export const getIdeaData = async (
     rowsPerPage: number,
     currentPage: number,
     searchTerm: string,
-    sortColumn: string
+    sortColumn: string,
 ) => {
 	const orgType = type === "organization" ? org_type === "total" ? "" : org_type : "";
     try {
@@ -21,7 +21,7 @@ export const getIdeaData = async (
                     pageIndex: currentPage,
                     search: searchTerm,
                     sort: sortColumn,
-					is_pagination: true
+					is_pagination: true,
                 },
             }
         );
@@ -63,5 +63,38 @@ export const uploadIdeaCSV = async (formData: FormData) => {
 		return response.data.message.general[0]
     } catch (error: any) {
 		throw error.response.data.message.general[0]
+    }
+};
+
+export const getIdeaDataCsv = async (
+    type: string,
+    org_type: string,
+    rowsPerPage: number,
+    currentPage: number,
+    searchTerm: string,
+    sortColumn: string,
+    csv: boolean
+) => {
+    const orgType =
+        type === "organization" ? (org_type === "total" ? "" : org_type) : "";
+    try {
+        const response = await privateGateway.get(
+            dynamicRoute(yipRoutes.getIdeaTableData),
+            {
+                params: {
+                    type: type,
+                    org_type: orgType,
+                    perPage: rowsPerPage,
+                    pageIndex: currentPage,
+                    search: searchTerm,
+                    sort: sortColumn,
+                    is_pagination: true,
+                    csv: csv,
+                },
+            }
+        );
+        return response.data as string;
+    } catch (error) {
+        throw error;
     }
 };

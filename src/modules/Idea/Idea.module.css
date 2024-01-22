@@ -225,3 +225,10 @@
 	justify-content: center;
 	flex-direction: column;
 }
+
+.IdeaCSVDownload {
+	width: 100%;
+	display: flex;
+	justify-content: end;
+	margin-bottom: -30px;
+}
