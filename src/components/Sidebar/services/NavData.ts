@@ -18,6 +18,5 @@ export const NavData: SidebarData[] = [
         title: "Idea View",
         link: "/idea",
         icon: IoStatsChartSharp,
-        role: [Roles.ADMIN, Roles.DC],
     },
 ];
