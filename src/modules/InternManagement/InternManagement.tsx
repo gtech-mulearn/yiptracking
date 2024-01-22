@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
 import styles from "./InternManagement.module.css";
 import toast from "react-hot-toast";
-import { addNewUser, assignOrg, deleteUser, deleteUserAssignments, getInterns } from "./services/InternManagementApis";
+import {
+    addNewUser,
+    assignOrg,
+    deleteUser,
+    deleteUserAssignments,
+    getInterns,
+} from "./services/InternManagementApis";
 import Table from "../../components/Table/Table";
 import CreateModal from "./components/CreateModal";
 import { useNavigate } from "react-router-dom";
@@ -11,12 +17,18 @@ import useTableState from "../../components/Table/services/hooks/useTableState";
 import { MdDeleteForever } from "react-icons/md";
 import { IoMdPersonAdd } from "react-icons/io";
 import AddUserModal from "./components/AddUserModal";
+import ConfirmModal from "./components/ConfirmModal";
+
+type confirmType = "none" | "delete" | "unassign";
 
 const InternManagement = () => {
     const navigate = useNavigate();
     const [refresh, setRefresh] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+    const [isConfirmModalOpen, setIsConfirmModalOpen] =
+        useState<confirmType>("none");
+    const [user, setUser] = useState<InternData>();
     const columns: TableColumn<InternData>[] = [
         { key: "first_name", header: "First Name", isSortable: true },
         { key: "last_name", header: "Last Name", isSortable: true },
@@ -41,14 +53,14 @@ const InternManagement = () => {
         tableState.rowsPerPage,
         tableState.searchTerm,
         tableState.sortColumn,
-		refresh,
+        refresh,
     ]);
 
     const handleModalOpen = () => {
         setIsModalOpen(true);
     };
-    
-	const handleCreateModalOpen = () => {
+
+    const handleCreateModalOpen = () => {
         setIsCreateModalOpen(true);
     };
 
@@ -74,52 +86,64 @@ const InternManagement = () => {
     };
 
     const handleAddUserSubmit = (data: AddNewUser) => {
-		toast
-			.promise(addNewUser(data), {
-				loading: "Loading...",
-				success: (message) => {
-					return <b>{message}</b>;
-				},
-				error: (message) => {
-					return <b>{message}</b>;
-				},
-			})
-			.then(() => {
-				setRefresh(!refresh);
-			});
-	};
+        toast
+            .promise(addNewUser(data), {
+                loading: "Loading...",
+                success: (message) => {
+                    return <b>{message}</b>;
+                },
+                error: (message) => {
+                    return <b>{message}</b>;
+                },
+            })
+            .then(() => {
+                setRefresh(!refresh);
+            });
+    };
 
     const handleClick = (data: InternData) => {
         navigate("/intern/" + data.email);
     };
 
-	const handleDeleteUser = (data: InternData) => {
-		toast
-			.promise(deleteUser(data.user_id), {
-				loading: "Loading...",
-				success: (message) => {
-					setRefresh(!refresh);
-					return <b>{message}</b>;
-				},
-				error: (message) => {
-					return <b>{message}</b>;
-				},
-			})
-	}
-	
-	const handleDeleteUserAssignments = (data: InternData) => {
-		toast
-			.promise(deleteUserAssignments(data.user_id), {
-				loading: "Loading...",
-				success: (message) => {
-					setRefresh(!refresh);
-					return <b>{message}</b>;
-				},
-				error: (message) => {
-					return <b>{message}</b>;
-				},
-			})
-	}
+    const handleDeleteUser = (data: InternData) => {
+        setUser(data);
+        setIsConfirmModalOpen("delete");
+        console.log(data.user_id);
+        
+    };
+
+    const handleDeleteUserAssignments = (data: InternData) => {
+        setUser(data);
+        setIsConfirmModalOpen("unassign");
+        console.log(data.user_id);
+        
+    };
+
+    const handleConfirmSubmit = (data: confirmType) => {
+        if (data === "delete") {
+            toast.promise(deleteUser(user?.user_id as string), {
+                loading: "Loading...",
+                success: (message) => {
+                    setRefresh(!refresh);
+                    return <b>{message}</b>;
+                },
+                error: (message) => {
+                    return <b>{message}</b>;
+                },
+            });
+        } else if (data === "unassign") {
+            toast.promise(deleteUserAssignments(user?.user_id as string), {
+                loading: "Loading...",
+                success: (message) => {
+                    setRefresh(!refresh);
+                    return <b>{message}</b>;
+                },
+                error: (message) => {
+                    return <b>{message}</b>;
+                },
+            });
+        }
+    };
 
     return (
         <div className={styles.container}>
@@ -182,6 +206,21 @@ const InternManagement = () => {
                     isModalOpen={isCreateModalOpen}
                     handleModalClose={() => setIsCreateModalOpen(false)}
                     onSubmit={handleAddUserSubmit}
+                />
+            )}
+            {isConfirmModalOpen !== "none" && (
+                <ConfirmModal
+                    type={isConfirmModalOpen}
+                    user={user}
+                    isModalOpen={
+                        isConfirmModalOpen === "delete"
+                            ? true
+                            : isConfirmModalOpen === "unassign"
+                            ? true
+                            : false
+                    }
+                    handleModalClose={() => setIsConfirmModalOpen("none")}
+                    onSubmit={handleConfirmSubmit}
                 />
             )}
         </div>

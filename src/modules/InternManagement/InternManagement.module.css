@@ -108,3 +108,10 @@
     padding: 1rem;
     border-radius: 10px;
 }
+
+.confirmModalContainer {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
