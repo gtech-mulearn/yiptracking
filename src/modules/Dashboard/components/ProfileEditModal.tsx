@@ -3,6 +3,7 @@ import Modal from "../../../components/Modal/Modal";
 import styles from "../Dashboard.module.css";
 import { convertToSimpleDate } from "../../../utils/common";
 import { BiHide, BiShow } from "react-icons/bi";
+import toast from "react-hot-toast";
 
 type Props = {
     isModalOpen: boolean;
@@ -23,11 +24,12 @@ const ProfileEditModal = ({
         newPassword: false,
     });
     const [resetPassword, setResetPassword] = useState<boolean>(false);
+
     useEffect(() => {
         setData(currentData); // Update local state when currentData changes
     }, [currentData]);
+
     const formTemplate = [
-        { name: "gender", label: "Gender", value: data.gender ?? "" },
         {
             name: "dob",
             label: "Date of birth",
@@ -48,20 +50,43 @@ const ProfileEditModal = ({
             title={"Edit Profile"}
             type={"success"}
             onDone={() => {
-                updateData(data);
-                handleModalClose();
+                if (
+                    data.dob.length > 0 &&
+                    data.gender.length > 0 &&
+                    data.mobile.length > 0
+                ) {
+                    updateData(data);
+                    handleModalClose();
+                } else {
+                    toast.error("Please fill all the fields");
+                }
             }}
         >
             <div>
                 <div className={styles.modalFormContainer}>
                     <form>
+                        <label>
+                            <h4>Gender:</h4>
+                            <select
+                                name="gender"
+                                id=""
+                                value={data.gender || "other"}
+                                onChange={(e) =>
+                                    setData({ ...data, gender: e.target.value })
+                                }
+                            >
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </label>
                         {formTemplate.map((template) => (
                             <label>
                                 <h4>{template.label}:</h4>
                                 <input
                                     type={template.type ?? "text"}
                                     name={template.name}
-                                    value={template.value}
+                                    value={template.value as string}
                                     onChange={handleChange}
                                 />
                             </label>

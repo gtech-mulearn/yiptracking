@@ -21,7 +21,3 @@ interface OrgIdeaStats {
     idea_submissions: number;
     group_formation: number;
 }
-
-interface DataItem {
-    [key: string]: any; // Replace 'any' with more specific types if possible
-}
