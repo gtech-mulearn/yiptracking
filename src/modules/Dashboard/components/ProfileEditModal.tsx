@@ -37,7 +37,6 @@ const ProfileEditModal = ({
             type: "date",
         },
         { name: "mobile", label: "Mobile No.", value: data.mobile ?? "" },
-        // { name: "resetPassword", label: "Reset Password", type: "checkbox" },
     ];
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setData({ ...data, [e.target.name]: e.target.value });
