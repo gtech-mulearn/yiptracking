@@ -2,12 +2,13 @@ import styles from "./Table.module.css";
 import Loader from "../Loader/Loader";
 import { TbArrowsSort } from "react-icons/tb";
 import Pagination, { PaginationFooter } from "./components/Pagination";
+import { useState } from "react";
 
 type Action<T> = {
     icon: React.ReactNode; // Can be a JSX element like an icon
     onClick: (item: T) => void; // Function to be called on click
     title: string;
-	color?: string;
+    color?: string;
 };
 
 type TableProps<T> = {
@@ -25,7 +26,6 @@ const Table = <T extends {}>({
     onRowClick,
     actions,
 }: TableProps<T> & { tableState: UseTableStateProps<T> }) => {
-
     const paginate = (pageNumber: number) => {
         tableState.setCurrentPage(pageNumber);
     };
@@ -41,6 +41,21 @@ const Table = <T extends {}>({
         if (onRowClick) {
             onRowClick(item);
         }
+    };
+
+    const [sortState, setSortState] = useState({
+        column: "",
+        direction: "asc", // 'asc' or 'desc'
+    });
+
+    const handleSortClick = (columnKey: string) => {
+        let newDirection = "asc";
+        if (sortState.column === columnKey && sortState.direction === "asc") {
+            newDirection = "desc";
+        }
+        setSortState({ column: columnKey, direction: newDirection });
+        const sortKey = newDirection === "desc" ? `-${columnKey}` : columnKey;
+		tableState.setSortColumn(sortKey)
     };
 
     return (
@@ -81,7 +96,7 @@ const Table = <T extends {}>({
                                         <th
                                             key={column.key.toString()}
                                             onClick={() =>
-                                                tableState.setSortColumn(
+                                                handleSortClick(
                                                     column.key.toString()
                                                 )
                                             }
@@ -120,9 +135,11 @@ const Table = <T extends {}>({
                                                             actionIndex
                                                         ) => (
                                                             <div
-																style={{
-																	color: action.color || "black"
-																}}
+                                                                style={{
+                                                                    color:
+                                                                        action.color ||
+                                                                        "black",
+                                                                }}
                                                                 key={
                                                                     actionIndex
                                                                 }
