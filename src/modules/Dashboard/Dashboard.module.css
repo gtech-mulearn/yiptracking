@@ -269,6 +269,13 @@
 	right: 10px;
 }
 
+.modalFormContainer form label select {
+	width: 300px;
+	background-color: #f3f3f4;
+	height: 40px;
+	border-radius: 8px;
+}
+
 .toggle {
     width: 100% !important;
     margin-bottom: .5rem;
