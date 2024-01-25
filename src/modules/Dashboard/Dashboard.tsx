@@ -109,16 +109,17 @@ const Dashboard = () => {
                         {data?.assigned.iti[0] ? (
                             data.assigned.iti.map(
                                 (org: OrgData, index: number) => (
-                                    <div
-                                        key={index}
-                                        onClick={() => handleModalOpen(org)}
-                                        title="ITI details"
-                                    >
+                                    <div key={index} title="ITI details">
                                         <OrgCard
                                             index={index + 1}
                                             name={org.title}
                                             district={org.district_name}
                                             visited={org.visited}
+                                            id={org.org_id}
+                                            userId={data.user_id}
+                                            onClick={() => handleModalOpen(org)}
+                                            refresh={refresh}
+                                            setRefresh={setRefresh}
                                         />
                                     </div>
                                 )
@@ -138,16 +139,17 @@ const Dashboard = () => {
                         {data?.assigned.school[0] ? (
                             data.assigned.school.map(
                                 (org: OrgData, index: number) => (
-                                    <div
-                                        key={index}
-                                        onClick={() => handleModalOpen(org)}
-                                        title="School details"
-                                    >
+                                    <div key={index} title="School details">
                                         <OrgCard
                                             index={index + 1}
                                             name={org.title}
                                             district={org.district_name}
                                             visited={org.visited}
+                                            id={org.org_id}
+                                            userId={data.user_id}
+                                            onClick={() => handleModalOpen(org)}
+                                            refresh={refresh}
+                                            setRefresh={setRefresh}
                                         />
                                     </div>
                                 )
@@ -165,16 +167,17 @@ const Dashboard = () => {
                         {data?.assigned.college[0] ? (
                             data.assigned.college.map(
                                 (org: OrgData, index: number) => (
-                                    <div
-                                        key={index}
-                                        onClick={() => handleModalOpen(org)}
-                                        title="College details"
-                                    >
+                                    <div key={index} title="College details">
                                         <OrgCard
                                             index={index + 1}
                                             name={org.title}
                                             district={org.district_name}
                                             visited={org.visited}
+                                            id={org.org_id}
+                                            userId={data.user_id}
+                                            onClick={() => handleModalOpen(org)}
+                                            refresh={refresh}
+                                            setRefresh={setRefresh}
                                         />
                                     </div>
                                 )

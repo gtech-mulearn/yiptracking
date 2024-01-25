@@ -78,13 +78,17 @@ export const deleteUser = async (userId: string) => {
     }
 };
 
-export const deleteUserAssignments = async (userId: string) => {
+export const deleteUserAssignments = async (userId: string, orgId?: string) => {
     try {
-        const res = await privateGateway.delete(yipRoutes.deleteUserAssignments, {
-            data: {
-                user_id: userId,
-            },
-        });
+        const res = await privateGateway.delete(
+            yipRoutes.deleteUserAssignments,
+            {
+                data: {
+                    user_id: userId,
+                    org_id: orgId,
+                },
+            }
+        );
         return res.data.message.general[0];
     } catch (err: any) {
         throw err.response.data.message.general[0];
