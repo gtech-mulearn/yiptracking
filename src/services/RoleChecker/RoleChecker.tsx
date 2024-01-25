@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Outlet, useNavigate } from "react-router-dom";
 
@@ -29,4 +29,30 @@ export const RoleChecker = ({ allowedRoles }: Props) => {
     }
 
     return <Outlet />;
+};
+
+type RoleCheckerProps = {
+    roles: string[];
+    children: ReactNode;
+};
+
+export const RoleCheckerFunction: React.FC<RoleCheckerProps> = ({
+    roles,
+    children,
+}) => {
+    // Assuming you have a way to get the current user's roles
+    if (roles) {
+        const currentUserRoles = localStorage.getItem("roles") as string;
+
+        const hasPermission = roles.some((role) =>
+            currentUserRoles.includes(role)
+        );
+
+        if (!hasPermission) {
+            // Render nothing or some fallback UI if the user doesn't have permission
+            return null;
+        }
+    }
+
+    return <>{children}</>;
 };

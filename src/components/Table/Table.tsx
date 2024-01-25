@@ -3,12 +3,14 @@ import Loader from "../Loader/Loader";
 import { TbArrowsSort } from "react-icons/tb";
 import Pagination, { PaginationFooter } from "./components/Pagination";
 import { useState } from "react";
+import { RoleCheckerFunction } from "../../services/RoleChecker/RoleChecker";
 
 type Action<T> = {
     icon: React.ReactNode; // Can be a JSX element like an icon
     onClick: (item: T) => void; // Function to be called on click
     title: string;
     color?: string;
+	allowedRoles?: string[];
 };
 
 type TableProps<T> = {
@@ -134,29 +136,37 @@ const Table = <T extends {}>({
                                                             action,
                                                             actionIndex
                                                         ) => (
-                                                            <div
-                                                                style={{
-                                                                    color:
-                                                                        action.color ||
-                                                                        "black",
-                                                                }}
-                                                                key={
-                                                                    actionIndex
-                                                                }
-                                                                onClick={(
-                                                                    e
-                                                                ) => {
-                                                                    e.stopPropagation();
-                                                                    action.onClick(
-                                                                        row
-                                                                    );
-                                                                }}
-                                                                title={
-                                                                    action.title
+                                                            <RoleCheckerFunction
+                                                                roles={
+                                                                    action.allowedRoles!
                                                                 }
                                                             >
-                                                                {action.icon}
-                                                            </div>
+                                                                <div
+                                                                    style={{
+                                                                        color:
+                                                                            action.color ||
+                                                                            "black",
+                                                                    }}
+                                                                    key={
+                                                                        actionIndex
+                                                                    }
+                                                                    onClick={(
+                                                                        e
+                                                                    ) => {
+                                                                        e.stopPropagation();
+                                                                        action.onClick(
+                                                                            row
+                                                                        );
+                                                                    }}
+                                                                    title={
+                                                                        action.title
+                                                                    }
+                                                                >
+                                                                    {
+                                                                        action.icon
+                                                                    }
+                                                                </div>
+                                                            </RoleCheckerFunction>
                                                         )
                                                     )}
                                                 </div>
