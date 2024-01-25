@@ -107,17 +107,35 @@ const InternManagement = () => {
     };
 
     const handleDeleteUser = (data: InternData) => {
-        setUser(data);
-        setIsConfirmModalOpen("delete");
-        console.log(data.user_id);
-        
+        const currentUserRole = localStorage.getItem("roles");
+        if ((currentUserRole as string) === Roles.DC) {
+            if (data.role === Roles.DC || data.role === Roles.ADMIN) {
+                toast.error("You are not allowed to delete this user");
+                return;
+            } else {
+                setUser(data);
+                setIsConfirmModalOpen("delete");
+            }
+        } else {
+            setUser(data);
+            setIsConfirmModalOpen("delete");
+        }
     };
 
     const handleDeleteUserAssignments = (data: InternData) => {
-        setUser(data);
-        setIsConfirmModalOpen("unassign");
-        console.log(data.user_id);
-        
+        const currentUserRole = localStorage.getItem("roles");
+        if ((currentUserRole as string) === Roles.DC) {
+            if (data.role === Roles.DC || data.role === Roles.ADMIN) {
+                toast.error("You are not allowed to un-assign this user");
+                return;
+            } else {
+                setUser(data);
+				setIsConfirmModalOpen("unassign");
+            }
+        } else {
+            setUser(data);
+            setIsConfirmModalOpen("unassign");
+        }
     };
 
     const handleConfirmSubmit = (data: confirmType) => {
@@ -183,7 +201,7 @@ const InternManagement = () => {
                             },
                             title: "Un-assign Organisations",
                             color: "red",
-							allowedRoles: [Roles.ADMIN],
+                            allowedRoles: [Roles.ADMIN, Roles.DC],
                         },
                         {
                             icon: <MdDeleteForever />,
@@ -192,7 +210,7 @@ const InternManagement = () => {
                             },
                             title: "Delete User",
                             color: "red",
-							allowedRoles: [Roles.ADMIN],
+                            allowedRoles: [Roles.ADMIN, Roles.DC],
                         },
                     ]}
                 />
