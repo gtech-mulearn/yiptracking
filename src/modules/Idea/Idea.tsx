@@ -186,7 +186,7 @@ const Idea = () => {
                                 <Select.Item value="zone">Zone</Select.Item>
                             </Select.Content>
                         </Select.Root>
-                        {type === "organization" && (
+                        {/* {type === "organization" && ( */}
                             <Select.Root
                                 defaultValue="total"
                                 size={"3"}
@@ -210,7 +210,7 @@ const Idea = () => {
                                     <Select.Item value="Iti">ITI</Select.Item>
                                 </Select.Content>
                             </Select.Root>
-                        )}
+                        {/* )} */}
                     </div>
                     <div className={styles.IdeaStatsWrapper}>
                         <div className={styles.IdeaStatsRow}>

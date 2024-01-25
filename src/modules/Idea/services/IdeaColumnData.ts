@@ -14,6 +14,7 @@ export const OrgColumns: TableColumn<OrgIdeaStats>[] = [
 export const InternColumns: TableColumn<OrgIdeaStats>[] = [
     { key: "full_name", header: "Name", isSortable: true },
     { key: "email", header: "Email", isSortable: true },
+	{ key: "district", header: "District", isSortable: true },
     { key: "no_of_entries", header: "Assigned", isSortable: true },
     {
         key: "pre_registration",
