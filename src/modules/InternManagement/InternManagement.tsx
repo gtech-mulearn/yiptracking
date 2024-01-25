@@ -18,6 +18,7 @@ import { MdDeleteForever } from "react-icons/md";
 import { IoMdPersonAdd } from "react-icons/io";
 import AddUserModal from "./components/AddUserModal";
 import ConfirmModal from "./components/ConfirmModal";
+import { Roles } from "../../services/RoleChecker/Roles";
 
 type confirmType = "none" | "delete" | "unassign";
 
@@ -182,6 +183,7 @@ const InternManagement = () => {
                             },
                             title: "Un-assign Organisations",
                             color: "red",
+							allowedRoles: [Roles.ADMIN],
                         },
                         {
                             icon: <MdDeleteForever />,
@@ -190,6 +192,7 @@ const InternManagement = () => {
                             },
                             title: "Delete User",
                             color: "red",
+							allowedRoles: [Roles.ADMIN],
                         },
                     ]}
                 />
