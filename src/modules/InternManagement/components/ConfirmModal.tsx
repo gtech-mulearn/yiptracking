@@ -33,7 +33,7 @@ const ConfirmModal = (props: Props) => {
                         Are you sure you want to{" "}
                         {props.type === "delete"
                             ? "delete"
-                            : "un-assign organizations from"}{" "}
+                            : "un-assign all organizations from"}{" "}
                         {props.user?.first_name} {props.user?.last_name} ?
                     </p>
                 </div>

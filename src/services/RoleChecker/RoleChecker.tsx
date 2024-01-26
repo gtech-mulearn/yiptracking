@@ -40,18 +40,14 @@ export const RoleCheckerFunction: React.FC<RoleCheckerProps> = ({
     roles,
     children,
 }) => {
-    // Assuming you have a way to get the current user's roles
-    if (roles) {
-        const currentUserRoles = localStorage.getItem("roles") as string;
+    if (roles.length > 0) {
+        const currentUserRole = localStorage.getItem("roles")
 
-        const hasPermission = roles.some((role) =>
-            currentUserRoles.includes(role)
-        );
-
-        if (!hasPermission) {
-            // Render nothing or some fallback UI if the user doesn't have permission
+        if (roles.includes(currentUserRole as string)) {
+			return <>{children}</>;
+		} else {
             return null;
-        }
+		}
     }
 
     return <>{children}</>;

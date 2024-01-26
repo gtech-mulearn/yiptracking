@@ -138,7 +138,7 @@ const Table = <T extends {}>({
                                                         ) => (
                                                             <RoleCheckerFunction
                                                                 roles={
-                                                                    action.allowedRoles!
+                                                                    action.allowedRoles || []
                                                                 }
                                                             >
                                                                 <div

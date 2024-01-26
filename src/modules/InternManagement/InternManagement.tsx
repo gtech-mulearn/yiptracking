@@ -5,13 +5,12 @@ import {
     addNewUser,
     assignOrg,
     deleteUser,
-    deleteUserAssignments,
     getInterns,
 } from "./services/InternManagementApis";
 import Table from "../../components/Table/Table";
 import CreateModal from "./components/CreateModal";
 import { useNavigate } from "react-router-dom";
-import { MdAssignmentAdd, MdPlaylistRemove } from "react-icons/md";
+import { MdAssignmentAdd } from "react-icons/md";
 import { BiShow } from "react-icons/bi";
 import useTableState from "../../components/Table/services/hooks/useTableState";
 import { MdDeleteForever } from "react-icons/md";
@@ -107,18 +106,20 @@ const InternManagement = () => {
     };
 
     const handleDeleteUser = (data: InternData) => {
-        setUser(data);
-        setIsConfirmModalOpen("delete");
-        console.log(data.user_id);
-        
-    };
-
-    const handleDeleteUserAssignments = (data: InternData) => {
-        setUser(data);
-        setIsConfirmModalOpen("unassign");
-        console.log(data.user_id);
-        
-    };
+        const currentUserRole = localStorage.getItem("roles");
+        if ((currentUserRole as string) === Roles.DC) {
+            if (data.role === Roles.DC || data.role === Roles.ADMIN) {
+                toast.error("You are not allowed to delete this user");
+                return;
+            } else {
+                setUser(data);
+                setIsConfirmModalOpen("delete");
+            }
+        } else {
+            setUser(data);
+            setIsConfirmModalOpen("delete");
+        }
+    }; 
 
     const handleConfirmSubmit = (data: confirmType) => {
         if (data === "delete") {
@@ -132,18 +133,7 @@ const InternManagement = () => {
                     return <b>{message}</b>;
                 },
             });
-        } else if (data === "unassign") {
-            toast.promise(deleteUserAssignments(user?.user_id as string), {
-                loading: "Loading...",
-                success: (message) => {
-                    setRefresh(!refresh);
-                    return <b>{message}</b>;
-                },
-                error: (message) => {
-                    return <b>{message}</b>;
-                },
-            });
-        }
+        } 
     };
 
     return (
@@ -177,22 +167,13 @@ const InternManagement = () => {
                             color: "blue",
                         },
                         {
-                            icon: <MdPlaylistRemove />,
-                            onClick: (item) => {
-                                handleDeleteUserAssignments(item);
-                            },
-                            title: "Un-assign Organisations",
-                            color: "red",
-							allowedRoles: [Roles.ADMIN],
-                        },
-                        {
                             icon: <MdDeleteForever />,
                             onClick: (item) => {
                                 handleDeleteUser(item);
                             },
                             title: "Delete User",
                             color: "red",
-							allowedRoles: [Roles.ADMIN],
+                            allowedRoles: [Roles.ADMIN, Roles.DC],
                         },
                     ]}
                 />
@@ -217,8 +198,6 @@ const InternManagement = () => {
                     user={user}
                     isModalOpen={
                         isConfirmModalOpen === "delete"
-                            ? true
-                            : isConfirmModalOpen === "unassign"
                             ? true
                             : false
                     }
