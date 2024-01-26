@@ -5,13 +5,12 @@ import {
     addNewUser,
     assignOrg,
     deleteUser,
-    deleteUserAssignments,
     getInterns,
 } from "./services/InternManagementApis";
 import Table from "../../components/Table/Table";
 import CreateModal from "./components/CreateModal";
 import { useNavigate } from "react-router-dom";
-import { MdAssignmentAdd, MdPlaylistRemove } from "react-icons/md";
+import { MdAssignmentAdd } from "react-icons/md";
 import { BiShow } from "react-icons/bi";
 import useTableState from "../../components/Table/services/hooks/useTableState";
 import { MdDeleteForever } from "react-icons/md";
@@ -120,7 +119,7 @@ const InternManagement = () => {
             setUser(data);
             setIsConfirmModalOpen("delete");
         }
-    };
+    }; 
 
     const handleConfirmSubmit = (data: confirmType) => {
         if (data === "delete") {
