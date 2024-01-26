@@ -122,22 +122,6 @@ const InternManagement = () => {
         }
     };
 
-    const handleDeleteUserAssignments = (data: InternData) => {
-        const currentUserRole = localStorage.getItem("roles");
-        if ((currentUserRole as string) === Roles.DC) {
-            if (data.role === Roles.DC || data.role === Roles.ADMIN) {
-                toast.error("You are not allowed to un-assign this user");
-                return;
-            } else {
-                setUser(data);
-				setIsConfirmModalOpen("unassign");
-            }
-        } else {
-            setUser(data);
-            setIsConfirmModalOpen("unassign");
-        }
-    };
-
     const handleConfirmSubmit = (data: confirmType) => {
         if (data === "delete") {
             toast.promise(deleteUser(user?.user_id as string), {
@@ -150,18 +134,7 @@ const InternManagement = () => {
                     return <b>{message}</b>;
                 },
             });
-        } else if (data === "unassign") {
-            toast.promise(deleteUserAssignments(user?.user_id as string), {
-                loading: "Loading...",
-                success: (message) => {
-                    setRefresh(!refresh);
-                    return <b>{message}</b>;
-                },
-                error: (message) => {
-                    return <b>{message}</b>;
-                },
-            });
-        }
+        } 
     };
 
     return (
@@ -195,15 +168,6 @@ const InternManagement = () => {
                             color: "blue",
                         },
                         {
-                            icon: <MdPlaylistRemove />,
-                            onClick: (item) => {
-                                handleDeleteUserAssignments(item);
-                            },
-                            title: "Un-assign Organisations",
-                            color: "red",
-                            allowedRoles: [Roles.ADMIN, Roles.DC],
-                        },
-                        {
                             icon: <MdDeleteForever />,
                             onClick: (item) => {
                                 handleDeleteUser(item);
@@ -235,8 +199,6 @@ const InternManagement = () => {
                     user={user}
                     isModalOpen={
                         isConfirmModalOpen === "delete"
-                            ? true
-                            : isConfirmModalOpen === "unassign"
                             ? true
                             : false
                     }
