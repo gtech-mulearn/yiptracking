@@ -120,7 +120,7 @@ const InternManagement = () => {
             setUser(data);
             setIsConfirmModalOpen("delete");
         }
-    };
+    }; 
 
     const handleConfirmSubmit = (data: confirmType) => {
         if (data === "delete") {
