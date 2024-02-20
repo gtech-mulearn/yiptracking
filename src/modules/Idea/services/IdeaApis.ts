@@ -1,27 +1,30 @@
 import { privateGateway } from "../../../services/ApiGateway/ApiGateway";
-import { dynamicRoute, yipRoutes } from "../../../services/ApiGateway/Endpoints";
+import {
+    dynamicRoute,
+    yipRoutes,
+} from "../../../services/ApiGateway/Endpoints";
 
 export const getIdeaData = async (
     type: string,
-	org_type: string,
+    org_type: string,
     rowsPerPage: number,
     currentPage: number,
     searchTerm: string,
-    sortColumn: string,
+    sortColumn: string
 ) => {
-	const orgType = type === "organization" ? org_type === "total" ? "" : org_type : "";
+    const orgType = org_type === "total" ? "" : org_type;
     try {
         const response = await privateGateway.get(
             dynamicRoute(yipRoutes.getIdeaTableData),
             {
                 params: {
                     type: type,
-					org_type: orgType,
+                    org_type: orgType,
                     perPage: rowsPerPage,
                     pageIndex: currentPage,
                     search: searchTerm,
                     sort: sortColumn,
-					is_pagination: true,
+                    is_pagination: true,
                 },
             }
         );
@@ -32,7 +35,7 @@ export const getIdeaData = async (
 };
 
 export const getIdeaCardData = async (type: string) => {
-	const orgType = type === "total" ? "" : type;
+    const orgType = type === "total" ? "" : type;
     try {
         const response = await privateGateway.get(
             dynamicRoute(yipRoutes.getIdeaData),
@@ -60,9 +63,9 @@ export const uploadIdeaCSV = async (formData: FormData) => {
             }
         );
         // Handle response...
-		return response.data.message.general[0]
+        return response.data.message.general[0];
     } catch (error: any) {
-		throw error.response.data.message.general[0]
+        throw error.response.data.message.general[0];
     }
 };
 
@@ -75,8 +78,8 @@ export const getIdeaDataCsv = async (
     sortColumn: string,
     csv: boolean
 ) => {
-    const orgType =
-        type === "organization" ? (org_type === "total" ? "" : org_type) : "";
+    console.log(org_type);
+    const orgType = org_type === "total" ? "" : org_type;
     try {
         const response = await privateGateway.get(
             dynamicRoute(yipRoutes.getIdeaTableData),
