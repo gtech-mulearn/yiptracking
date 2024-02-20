@@ -121,7 +121,6 @@ const Idea = () => {
             );
 
             if (data && data.length > 0) {
-
                 const blob = new Blob([data], {
                     type: "text/csv;charset=utf-8;",
                 });
@@ -140,7 +139,6 @@ const Idea = () => {
             toast.error("Failed to download CSV");
         }
     }
-
 
     return (
         <div className={styles.container}>
@@ -187,29 +185,24 @@ const Idea = () => {
                             </Select.Content>
                         </Select.Root>
                         {/* {type === "organization" && ( */}
-                            <Select.Root
-                                defaultValue="total"
-                                size={"3"}
-                                value={orgType}
-                                onValueChange={(e) => setOrgType(e)}
-                            >
-                                <Select.Trigger
-                                    variant="soft"
-                                    className={styles.radixSelect}
-                                />
-                                <Select.Content position="popper">
-                                    <Select.Item value="total">
-                                        Total
-                                    </Select.Item>
-                                    <Select.Item value="School">
-                                        School
-                                    </Select.Item>
-                                    <Select.Item value="College">
-                                        College
-                                    </Select.Item>
-                                    <Select.Item value="Iti">ITI</Select.Item>
-                                </Select.Content>
-                            </Select.Root>
+                        <Select.Root
+                            defaultValue="total"
+                            size={"3"}
+                            value={orgType}
+                            onValueChange={(e) => setOrgType(e)}
+                        >
+                            <Select.Trigger
+                                variant="soft"
+                                className={styles.radixSelect}
+                            />
+                            <Select.Content position="popper">
+                                <Select.Item value="total">Total</Select.Item>
+                                <Select.Item value="School">School</Select.Item>
+                                <Select.Item value="College">
+                                    College
+                                </Select.Item>
+                            </Select.Content>
+                        </Select.Root>
                         {/* )} */}
                     </div>
                     <div className={styles.IdeaStatsWrapper}>
