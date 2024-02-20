@@ -4,29 +4,28 @@
     flex-direction: column;
     color: var(--primary);
     gap: 1rem;
-	overflow-y: scroll;
-	height: 100vh;
-	padding: 1rem;
+    overflow-y: scroll;
+    height: 100vh;
+    padding: 1rem;
 }
 
 .loaderContainer {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
 }
 
 @media screen and (max-width: 600px) {
-	.container {
-		margin-top: 70px;
-		height: calc(100% - 70px);
-	}
-	
+    .container {
+        margin-top: 70px;
+        height: calc(100% - 70px);
+    }
 }
 
-.profile {
-    width: fit-content
-}
+/* .profile {
+    width: fit-content;
+} */
 
 .dashboard {
     width: 100%;
@@ -44,20 +43,20 @@
 }
 
 .dashboardContainer {
-	padding: 1rem;
-    width: 50%;
+    padding: 1rem;
+    width: 100%;
 }
 
 .profileContents {
     display: flex;
-    gap: 2rem;
-	justify-content: space-between;
+    gap: 8rem;
+    justify-content: flex-start;
     width: 100%;
-	padding: .5rem;
+    padding: 0.5rem;
 }
 
 .profileContents h3 {
-	text-align: center;
+    text-align: center;
 }
 
 .dashboardContents div h3 {
@@ -102,6 +101,7 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    width: 50%;
 }
 
 .profileSection2 h4 {
@@ -112,20 +112,20 @@
 }
 
 @media screen and (1100px <= width <= 1300px) {
-	.profileSection2 h4{
-		gap: 2rem;
-		font-size: 14px;
-	}
-	.profileInfo {
-		font-size: 14px;
-		text-align: center;		
-	}
-	.profileContents {
-		gap: 1rem;
-	}
-	.editBtn {
-		width: 20px;
-	}
+    .profileSection2 h4 {
+        gap: 2rem;
+        font-size: 14px;
+    }
+    .profileInfo {
+        font-size: 14px;
+        text-align: center;
+    }
+    .profileContents {
+        gap: 1rem;
+    }
+    .editBtn {
+        width: 20px;
+    }
 }
 
 @media screen and (max-width: 1100px) {
@@ -135,9 +135,9 @@
     .dashboardContainer {
         width: 100%;
     }
-	.profileContents {
-		gap: 5rem;
-	}
+    .profileContents {
+        gap: 5rem;
+    }
 }
 
 .orgCard {
@@ -208,9 +208,9 @@
 }
 
 .modalStaticContent {
-	display: flex;
-	flex-direction: column;
-	gap: .5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
     padding: 0 1rem;
     color: rgba(100, 100, 100, 0.927);
     text-align: center;
@@ -230,8 +230,8 @@
 }
 
 .modalFormContainer form label {
-	display: flex;
-	position: relative;
+    display: flex;
+    position: relative;
     gap: 0.5rem;
     flex-direction: column;
 }
@@ -258,30 +258,30 @@
 }
 
 .modalFormContainer form div input {
-	width: 25px;
+    width: 25px;
 }
 
 .modalFormContainer form label i {
-	position: absolute;
-	bottom: 1px;
-	font-size: 26px;
-	cursor: pointer;
-	right: 10px;
+    position: absolute;
+    bottom: 1px;
+    font-size: 26px;
+    cursor: pointer;
+    right: 10px;
 }
 
 .modalFormContainer form label select {
-	width: 300px;
-	background-color: #f3f3f4;
-	height: 40px;
-	border-radius: 8px;
+    width: 300px;
+    background-color: #f3f3f4;
+    height: 40px;
+    border-radius: 8px;
 }
 
 .toggle {
     width: 100% !important;
-    margin-bottom: .5rem;
-	display: flex;
-	justify-content: center;
-	gap : 1rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
 }
 
 .toggle h4 {
@@ -289,8 +289,8 @@
 }
 
 .toggle label {
-	display: flex;
-	align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 .editBtn {
@@ -320,27 +320,27 @@
 }
 
 @media screen and (1100px <= width <= 1290px) {
-	.editBtn {
-		width: 25px;
-		height: 25px;
-		font-size: 10px;
-	}
+    .editBtn {
+        width: 25px;
+        height: 25px;
+        font-size: 10px;
+    }
 }
 
 .orgActions {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	gap: .5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .actionIcon {
-	color: red !important;
-	cursor: pointer;
-	font-size: 20px;
-	z-index: 9999;
+    color: red !important;
+    cursor: pointer;
+    font-size: 20px;
+    z-index: 9999;
 }
 
 .actionIcon:hover {
-	scale: 1.5;
+    scale: 1.5;
 }
