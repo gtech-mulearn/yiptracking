@@ -103,7 +103,7 @@ const Dashboard = () => {
                         <Profile data={data} handleEdit={handleEdit} />
                     </div>
                 </div>
-                <div className={styles.dashboardContainer}>
+                {/* <div className={styles.dashboardContainer}>
                     <h2>ITIs</h2>
                     <div className={styles.dashboardContents}>
                         {data?.assigned.iti[0] ? (
@@ -130,7 +130,7 @@ const Dashboard = () => {
                             </div>
                         )}
                     </div>
-                </div>
+                </div> */}
             </div>
             <div className={styles.dashboard}>
                 <div className={styles.dashboardContainer}>
